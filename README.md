@@ -1,4 +1,4 @@
-# JobBoard  
+JobBoard  
 [![License](https://img.shields.io/github/license/MisterPeModder/JobBoard)](https://github.com/MisterPeModder/JobBoard)
 =========================
 
