@@ -7,13 +7,23 @@
 ### Required
 * Docker
 * Docker Compose
+* Linux, MacOS, or Windows (via WSL2)
 
 (see the [laravel docs](https://laravel.com/docs/9.x/installation#laravel-and-docker) for more information on how to install these).
 
-### On Linux, MacOS, and Windows (via WSL2)
+### Development 
 
-Run the following command in your terminal:
+Run the following commands in your terminal:
 ```sh
+./vendor/bin/sail up
+npm run dev
+```
+
+### Production 
+
+Run the following commands in your terminal:
+```sh
+npm run build
 ./vendor/bin/sail up
 ```
 
