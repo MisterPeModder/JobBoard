@@ -8,13 +8,25 @@ JobBoard
 * Docker
 * Docker Compose
 * Linux, MacOS, or Windows (via WSL2)
+* [PHP Composer](https://getcomposer.org/)
 
 (see the [laravel docs](https://laravel.com/docs/9.x/installation#laravel-and-docker) for more information on how to install these).
+
+### Installing
+
+Run the following commands in your terminal:
+```sh
+composer update
+composer install
+npm install
+```
 
 ### Development 
 
 Run the following commands in your terminal:
 ```sh
+php artisan key:generate
+cp .env.example .env
 ./vendor/bin/sail up
 npm run dev
 ```
