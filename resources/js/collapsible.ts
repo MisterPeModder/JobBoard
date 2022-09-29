@@ -8,4 +8,9 @@ export function init() {
                 .forEach(toggleClass('hidden'));
         });
     });
+
+    // TEMPORARY: expands the first advert, used for testing
+    document.querySelector('.collapsible')
+        ?.querySelectorAll('.collapsible-content, .collapsible-button')
+        .forEach(toggleClass('hidden'));
 }

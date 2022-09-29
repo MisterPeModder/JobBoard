@@ -7,37 +7,18 @@ use Illuminate\View\Component;
 class JobAdvert extends Component
 {
     /**
-     * The title of this advert component.
-     */
-    public string $title;
-
-    public string $company;
-
-    public string $location;
-
-    public string $shortDescription;
-
-    public string $fullDescription;
-
-    /**
      * Create a new component instance.
-     *
-     * @param $title
-     * @param $company
-     * @param $location
      */
     public function __construct(
-        string $title,
-        string $company,
-        string $location = "unknown location",
-        string $shortDescription = "",
-        string $fullDescription = ""
+        public string $title,
+        public string $company,
+        public string $jobType,
+        public ?string $icon = null,
+        public string $location = "unknown location",
+        public string $shortDescription = "(no description)",
+        public string $salary = "unknown",
+        public string $fullDescription = "(no description)"
     ) {
-        $this->title = $title;
-        $this->company = $company;
-        $this->location = $location;
-        $this->shortDescription = $shortDescription;
-        $this->fullDescription = $fullDescription;
     }
 
     /**
