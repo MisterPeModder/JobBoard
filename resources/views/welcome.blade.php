@@ -8,7 +8,7 @@
 
     <title>JobBoard</title>
 
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/js/app.ts', 'resources/css/app.css'])
 </head>
 
 <body class="antialiased bg-l-bgr-main">

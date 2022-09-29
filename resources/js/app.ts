@@ -1,3 +1,4 @@
+// @ts-ignore
 import.meta.glob([
     '../images/**',
 ]);
@@ -5,6 +6,6 @@ import.meta.glob([
 import * as collapsible from './collapsible';
 
 document.addEventListener("DOMContentLoaded", () => {
-    // collapsible.init();
+    collapsible.init();
     console.log("JobBoard: loaded");
 });
