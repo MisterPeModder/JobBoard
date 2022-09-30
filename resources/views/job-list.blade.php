@@ -1,3 +1,7 @@
+@php
+$currentPage = $_GET['page'] ?? '1';
+@endphp
+
 <x-layout>
     <div class="shadow-xl">
         <div class="flex flex-row flex-wrap gap-2 w-11/12 mx-auto py-2 mt-2">
@@ -27,7 +31,7 @@
             </a>
         </div>
     </div>
-    <main class="container mx-auto py-2">
+    <main class="container mx-auto py-2 divide-y divide-l-brd/10 flex flex-col gap-2">
         <section id="adverts" class="flex flex-row flex-wrap gap-2 px-2">
             <x-job-advert title="Web 2.0 Developper" company="Web Systems Inc." location="Uranus (??)"
                 job-type="Full time" salary="Up to $84,000 a year" icon="resources/images/profiles/web-sys.svg">
@@ -94,5 +98,6 @@
                 </x-slot>
             </x-job-advert>
         </section>
+        <x-page-navigation max=8 :current=$currentPage width=5 />
     </main>
 </x-layout>

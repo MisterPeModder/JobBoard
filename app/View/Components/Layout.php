@@ -7,12 +7,12 @@ use Illuminate\View\Component;
 /**
  * Main layout of the JobBoard pages
  */
-class layout extends Component
+class Layout extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public ?string $title)
+    public function __construct(public ?string $title = null)
     {
     }
 
