@@ -12,8 +12,8 @@ class User extends Authenticatable
     use HasFactory;
 
     // timestamps of creation/update
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'updated';
+    //const CREATED_AT = 'created';
+    //const UPDATED_AT = 'updated';
 
     /**
      * The attributes that are mass assignable.
@@ -21,23 +21,34 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'name',
-        'surname'
+        'surname',
+
+
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      */
     protected $hidden = [
-        'password_hash',
-        'password_salt',
     ];
     //default values
     protected $attributes = [
         'name' => null,
         'surname' => null,
-        'password_hash' => null,
-        'password_salt' => null
     ];
 
-
+    /**
+     * Get the company associated with the user.
+     */
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+    /**
+     * Get the icon (img) associated with the user.
+     */
+    public function icon()
+    {
+        return $this->hasOne(Blob::class);
+    }
 }

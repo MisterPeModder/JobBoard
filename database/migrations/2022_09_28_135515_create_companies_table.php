@@ -20,21 +20,28 @@ return new class extends Migration
             $table->string('location');
             $table->string('description');
             //foreign keys
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('blob_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('blob_id')->references('id')->on('blobs');
+            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('icon_id');
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('icon_id')->references('id')->on('blobs');
         });
+        
         //foreign keys for table users
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('company_id')->nullable()->default(null);
             $table->foreign('company_id')->references('id')->on('companies');
         });
         //foreign key for table blobs
         Schema::table('blobs', function (Blueprint $table) {
-            $table->unsignedBigInteger('company_id')->default(0);
+            $table->unsignedBigInteger('company_id')->nullable()->default(null);
             $table->foreign('company_id')->references('id')->on('companies');
         });
+        //foreign key for table adverts
+        Schema::table('adverts', function (Blueprint $table) {
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
+        });
+        
     }
 
     /**

@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('applicationattachements', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            //foreign keys (other way to do)
+            $table->foreignId('application_id')->constrained();
+            $table->foreignId('blob_id')->constrained();
         });
         //foreign key for table applications
         Schema::table('applications', function (Blueprint $table) {
