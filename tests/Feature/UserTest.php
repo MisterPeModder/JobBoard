@@ -9,7 +9,7 @@ use App\Models\User;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
     /**
      * A Testing users table
      *

@@ -3,6 +3,9 @@
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
+use App\Models\Company;
+use App\Models\User;
+use App\Models\Blob;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -17,3 +20,15 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('dbmakefake', function () {
+    $users = User::factory(2)->create();
+    echo "Users :\n" . $users . "\n";
+
+    $blobs = Blob::factory(2)->create();
+    echo "Blobs :\n" . $blobs . "\n";
+
+    $companies = Company::factory(2)->create();
+    echo "Companies :\n". $companies . "\n";
+
+})->purpose('Make fake data in database');

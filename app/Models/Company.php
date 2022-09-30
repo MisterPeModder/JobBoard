@@ -15,4 +15,19 @@ class Company extends Model
         'description'
     ];
 
+    /**
+     * Get the owner associated with the compay.
+     */
+    public function owner()
+    {
+        return $this->hasOne(User::class);
+    }
+    /**
+     * Get the icon associated with the user.
+     */
+    public function icon()
+    {
+        return $this->hasOne(Blob::class);
+    }
+
 }

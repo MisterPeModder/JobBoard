@@ -14,4 +14,20 @@ class Application extends Model
         'advert_id',
         'applicationattachement_id'
     ];
+
+    /**
+     * Get the advertisements associated with the application.
+     */
+    public function advertisements()
+    {
+        return $this->hasMany(Advert::class);
+    }
+    /**
+     * Get the applicationattachements associated with the application.
+     */
+    public function applicationattachements()
+    {
+        return $this->hasMany(ApplicationAttachment::class);
+    }
+
 }

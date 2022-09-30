@@ -9,7 +9,7 @@ use App\Models\Company;
 
 class CompanyTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
     /**
      * A Testing users table
      *
@@ -17,8 +17,8 @@ class CompanyTest extends TestCase
      */
     public function test_that_companies_table_can_be_filled_with_fake_values()
     {
-        $users = Company::factory(10)->make();
-        echo $users . "\n";
+        $companies = Company::factory(10)->make();
+        echo $companies . "\n";
     }
 
 }

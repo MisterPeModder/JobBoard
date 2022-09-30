@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
+        /**
+         * Function needed to create table
+         */
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('email')->unique();
-            $table->string('name')->nullable();
+            $table->id();//primary key
+            $table->timestamps();//date + houre of creation + last edit
+            $table->string('email');//string : stores characters, equivalent of VARCHAR(255) in mysql
+            $table->string('name')->nullable();//nullable : value can be null
             $table->string('surname')->nullable();
             
         });

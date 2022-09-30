@@ -13,4 +13,13 @@ class Advert extends Model
         'title',
         'description'
     ];
+
+    /**
+     * Get the company associated with the advertisement.
+     */
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
 }

@@ -9,10 +9,30 @@ class Blob extends Model
 {
     use HasFactory;
 
+    /**
+     * Records non fillable
+     */
     protected $guarded = [
         'name',
-        'location',
-        'description'
+        'mime_type',
+        'hash',
+        'access'
     ];
+
+    /**
+     * Get the owner associated with the blob.
+     */
+    public function owner()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    /**
+     * Get the company associated with the blob.
+     */
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
 
 }
