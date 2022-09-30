@@ -1,10 +1,18 @@
 const colors = require('tailwindcss/colors');
+const plugin = require('tailwindcss/plugin');
+const { default: flattenColorPalette } = require("tailwindcss/lib/util/flattenColorPalette");
+
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
+  ],
+  safelist: [
+    // classes to always include in the build
+    'animate-dropdown-open',
+    'animate-dropdown-close'
   ],
   theme: {
     extend: {
@@ -47,5 +55,22 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      // registers the 'marker-rotating-COLOR' utility
+      matchUtilities(
+        {
+          'marker-rotating': (value) => ({
+            ['details>summary&::before']: {
+              'border-color': `transparent transparent transparent ${value}`,
+            },
+          })
+        },
+        {
+          type: 'color',
+          values: flattenColorPalette(theme('colors'))
+        }
+      );
+    })
+  ],
 }

@@ -23,9 +23,9 @@
     <ol class="list-disc list-inside border-y border-solid border-l-brd/10 my-2 py-2">
         {{ $shortDescription }}
     </ol>
-    <details class="text-sm">
+    <details class="text-sm relative">
         <summary data-open="Learn more" data-close="Collapse"
-            class="text-base text-highlight hover:underline cursor-pointer">
+            class="marker-rotating marker-rotating-highlight text-base text-highlight hover:underline cursor-pointer">
         </summary>
         <div class="flex flex-col divide-y divide-solid divide-l-brd/10 gap-1">
             <div>
