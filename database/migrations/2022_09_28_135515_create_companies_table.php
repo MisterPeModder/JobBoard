@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('location');
-            $table->string('description');
+            $table->string('location')->nullable();
+            $table->string('description')->nullable();
             //foreign keys
-            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('owner_id')->nullable();
             $table->unsignedBigInteger('icon_id');
             $table->foreign('owner_id')->references('id')->on('users');
             $table->foreign('icon_id')->references('id')->on('blobs');

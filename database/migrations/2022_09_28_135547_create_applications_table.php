@@ -20,7 +20,8 @@ return new class extends Migration
             //foreign keys
             $table->unsignedBigInteger('advert_id');
             $table->foreign('advert_id')->references('id')->on('adverts');
-
+            $table->unsignedBigInteger('applicant_id');
+            $table->foreign('applicant_id')->references('id')->on('users');
         });
     }
 

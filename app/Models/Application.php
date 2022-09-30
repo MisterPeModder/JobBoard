@@ -23,11 +23,11 @@ class Application extends Model
         return $this->hasMany(Advert::class);
     }
     /**
-     * Get the applicationattachements associated with the application.
+     * Get the user associated with the application.
      */
-    public function applicationattachements()
+    public function applicant()
     {
-        return $this->hasMany(ApplicationAttachment::class);
+        return $this->hasOne(User::class);
     }
 
 }
