@@ -106,15 +106,20 @@ $currentPage = $_GET['page'] ?? '1';
         class="hidden absolute z-10 mt-2 right-2 origin-top-right rounded-md bg-l-bgr-main shadow-lg ring-1 ring-l-brd/10 ring-opacity-5 focus:outline-none animate-dropdown-open animate-dropdown-close"
         role="menu" aria-orientation="vertical" tabindex="-1">
         <div class="py-1" role="none">
-            <span class="flex flex-row  hover:bg-l-bgr-content p-2 items-end gap-2">
+            <span class="flex flex-row hover:bg-l-bgr-content p-2 items-end gap-2">
                 @svg('resources/images/star.svg', 'fill-gray-500')
-                <a href="?sechs=yes" class="block text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Add to
+                <a href="?favorite" class="block text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Add to
                     favorites</a>
             </span>
-            <a href="#" class="block px-4 py-2 text-sm text-left hover:bg-l-bgr-content" role="menuitem"
-                tabindex="-1" id="menu-item-1">Hide</a>
-            <a href="#" class="block px-4 py-2 text-sm text-left hover:bg-l-bgr-content" role="menuitem"
-                tabindex="-1" id="menu-item-2">Report</a>
+            <span class="flex flex-row hover:bg-l-bgr-content p-2 items-end gap-2">
+                @svg('resources/images/delete.svg', 'fill-gray-500')
+                <a href="?not-interested" class="block text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Not
+                    interested</a>
+            </span>
+            <span class="flex flex-row hover:bg-l-bgr-content p-2 items-end gap-2">
+                @svg('resources/images/flag.svg', 'fill-gray-500')
+                <a href="?report" class="block text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Report</a>
+            </span>
         </div>
     </div>
 </x-layout>
