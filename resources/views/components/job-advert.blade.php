@@ -15,7 +15,7 @@
                 <div class="">{{ $location }}</div>
             </div>
         </div>
-        <button type="button">
+        <button type="button" aria-label="advert options">
             <img src="{{ Vite::asset('resources/images/three-dots.svg') }}" alt="advert options">
         </button>
     </span>
@@ -44,10 +44,10 @@
             </div>
         </div>
         <span class="mt-2 flex flex-row gap-2 items-center">
-            <button type="button"
+            <button type="button" aria-label="apply now"
                 class="bg-l-bgr-highlight text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">Apply
                 now</button>
-            <button type="button"
+            <button type="button" aria-label="save to favorites"
                 class="bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">
                 {{-- Contents of resources/images/star.svg --}}
                 <svg class="fill-white hover:fill-yellow-200" width="22" height="22" viewBox="0 0 22 22"

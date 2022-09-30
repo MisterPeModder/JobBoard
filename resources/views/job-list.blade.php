@@ -35,7 +35,7 @@
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                     <img src="{{ Vite::asset('resources/images/search.svg') }}" alt="menu" class="">
                 </div>
-                <input type="text"
+                <input type="text" aria-label="search job type"
                     class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-l-bgr-highlight focus:ring-l-bgr-highlight sm:text-sm"
                     placeholder="What position are you looking for?"></input>
             </div>
@@ -43,7 +43,7 @@
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                     <img src="{{ Vite::asset('resources/images/location.svg') }}" alt="menu" class="">
                 </div>
-                <input type="text"
+                <input type="text" aria-label="search job location"
                     class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-l-bgr-highlight focus:ring-l-bgr-highlight sm:text-sm"
                     placeholder="Location"></input>
             </div>
