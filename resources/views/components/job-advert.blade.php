@@ -1,6 +1,6 @@
 {{-- A job advert component with a collapsible description --}}
 
-<div
+<div {{ $attributes->merge(['id' => "advert-$id"]) }}
     class="relative bg-l-bgr-content rounded-md p-2 w-full border hover:border-2 hover:p-[calc(0.5rem-1px)] border-l-brd/10 hover:border-highlight flex flex-col">
 
     <span class="flex flex-row gap-2 items-start justify-between">
@@ -15,7 +15,8 @@
                 <div class="">{{ $location }}</div>
             </div>
         </div>
-        <button type="button" aria-label="advert options">
+        <button {{ $attributes->merge(['id' => "advert-$id-options"]) }} type="button" aria-label="advert options"
+            class="advert-options">
             <img src="{{ Vite::asset('resources/images/three-dots.svg') }}" alt="advert options">
         </button>
     </span>
@@ -44,12 +45,12 @@
             </div>
         </div>
         <span class="mt-2 flex flex-row gap-2 items-center">
-            <button type="button" aria-label="apply now"
+            <button {{ $attributes->merge(['id' => "advert-$id-apply"]) }} type="button" aria-label="apply now"
                 class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">Apply
                 now</button>
-            <button type="button" aria-label="save to favorites"
+            <button {{ $attributes->merge(['id' => "advert-$id-fav"]) }} type="button" aria-label="save to favorites"
                 class="bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">
-                {{-- Contents of resources/images/star.svg --}}
+                {{-- Contents of resources/images/star-outline.svg --}}
                 <svg class="fill-white hover:fill-yellow-200 ease-in-out duration-150" width="22" height="22"
                     viewBox="0 0 22 22" version="1.1" id="svg5" xmlns="http://www.w3.org/2000/svg"
                     xmlns:svg="http://www.w3.org/2000/svg">

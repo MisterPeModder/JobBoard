@@ -18,6 +18,32 @@ module.exports = {
           light: '#8b76c4',
           DEFAULT: '#6D52B7' // main highlight color
         }
+      },
+      animation: {
+        'dropdown-open': 'dropdown-open 100ms ease-out forwards',
+        'dropdown-close': 'dropdown-close 100ms ease-in forwards'
+      },
+      keyframes: {
+        'dropdown-open': {
+          from: {
+            opacity: 0,
+            transform: 'scale(0.95, 0.95)',
+          },
+          to: {
+            opacity: 1,
+            transform: 'scale(1, 1)',
+          }
+        },
+        'dropdown-close': {
+          from: {
+            opacity: 1,
+            transform: 'scale(1, 1)',
+          },
+          to: {
+            opacity: 0,
+            transform: 'scale(0.95, 0.95)',
+          }
+        }
       }
     },
   },

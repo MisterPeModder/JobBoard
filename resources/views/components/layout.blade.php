@@ -13,7 +13,7 @@
     @vite(['resources/js/app.ts', 'resources/css/app.css'])
 </head>
 
-<body class="antialiased bg-l-bgr-main">
+<body class="antialiased bg-l-bgr-main text-gray-700">
     <header class="flex flex-col backdrop-blur-md sticky top-0 border-b border-l-brd/10 z-20">
         <span class="flex flex-row  justify-between items-center p-2">
             <span class="flex flex-row items-center gap-2">
