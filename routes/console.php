@@ -3,9 +3,12 @@
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
+use App\Models\Advert;
+use App\Models\Application;
+use App\Models\ApplicationAttachment;
+use App\Models\Blob;
 use App\Models\Company;
 use App\Models\User;
-use App\Models\Blob;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -21,14 +24,29 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
+
+/**
+ * Create some fake values in database
+ */
 Artisan::command('dbmakefake', function () {
-    $users = User::factory(2)->create();
+    $number = 1;//number of records to create
+
+    $users = User::factory($number)->create();
     echo "Users :\n" . $users . "\n";
 
-    $blobs = Blob::factory(2)->create();
+    $blobs = Blob::factory($number)->create();
     echo "Blobs :\n" . $blobs . "\n";
 
-    $companies = Company::factory(2)->create();
+    $companies = Company::factory($number)->create();
     echo "Companies :\n". $companies . "\n";
+
+    $adverts = Advert::factory($number)->create();
+    echo "Advertisements :\n". $adverts . "\n";
+
+    $applications = Application::factory($number)->create();
+    echo "Applications :\n". $applications . "\n";
+
+    $applicationattachements = ApplicationAttachment::factory($number)->create();
+    echo "Application's attachements :\n". $applicationattachements . "\n";
 
 })->purpose('Make fake data in database');
