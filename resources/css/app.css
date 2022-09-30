@@ -10,4 +10,12 @@
         height: 27px;
         display: inline-block;
     }
+
+    details summary::after {
+        content: attr(data-open);
+    }
+
+    details[open] summary::after {
+        content: attr(data-close);
+    }
 }
