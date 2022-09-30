@@ -103,17 +103,17 @@ $currentPage = $_GET['page'] ?? '1';
 
     {{-- Advert options menu, requires JS --}}
     <div id="advert-options-dropdown"
-        class="hidden absolute z-10 mt-2 right-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-l-brd/10 ring-opacity-5 focus:outline-none animate-dropdown-open animate-dropdown-close"
+        class="hidden absolute z-10 mt-2 right-2 origin-top-right rounded-md bg-l-bgr-main shadow-lg ring-1 ring-l-brd/10 ring-opacity-5 focus:outline-none animate-dropdown-open animate-dropdown-close"
         role="menu" aria-orientation="vertical" tabindex="-1">
         <div class="py-1" role="none">
-            <span class="flex flex-row  hover:bg-slate-100 p-2 items-end gap-2">
+            <span class="flex flex-row  hover:bg-l-bgr-content p-2 items-end gap-2">
                 @svg('resources/images/star.svg', 'fill-gray-500')
-                <a href="#" class="block text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Add to
+                <a href="?sechs=yes" class="block text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Add to
                     favorites</a>
             </span>
-            <a href="#" class="block px-4 py-2 text-sm text-left hover:bg-slate-100" role="menuitem"
+            <a href="#" class="block px-4 py-2 text-sm text-left hover:bg-l-bgr-content" role="menuitem"
                 tabindex="-1" id="menu-item-1">Hide</a>
-            <a href="#" class="block px-4 py-2 text-sm text-left hover:bg-slate-100" role="menuitem"
+            <a href="#" class="block px-4 py-2 text-sm text-left hover:bg-l-bgr-content" role="menuitem"
                 tabindex="-1" id="menu-item-2">Report</a>
         </div>
     </div>
