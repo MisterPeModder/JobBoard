@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Advert extends Model
 {
-    use HasFactory;
+    use HasFactory;//package needed to create fake data
 
+    /**
+     * fillable values
+     */
     protected $fillable = [
         'title',
         'description'

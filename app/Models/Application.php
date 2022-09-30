@@ -9,6 +9,9 @@ class Application extends Model
 {
     use HasFactory;
 
+    /**
+     * fillable values
+     */
     protected $fillable = [
         'content',
         'advert_id',

@@ -19,7 +19,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();//primary key
             $table->timestamps();//date + houre of creation + last edit
-            $table->string('email');//string : stores characters, equivalent of VARCHAR(255) in mysql
+            $table->string('email')->unique();//string : stores characters, equivalent of VARCHAR(255) in mysql
+                                              //unique : email must be unique
             $table->string('name')->nullable();//nullable : value can be null
             $table->string('surname')->nullable();
             

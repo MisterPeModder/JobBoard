@@ -10,7 +10,7 @@ class Blob extends Model
     use HasFactory;
 
     /**
-     * Records non fillable
+     * fields non fillable
      */
     protected $guarded = [
         'name',

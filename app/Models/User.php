@@ -11,10 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory;
 
-    // timestamps of creation/update
-    //const CREATED_AT = 'created';
-    //const UPDATED_AT = 'updated';
-
     /**
      * The attributes that are mass assignable.
      */
@@ -22,8 +18,6 @@ class User extends Authenticatable
         'email',
         'name',
         'surname',
-
-
     ];
 
     /**
