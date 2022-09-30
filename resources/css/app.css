@@ -4,7 +4,7 @@
 
 @layer utilities {
     .logo-dot {
-        background-color: theme('colors.l-bgr-highlight');
+        background-color: theme('colors.highlight.DEFAULT');
         border-radius: 50%;
         width: 27px;
         height: 27px;

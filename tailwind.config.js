@@ -12,8 +12,12 @@ module.exports = {
         /* LIGHT THEME */
         'l-bgr-main': '#F2F5FF', // main background
         'l-bgr-content': '#e7eef1', // content background
-        'l-bgr-highlight': '#6D52B7', // highlight background
-        'l-brd': colors.slate['900'],
+        'l-brd': colors.slate['900'], // border color
+
+        'highlight': {
+          light: '#8b76c4',
+          DEFAULT: '#6D52B7' // main highlight color
+        }
       }
     },
   },

@@ -1,7 +1,7 @@
 {{-- A job advert component with a collapsible description --}}
 
 <div
-    class="relative bg-l-bgr-content rounded-md p-2 w-full border hover:border-2 hover:p-[calc(0.5rem-1px)] border-l-brd/10 hover:border-l-bgr-highlight flex flex-col">
+    class="relative bg-l-bgr-content rounded-md p-2 w-full border hover:border-2 hover:p-[calc(0.5rem-1px)] border-l-brd/10 hover:border-highlight flex flex-col">
 
     <span class="flex flex-row gap-2 items-start justify-between">
         <div class="flex flex-row gap-2">
@@ -24,7 +24,7 @@
     </ol>
     <details class="text-sm">
         <summary data-open="Learn more" data-close="Collapse"
-            class="text-base text-l-bgr-highlight hover:underline cursor-pointer">
+            class="text-base text-highlight hover:underline cursor-pointer">
         </summary>
         <div class="flex flex-col divide-y divide-solid divide-l-brd/10 gap-1">
             <div>
@@ -45,13 +45,13 @@
         </div>
         <span class="mt-2 flex flex-row gap-2 items-center">
             <button type="button" aria-label="apply now"
-                class="bg-l-bgr-highlight text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">Apply
+                class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">Apply
                 now</button>
             <button type="button" aria-label="save to favorites"
                 class="bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">
                 {{-- Contents of resources/images/star.svg --}}
-                <svg class="fill-white hover:fill-yellow-200" width="22" height="22" viewBox="0 0 22 22"
-                    version="1.1" id="svg5" xmlns="http://www.w3.org/2000/svg"
+                <svg class="fill-white hover:fill-yellow-200 ease-in-out duration-150" width="22" height="22"
+                    viewBox="0 0 22 22" version="1.1" id="svg5" xmlns="http://www.w3.org/2000/svg"
                     xmlns:svg="http://www.w3.org/2000/svg">
                     <defs id="defs2" />
                     <g id="layer1" transform="translate(0,-3.5229273)">

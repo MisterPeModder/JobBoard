@@ -24,14 +24,18 @@
                 @guest
                     {{-- "Sign In" widget, will only display when not logged --}}
                     <a href="#"
-                        class="bg-l-bgr-highlight text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                        class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
                         Sign in</a>
                 @endguest
                 <img src="{{ Vite::asset('resources/images/hamburger.svg') }}" alt="menu">
             </span>
         </span>
     </header>
+    {{-- Page content goes here --}}
     {{ $slot }}
+    <footer class="text-sm container mx-auto py-2 border-t border-l-brd/10 text-center">
+        Made with ❤️ by Yanis Guaye and Melvin Courjaud
+    </footer>
 </body>
 
 </html>

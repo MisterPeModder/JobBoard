@@ -6,7 +6,7 @@
                     <img src="{{ Vite::asset('resources/images/search.svg') }}" alt="menu" class="">
                 </div>
                 <input type="text" aria-label="search job type"
-                    class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-l-bgr-highlight focus:ring-l-bgr-highlight sm:text-sm"
+                    class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-highlight focus:ring-highlight sm:text-sm"
                     placeholder="What position are you looking for?"></input>
             </div>
             <div class="relative rounded-full shadow-sm w-full border border-inherit">
@@ -14,15 +14,15 @@
                     <img src="{{ Vite::asset('resources/images/location.svg') }}" alt="menu" class="">
                 </div>
                 <input type="text" aria-label="search job location"
-                    class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-l-bgr-highlight focus:ring-l-bgr-highlight sm:text-sm"
+                    class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-highlight focus:ring-highlight sm:text-sm"
                     placeholder="Location"></input>
             </div>
             <a href="#"
-                class="bg-l-bgr-highlight text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
                 Find Jobs
             </a>
             <a href="#"
-                class="border-2 border-l-bgr-highlight text-l-bgr-highlight rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                class="border-2 border-highlight hover:border-highlight-light transition ease-in-out duration-150 text-highlight hover:text-highlight-light rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
                 Filters
             </a>
         </div>
