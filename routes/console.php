@@ -31,7 +31,7 @@ Artisan::command('inspire', function () {
 Artisan::command('dbmakefake', function () {
     $number = 1;//number of records to create
 
-    $users = User::factory($number)->create();
+    $users = User::factory($number)->create();//creation of fake values in table users
     echo "Users :\n" . $users . "\n";
 
     $blobs = Blob::factory($number)->create();

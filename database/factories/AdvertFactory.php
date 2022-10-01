@@ -18,8 +18,8 @@ class AdvertFactory extends Factory
     {
         return [
             'company_id' => 1,
-            'title' => fake()->title(),
-            'description'=> fake()->realText()
+            'title' => fake()->title(),//random title
+            'description'=> fake()->realText()//random text
             ];
     }
 }

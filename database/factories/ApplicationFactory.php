@@ -17,7 +17,7 @@ class ApplicationFactory extends Factory
     public function definition()
     {
         return [
-            'advert_id' => 1,
+            'advert_id' => 1,//foreign key must have a value
             'applicant_id' => 1,
             'content' => fake()->realText(),
         ];
