@@ -17,7 +17,7 @@ class ApplicationAttachmentFactory extends Factory
     public function definition()
     {
         return [
-            'application_id' => 1,//foreign key must have a value
+            'application_id' => 1, //foreign key must have a value
             'blob_id' => 1
         ];
     }

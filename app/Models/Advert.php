@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Advert extends Model
 {
-    use HasFactory;//package needed to create fake data
+    use HasFactory; //package needed to create fake data
 
     /**
      * fillable values
@@ -24,5 +24,4 @@ class Advert extends Model
     {
         return $this->hasOne(Company::class);
     }
-
 }

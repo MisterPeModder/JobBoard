@@ -29,9 +29,9 @@ Artisan::command('inspire', function () {
  * Create some fake values in database
  */
 Artisan::command('dbmakefake', function () {
-    $number = 10;//number of records to create
+    $number = 10; //number of records to create
 
-    $users = User::factory($number)->create();//creation of fake values in table users
+    $users = User::factory($number)->create(); //creation of fake values in table users
     echo "Fake values in users table generated\n";
 
     $blobs = Blob::factory($number)->create();
@@ -48,5 +48,4 @@ Artisan::command('dbmakefake', function () {
 
     $applicationattachments = ApplicationAttachment::factory($number)->create();
     echo "Fake values in applicationattachments table generated\n";
-
 })->purpose('Make fake data in database');

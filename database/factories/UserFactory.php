@@ -18,10 +18,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'email' => fake()->unique()->safeEmail(),//random valid email
+            'email' => fake()->unique()->safeEmail(), //random valid email
             'name' => fake()->firstName(),
             'surname' => fake()->lastName(),
         ];
     }
-
 }

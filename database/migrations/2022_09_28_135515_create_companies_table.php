@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreign('owner_id')->references('id')->on('users');
             $table->foreign('icon_id')->references('id')->on('blobs');
         });
-        
+
         //foreign keys for table users
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('company_id')->nullable()->default(null);
@@ -41,7 +41,6 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
         });
-        
     }
 
     /**

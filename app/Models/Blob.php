@@ -16,6 +16,7 @@ class Blob extends Model
         'name',
         'mime_type',
         'hash',
+        'UUID',
         'access'
     ];
 
@@ -34,5 +35,4 @@ class Blob extends Model
     {
         return $this->hasOne(Company::class);
     }
-
 }

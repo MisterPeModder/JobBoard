@@ -29,5 +29,4 @@ class Company extends Model
     {
         return $this->hasOne(Blob::class);
     }
-
 }

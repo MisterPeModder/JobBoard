@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('mime_type');
             $table->tinyText('hash');
-            $table->uuid('uuid');
+            $table->uuid('UUID');
             $table->string('access')->default('PRIVATE');
             //foreign keys
             $table->unsignedBigInteger('owner_id');
@@ -30,7 +30,6 @@ return new class extends Migration
             $table->unsignedBigInteger('icon_id')->nullable();
             $table->foreign('icon_id')->references('id')->on('blobs');
         });
-
     }
 
     /**

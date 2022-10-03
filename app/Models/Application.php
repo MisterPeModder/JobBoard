@@ -32,5 +32,4 @@ class Application extends Model
     {
         return $this->hasOne(User::class);
     }
-
 }

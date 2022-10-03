@@ -18,10 +18,10 @@ class BlobFactory extends Factory
     {
         return [
             'owner_id' => 1,
-            'name' => fake()->filePath(),//random file name (include path)
-            'mime_type' => fake()->mimeType(),//random mime type
+            'name' => fake()->filePath(), //random file name (include path)
+            'mime_type' => fake()->mimeType(), //random mime type
             'hash' => fake()->text(255),
-            'uuid' => fake()->uuid(),//fake uuid
-            ];
+            'uuid' => fake()->uuid(), //fake uuid
+        ];
     }
 }
