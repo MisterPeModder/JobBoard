@@ -1,7 +1,7 @@
 {{-- A job advert component with a collapsible description --}}
 
 <div {{ $attributes->merge(['id' => "advert-$id"]) }}
-    class="relative bg-l-bgr-content rounded-md p-2 w-full border hover:border-2 hover:p-[calc(0.5rem-1px)] border-l-brd/10 hover:border-highlight flex flex-col">
+    class="advert relative bg-l-bgr-content rounded-md p-2 w-full border hover:border-2 hover:p-[calc(0.5rem-1px)] border-l-brd/10 hover:border-highlight flex flex-col">
 
     <span class="flex flex-row gap-2 items-start justify-between">
         <div class="flex flex-row gap-2">

@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    * {
+        /** Snap scrolling to just below the header (header is 48px tall) */
+        scroll-margin-top: calc(48px + 0.5rem);
+    }
+}
+
 @layer utilities {
     .logo-dot {
         background-color: theme('colors.highlight.DEFAULT');

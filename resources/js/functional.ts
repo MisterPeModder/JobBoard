@@ -23,9 +23,19 @@ export function findParent(element: Element, predicate: (parent: Element) => boo
     return null;
 }
 
+/** A function that tests its argument and returns a boolean. */
+export type Predicate<T> = (value: T) => boolean;
+
 /**
  * @returns Strict equality predicate.
  */
-export function sameAs(value: unknown): (other: unknown) => boolean {
+export function sameAs(value: unknown): Predicate<unknown> {
     return (other) => other === value;
+}
+
+/**
+ * @returns Strict inequality predicate.
+ */
+export function differentFrom(value: unknown): Predicate<unknown> {
+    return (other) => other !== value;
 }

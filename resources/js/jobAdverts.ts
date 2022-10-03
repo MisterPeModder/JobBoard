@@ -1,4 +1,4 @@
-import { findParent, sameAs } from "./functional";
+import { differentFrom, findParent, sameAs } from "./functional";
 
 class JobOptions {
     private dropdown: HTMLElement;
@@ -79,4 +79,24 @@ export let options: JobOptions | null = null;
  */
 export function init() {
     options = new JobOptions();
+
+    /** List of all the 'Learn more' prompts. */
+    const allJobDetails = Array.from(document.querySelectorAll('.advert>details')) as HTMLDetailsElement[];
+
+    for (let jobDetails of allJobDetails) {
+        jobDetails.addEventListener('toggle', () => {
+            // when opening job details, close all other job details
+            if (jobDetails.open) {
+                allJobDetails
+                    .filter(differentFrom(jobDetails))
+                    .forEach(other => other.open = false);
+
+                jobDetails.parentElement.scrollIntoView({
+                    block: 'start',
+                    inline: 'nearest',
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
 }
