@@ -12,15 +12,15 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
+        Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->morphs('tokenable');
-            $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+            $table->string('content');
+            //foreign keys
+            $table->unsignedBigInteger('advert_id');
+            $table->foreign('advert_id')->references('id')->on('adverts');
+            $table->unsignedBigInteger('applicant_id');
+            $table->foreign('applicant_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('personal_access_tokens');
+        Schema::dropIfExists('applications');
     }
 };
