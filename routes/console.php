@@ -29,24 +29,24 @@ Artisan::command('inspire', function () {
  * Create some fake values in database
  */
 Artisan::command('dbmakefake', function () {
-    $number = 1;//number of records to create
+    $number = 10;//number of records to create
 
     $users = User::factory($number)->create();//creation of fake values in table users
-    echo "Users :\n" . $users . "\n";
+    echo "Fake values in users table generated\n";
 
     $blobs = Blob::factory($number)->create();
-    echo "Blobs :\n" . $blobs . "\n";
+    echo "Fake values in blobs table generated\n";
 
     $companies = Company::factory($number)->create();
-    echo "Companies :\n". $companies . "\n";
+    echo "Fake values in companies table generated\n";
 
     $adverts = Advert::factory($number)->create();
-    echo "Advertisements :\n". $adverts . "\n";
+    echo "Fake values in adverts table generated\n";
 
     $applications = Application::factory($number)->create();
-    echo "Applications :\n". $applications . "\n";
+    echo "Fake values in applications table generated\n";
 
-    $applicationattachements = ApplicationAttachment::factory($number)->create();
-    echo "Application's attachements :\n". $applicationattachements . "\n";
+    $applicationattachments = ApplicationAttachment::factory($number)->create();
+    echo "Fake values in applicationattachments table generated\n";
 
 })->purpose('Make fake data in database');

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('mime_type');
-            $table->binary('hash');
+            $table->tinyText('hash');
+            $table->uuid('uuid');
             $table->string('access')->default('PRIVATE');
             //foreign keys
             $table->unsignedBigInteger('owner_id');
