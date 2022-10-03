@@ -28,6 +28,17 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
 
+    - name: Check Formatting
+      run: |
+        php artisan cs-fixer
+        git diff --output /tmp/formatting-diff
+        if [ -s /tmp/formatting-diff ]; then
+          echo "Found formatting differences, please run 'php artisan cs-fixer'"
+          cat /tmp/formatting-diff
+          exit 1
+        fi
+        echo "Code is formatted correctly"
+
     - name: Create Database
       run: |
         mkdir -p database
