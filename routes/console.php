@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+// alias to the php-cs-fixer command
+Artisan::command('cs-fixer {args?*}', function ($args) {
+    $argsStr = stream_isatty(STDOUT) ? '--ansi' : '--no-ansi';
+    if (empty($args)) {
+        $argsStr .= ' fix';
+    }
+    foreach ($args as $arg) {
+        $argsStr .= ' '.escapeshellarg($arg);
+    }
+    passthru("./vendor/bin/php-cs-fixer $argsStr");
+})->purpose('Runs the PHP Coding Standards Fixer');
