@@ -31,7 +31,7 @@ jobs:
     - name: Check Formatting
       run: |
         php artisan cs-fixer
-        git diff --output /tmp/formatting-diff
+        git -c core.fileMode=false diff --output /tmp/formatting-diff
         if [ -s /tmp/formatting-diff ]; then
           echo "Found formatting differences, please run 'php artisan cs-fixer'"
           cat /tmp/formatting-diff
