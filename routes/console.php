@@ -28,8 +28,8 @@ Artisan::command('inspire', function () {
 /**
  * Create some fake values in database
  */
-Artisan::command('dbmakefake', function () {
-    $number = 10; //number of records to create
+Artisan::command('dbmakefake {number=10}', function ($number) {
+    echo "$number records will be generated\n";
 
     $users = User::factory($number)->create(); //creation of fake values in table users
     echo "Fake values in users table generated\n";
