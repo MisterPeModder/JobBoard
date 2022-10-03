@@ -1,0 +1,20 @@
+name: Add bugs to the project
+
+on:
+  issues:
+    types:
+      - opened
+      - transferred
+      - labeled
+
+jobs:
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@0.3.0
+        with:
+          project-url: https://github.com/users/MisterPeModder/projects/2
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: bug, needs-triage
+          label-operator: OR
