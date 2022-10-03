@@ -1,5 +1,14 @@
 @php
+use Illuminate\Support\Facades\URL;
+
 $currentPage = $_GET['page'] ?? '1';
+$maxPage = 8;
+
+// redirect user to first page if requested page is not valid
+if ($currentPage < 1 || $currentPage > $maxPage) {
+    header('Location: ' . URL::current(), true, 301);
+    exit();
+}
 @endphp
 
 <x-layout>
@@ -98,7 +107,7 @@ $currentPage = $_GET['page'] ?? '1';
                 </x-slot>
             </x-job-advert>
         </section>
-        <x-page-navigation max=8 :current=$currentPage width=5 />
+        <x-page-navigation :max=$maxPage :current=$currentPage width=5 />
     </main>
 
     {{-- Advert options menu, requires JS --}}
