@@ -49,3 +49,14 @@ Artisan::command('dbmakefake {number=10}', function ($number) {
     $applicationattachments = ApplicationAttachment::factory($number)->create();
     echo "Fake values in applicationattachments table generated\n";
 })->purpose('Make fake data in database');
+// alias to the php-cs-fixer command
+Artisan::command('cs-fixer {args?*}', function ($args) {
+    $argsStr = stream_isatty(STDOUT) ? '--ansi' : '--no-ansi';
+    if (empty($args)) {
+        $argsStr .= ' fix';
+    }
+    foreach ($args as $arg) {
+        $argsStr .= ' '.escapeshellarg($arg);
+    }
+    passthru("./vendor/bin/php-cs-fixer $argsStr");
+})->purpose('Runs the PHP Coding Standards Fixer');
