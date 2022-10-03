@@ -12,7 +12,7 @@ class Company extends Model
     protected $fillable = [
         'name',
         'location',
-        'description'
+        'description',
     ];
 
     /**
@@ -22,6 +22,7 @@ class Company extends Model
     {
         return $this->hasOne(User::class);
     }
+
     /**
      * Get the icon associated with the user.
      */

@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
-
 use App\Models\Advert;
 use App\Models\Application;
 use App\Models\ApplicationAttachment;
 use App\Models\Blob;
 use App\Models\Company;
 use App\Models\User;
+use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -23,7 +23,6 @@ use App\Models\User;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
-
 
 /**
  * Create some fake values in database

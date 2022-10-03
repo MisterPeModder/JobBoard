@@ -25,6 +25,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
     ];
+
     //default values
     protected $attributes = [
         'name' => null,
@@ -38,6 +39,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class);
     }
+
     /**
      * Get the icon (img) associated with the user.
      */

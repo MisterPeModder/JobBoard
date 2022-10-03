@@ -16,8 +16,8 @@ class Blob extends Model
         'name',
         'mime_type',
         'hash',
-        'UUID',
-        'access'
+        'uuid',
+        'access',
     ];
 
     /**

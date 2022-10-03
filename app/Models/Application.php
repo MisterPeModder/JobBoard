@@ -15,7 +15,7 @@ class Application extends Model
     protected $fillable = [
         'content',
         'advert_id',
-        'applicationattachement_id'
+        'applicationattachement_id',
     ];
 
     /**
@@ -25,6 +25,7 @@ class Application extends Model
     {
         return $this->hasMany(Advert::class);
     }
+
     /**
      * Get the user associated with the application.
      */

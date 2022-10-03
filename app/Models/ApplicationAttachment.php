@@ -16,6 +16,7 @@ class ApplicationAttachment extends Model
     {
         return $this->hasOne(Application::class);
     }
+
     /**
      * Get the blob associated with the application's attachment.
      */

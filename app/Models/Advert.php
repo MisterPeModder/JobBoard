@@ -14,7 +14,7 @@ class Advert extends Model
      */
     protected $fillable = [
         'title',
-        'description'
+        'description',
     ];
 
     /**
