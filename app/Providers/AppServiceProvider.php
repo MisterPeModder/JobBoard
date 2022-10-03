@@ -27,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::directive('svg', function ($arguments) {
             // Funky madness to accept multiple arguments into the directive
-            list($path, $class) = array_pad(explode(',', trim($arguments, "() ")), 2, '');
+            list($path, $class) = array_pad(explode(',', trim($arguments, '() ')), 2, '');
+
             return $this->embedSvg(trim($path, "' "), trim($class, "' "));
         });
     }
@@ -40,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         // Create the dom document as per the other answers
         $svg = new \DOMDocument();
         $svg->load(Vite::asset($path));
-        $svg->documentElement->setAttribute("class", $class);
+        $svg->documentElement->setAttribute('class', $class);
         $output = $svg->saveXML($svg->documentElement);
 
         return $output;

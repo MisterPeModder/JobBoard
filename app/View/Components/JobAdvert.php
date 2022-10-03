@@ -15,10 +15,10 @@ class JobAdvert extends Component
         public string $company,
         public string $jobType,
         public ?string $icon = null,
-        public string $location = "unknown location",
-        public string $shortDescription = "(no description)",
-        public string $salary = "unknown",
-        public string $fullDescription = "(no description)"
+        public string $location = 'unknown location',
+        public string $shortDescription = '(no description)',
+        public string $salary = 'unknown',
+        public string $fullDescription = '(no description)'
     ) {
     }
 
