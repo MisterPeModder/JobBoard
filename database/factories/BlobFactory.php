@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blob>
@@ -16,11 +19,13 @@ class BlobFactory extends Factory
      */
     public function definition()
     {
+        $extension = fake()->fileExtension();
+
         return [
-            'owner_id' => 1,
-            'name' => fake()->filePath(), //random file name (include path)
-            'mime_type' => fake()->mimeType(), //random mime type
-            'hash' => fake()->text(255),
+            'owner_id' => User::factory(),
+            'name' => Str::of(fake()->filePath())->basename.".$extension", //random file name
+            'mime_type' => MimeType::fromExtension($extension),
+            'hash' => sha1(fake()->text(255)),
             'uuid' => fake()->uuid(), //fake uuid
         ];
     }
