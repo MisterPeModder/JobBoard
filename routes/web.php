@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('job-list');
 });
 
 Route::get('/blob/{name}', [BlobController::class, 'show']);

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   sodipodi:docname="web-sys.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.82178346"
+     inkscape:cx="483.70406"
+     inkscape:cy="435.02944"
+     inkscape:window-width="1912"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="84.738006"
+       y="144.42774"
+       width="554.1055"
+       height="233.52502"
+       id="rect288" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(2.0351717,0,0,2.0351717,-159.02858,-263.51578)"
+       id="text286"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Im;-inkscape-font-specification:'Im Bold';white-space:pre;shape-inside:url(#rect288);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="84.738281"
+         y="179.8697"
+         id="tspan1048">Web</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:81.4069px;line-height:1.25;font-family:sans-serif;fill:#800000;fill-opacity:1;stroke:none;stroke-width:0.346499"
+       x="64.506432"
+       y="157.20453"
+       id="text1006"><tspan
+         sodipodi:role="line"
+         id="tspan1004"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:81.4069px;font-family:Impact;-inkscape-font-specification:Impact;fill:#800000;stroke-width:0.346499"
+         x="64.506432"
+         y="157.20453">Sys</tspan></text>
+  </g>
+</svg>

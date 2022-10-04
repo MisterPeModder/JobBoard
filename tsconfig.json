@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "checkJs": true,
+        "noImplicitAny": true,
+        "alwaysStrict": true,
+        "noEmit": true,
+        "target": "es2020",
+        "types": [
+            "vite/client"
+        ]
+    },
+    "include": [
+        "./resources/js/*.ts",
+    ]
+}

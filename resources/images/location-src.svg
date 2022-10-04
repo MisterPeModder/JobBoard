@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="22"
+   height="22"
+   viewBox="0 0 22 22"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="hamburger.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   sodipodi:docname="location-src.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#ffffff"
+     inkscape:document-units="px"
+     showgrid="true"
+     showguides="true"
+     inkscape:zoom="12.687522"
+     inkscape:cx="1.3004903"
+     inkscape:cy="9.4975201"
+     inkscape:window-width="1912"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <sodipodi:guide
+       position="19.129001,23.740781"
+       orientation="0,1"
+       id="guide136"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+    <sodipodi:guide
+       position="6.9522391,-8.6562387"
+       orientation="0.70710678,0.70710678"
+       id="guide138"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+    <sodipodi:guide
+       position="18,-8.6562387"
+       orientation="0,-68.031496"
+       id="guide140"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="11,22"
+       orientation="-1,0"
+       id="guide142"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13844"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,1.5,0,2 @ F,0,0,1,0,1.5,0,2 @ F,0,0,1,0,1.5,0,2 @ F,0,0,1,0,1.5,0,2"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="4.5"
+       chamfer_steps="3"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13090"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,2,0,1 @ F,0,0,1,0,2,0,1 @ F,0,0,1,0,2,0,1 @ F,0,0,1,0,2,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="2"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13088"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,1,0,1,0,0.1,0,1 @ F,1,0,1,0,0.1,0,1 @ F,1,0,1,0,0.1,0,1 @ F,1,0,1,0,0.1,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="10"
+       chamfer_steps="1"
+       flexible="true"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13090-3"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,2,0,1 @ F,0,0,1,0,2,0,1 @ F,0,0,1,0,2,0,1 @ F,0,0,1,0,2,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="2"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-3.5229273)">
+    <g
+       id="g2087"
+       transform="matrix(1.380662,0,0,1.380662,-4.187282,-3.6608297)">
+      <g
+         id="path1850">
+        <path
+           style="color:#000000;fill:#9ca3af;stroke-linecap:square;stroke-linejoin:bevel;paint-order:markers fill stroke"
+           d="m 11,5.203125 c -2.9157184,0 -5.3125,2.3948285 -5.3125,5.310547 0,2.915718 2.3967816,5.3125 5.3125,5.3125 2.915718,0 5.3125,-2.396782 5.3125,-5.3125 0,-2.9157185 -2.396782,-5.310547 -5.3125,-5.310547 z m 0,3.0566406 c 1.263595,0 2.255859,0.9903116 2.255859,2.2539064 0,1.263595 -0.992264,2.255859 -2.255859,2.255859 -1.2635946,0 -2.2558594,-0.992264 -2.2558594,-2.255859 0,-1.2635948 0.9922648,-2.2539064 2.2558594,-2.2539064 z"
+           id="path2082" />
+      </g>
+      <path
+         sodipodi:type="star"
+         style="fill:#9ca3af;fill-opacity:1;stroke:none;stroke-width:3.057;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         id="path2076"
+         inkscape:flatsided="false"
+         sodipodi:sides="3"
+         sodipodi:cx="11"
+         sodipodi:cy="12.30372"
+         sodipodi:r1="4.8773303"
+         sodipodi:r2="2.4386652"
+         sodipodi:arg1="1.5707964"
+         sodipodi:arg2="2.6179939"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="M 11,17.181051 8.888054,13.523053 6.7761082,9.865055 11,9.8650553 l 4.223892,3e-7 -2.111946,3.6579974 z"
+         transform="matrix(1.0824794,0,0,1.0824794,-0.90727346,2.5393765)"
+         inkscape:transform-center-y="1.3199024" />
+    </g>
+  </g>
+</svg>
