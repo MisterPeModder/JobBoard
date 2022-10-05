@@ -35,4 +35,12 @@ class Blob extends Model
     {
         return $this->hasOne(Company::class);
     }
+
+    /**
+     * Get all the assets that uses this blob.
+     */
+    public function assets()
+    {
+        return $this->hasMany(Asset::class);
+    }
 }

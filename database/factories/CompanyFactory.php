@@ -17,8 +17,6 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'owner_id' => 1,
-            'icon_id' => 1,
             'name' => fake()->company(),
             'location' => fake()->address(),
             'description' => fake()->text(),

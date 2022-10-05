@@ -28,6 +28,14 @@ class Company extends Model
      */
     public function icon()
     {
-        return $this->hasOne(Blob::class);
+        return $this->hasOne(Asset::class);
+    }
+
+    /**
+     * Get all the assets this company owns.
+     */
+    public function assets()
+    {
+        return $this->hasMany(Asset::class);
     }
 }
