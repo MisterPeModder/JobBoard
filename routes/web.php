@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AssetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('job-list');
+    return view('welcome');
 });
 
-Route::get('/assets/{name}', [AssetController::class, 'show']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
