@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BlobController;
+use App\Http\Controllers\AssetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('job-list');
 });
 
-Route::get('/blob/{name}', [BlobController::class, 'show']);
+Route::get('/assets/{name}', [AssetController::class, 'show']);

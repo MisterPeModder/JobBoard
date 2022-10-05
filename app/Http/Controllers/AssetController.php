@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asset;
 use App\Models\Blob;
 use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class BlobController extends Controller
+class AssetController extends Controller
 {
     private Filesystem $blobFs;
 
@@ -45,7 +46,7 @@ class BlobController extends Controller
     }
 
     /**
-     * Fetch the contents of the desired blob.
+     * Fetch the contents of the desired asset.
      *
      * Example: "f9d207fd-bd70-37ee-a72d-ab96591ac688.png"
      *
@@ -55,7 +56,7 @@ class BlobController extends Controller
     {
         $name = Str::of($name)->lower();
 
-        // should contain the UUID part of the blob...
+        // should contain the UUID part of the asset...
         $uuid = pathinfo($name->basename(), PATHINFO_FILENAME);
         // ...if not, 404
         if (! Str::isUuid($uuid)) {
@@ -66,10 +67,11 @@ class BlobController extends Controller
         $mimeType = MimeType::fromFilename($name);
 
         // fetch the coresspoding blob from the database, or return 404
-        $blob = Blob::where([
-            ['uuid', '=', $uuid],
-            ['mime_type', '=', $mimeType],
-        ])->firstOrFail();
+        $blob = Blob::leftJoin('assets', 'assets.blob_id', '=', 'blobs.id')
+            ->where([
+                ['uuid', '=', $uuid],
+                ['mime_type', '=', $mimeType],
+            ])->firstOrFail();
 
         /* /!\ TODO: CHECK PERMISSIONS HERE! /!\ */
 
