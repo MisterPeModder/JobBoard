@@ -18,10 +18,10 @@ class ApplicationAttachment extends Model
     }
 
     /**
-     * Get the blob associated with the application's attachment.
+     * Get the asset associated with the application's attachment.
      */
-    public function blob()
+    public function asset()
     {
-        return $this->hasOne(Blob::class);
+        return $this->hasOne(Asset::class);
     }
 }

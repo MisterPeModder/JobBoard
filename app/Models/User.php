@@ -37,7 +37,7 @@ class User extends Authenticatable
      */
     public function company()
     {
-        return $this->hasOne(Company::class);
+        return $this->belongsTo(Company::class);
     }
 
     /**
@@ -45,6 +45,14 @@ class User extends Authenticatable
      */
     public function icon()
     {
-        return $this->hasOne(Blob::class);
+        return $this->hasOne(Asset::class);
+    }
+
+    /**
+     * Get all the assets this user owns.
+     */
+    public function assets()
+    {
+        return $this->hasMany(Asset::class);
     }
 }
