@@ -17,8 +17,7 @@ class AdvertFactory extends Factory
     public function definition()
     {
         return [
-            'company_id' => 1,
-            'title' => fake()->title(), //random title
+            'title' => fake()->sentence(4), //random title
             'description' => fake()->realText(), //random text
         ];
     }

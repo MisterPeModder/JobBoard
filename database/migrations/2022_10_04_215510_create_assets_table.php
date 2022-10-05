@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     /**
      * Run the migrations.
-     * 
+     *
      * Create the `assets` table, and move all the foreign keys from `blobs` to it.
      *
      * @return void

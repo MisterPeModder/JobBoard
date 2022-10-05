@@ -18,7 +18,7 @@ class ApplicationAttachmentFactory extends Factory
     {
         return [
             'application_id' => 1, //foreign key must have a value
-            'blob_id' => 1,
+            'asset_id' => 1,
         ];
     }
 }

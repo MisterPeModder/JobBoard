@@ -2,10 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blob>
@@ -19,14 +17,38 @@ class BlobFactory extends Factory
      */
     public function definition()
     {
-        $extension = fake()->fileExtension();
-
         return [
-            'owner_id' => User::factory(),
-            'name' => Str::of(fake()->filePath())->basename.".$extension", //random file name
-            'mime_type' => MimeType::fromExtension($extension),
-            'hash' => sha1(fake()->text(255)),
             'uuid' => fake()->uuid(), //fake uuid
+            'hash' => function ($attributes) {
+                return sha1_file(storage_path('app/blobs/'.$attributes['uuid']));
+            },
         ];
+    }
+
+    /**
+     * Stores this blob in the `strorage/app/blobs` directory using random contents.
+     */
+    public function storeRandom(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            $dstPath = storage_path('app/blobs/'.$attributes['uuid']);
+            file_put_contents($dstPath, fake()->text());
+
+            return [];
+        });
+    }
+
+    /**
+     * Stores this blob in the `strorage/app/blobs` directory using the given contents.
+     *
+     * @param string|resource $contents The content to store on disk.
+     */
+    public function storeFrom($contents): Factory
+    {
+        return $this->state(function (array $attributes) use ($contents) {
+            Storage::disk('blobs')->put($attributes['uuid'], $contents);
+
+            return [];
+        });
     }
 }
