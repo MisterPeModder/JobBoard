@@ -12,7 +12,7 @@ class JobListController extends Controller
     public function index(): Response
     {
         $currentPage = $_GET['page'] ?? '1';
-        $maxPage = Advert::all()->count() / self::ADVERTS_PER_PAGE;
+        $maxPage = ceil(Advert::all()->count() / self::ADVERTS_PER_PAGE);
 
         // redirect user to first page if requested page is not valid
         if ($currentPage < 1 || $currentPage > $maxPage) {
@@ -20,7 +20,7 @@ class JobListController extends Controller
         }
 
         $adverts = Advert::with('company.icon.blob')
-            ->where('id', '>=', $currentPage * self::ADVERTS_PER_PAGE)
+            ->where('id', '>', ($currentPage - 1) * self::ADVERTS_PER_PAGE)
             ->limit(self::ADVERTS_PER_PAGE)
             ->get();
 
