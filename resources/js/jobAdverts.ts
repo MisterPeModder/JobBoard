@@ -77,7 +77,7 @@ export let options: JobOptions | null = null;
 /**
  * Initializes the jobAdverts module.
  */
-export function init() {
+function init() {
     options = new JobOptions();
 
     /** List of all the 'Learn more' prompts. */
@@ -100,3 +100,7 @@ export function init() {
         });
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    init();
+});

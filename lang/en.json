@@ -1,5 +1,12 @@
 {
     "advert.apply": "Apply now",
+    "advert.apply.attachments": "Attachments",
+    "advert.apply.email": "Email",
+    "advert.apply.message": "Message",
+    "advert.apply.name": "Name",
+    "advert.apply.phone_number": "Phone number",
+    "advert.apply.required_hint": "(*) required fields",
+    "advert.apply.surname": "Surname",
     "advert.details": "Job Details",
     "advert.details.close": "Collapse",
     "advert.details.open": "Learn more",

@@ -6,8 +6,11 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/js/app.ts'
-            ], 
+                'resources/js/common.ts',
+
+                'resources/js/jobApplication.ts',
+                'resources/js/jobAdverts.ts'
+            ],
             refresh: true,
         }),
     ],

@@ -10,7 +10,11 @@
 
     <title>{{ $title ?? 'Job Board' }}</title>
 
-    @vite(['resources/js/app.ts', 'resources/css/app.css'])
+    @vite(['resources/js/common.ts', 'resources/css/common.css'])
+
+    @isset($script)
+        @vite([$script])
+    @endisset
 </head>
 
 <body class="antialiased bg-l-bgr-main text-gray-700">

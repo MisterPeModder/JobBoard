@@ -12,7 +12,7 @@ class Layout extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public ?string $title = null)
+    public function __construct(public ?string $title = null, public ?string $script = null)
     {
     }
 
