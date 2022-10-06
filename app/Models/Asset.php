@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Testing\MimeType;
 
 class Asset extends Model
 {
@@ -30,6 +31,17 @@ class Asset extends Model
      */
     public function blob()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Blob::class);
+    }
+
+    /**
+     * @return string The URL of this asset.
+     */
+    public function getUrl(): string
+    {
+        $extension = MimeType::search($this->mime_type);
+        $extension = $extension == null ? '' : ".$extension";
+
+        return url('/assets/'.$this->blob->uuid.$extension);
     }
 }

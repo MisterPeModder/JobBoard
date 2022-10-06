@@ -44,7 +44,7 @@ class AdvertFactory extends Factory
             };
 
             $shortDesc = [];
-            for ($i = 0, $len = mt_rand(1, 5); $i < $len; ++$i) {
+            for ($i = 0, $len = mt_rand(1, 5); $i < $len; $i++) {
                 array_push($shortDesc, fake()->sentence(6, true));
             }
 
