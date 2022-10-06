@@ -23,7 +23,7 @@
             <span class="flex flex-row gap-2">
                 @guest
                     {{-- "Sign In" widget, will only display when not logged --}}
-                    <a href="#"
+                    <a href="{{ route('register') }}"
                         class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
                         Sign in</a>
                 @endguest
