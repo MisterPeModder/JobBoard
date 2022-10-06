@@ -61,6 +61,7 @@ return new class extends Migration {
                 ->comment('User profile icon')
                 ->constrained('assets')
                 ->nullOnDelete(); // auto-set to NULL when the icon asset is deleted
+            $table->binary('password')->nullable()->default(null)->comment("User's password hash");
         });
 
         // Update company.icon_id foreign key to point to assets
@@ -112,6 +113,7 @@ return new class extends Migration {
                 ->foreignId('icon_id')
                 ->nullable()
                 ->constrained('blobs');
+            $table->binary('password');
         });
 
         // Reverse update companies.icon_id foreign key to poin back to blobs

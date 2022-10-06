@@ -18,12 +18,14 @@ class User extends Authenticatable
         'email',
         'name',
         'surname',
+        'password'
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      */
     protected $hidden = [
+        
     ];
 
     //default values
