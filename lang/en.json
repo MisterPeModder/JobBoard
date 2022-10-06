@@ -1,0 +1,22 @@
+{
+    "advert.apply": "Apply now",
+    "advert.details": "Job Details",
+    "advert.details.close": "Collapse",
+    "advert.details.open": "Learn more",
+    "advert.details.type": "Type:",
+    "advert.details.salary": "Salary:",
+    "advert.favorite": "Add to favorites",
+    "advert.full_description": "Full Description",
+    "advert.hide": "Not interested",
+    "advert.report": "Report",
+    "job_type.apprenticeship": "apprenticeship",
+    "job_type.full_time": "full time",
+    "job_type.internship": "internship",
+    "job_type.part_time": "part time",
+    "salary_type.daily": "per day",
+    "salary_type.hourly": "per hour",
+    "salary_type.monthly": "per month",
+    "salary_type.once": "once",
+    "salary_type.weekly": "per week",
+    "salary_type.yearly": "per year"
+}

@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
 
             return $this->embedSvg(trim($path, "' "), trim($class, "' "));
         });
+        // @tr(key) directive: translates the given key
+        Blade::directive('tr', function ($key) {
+            return "<?php echo __($key); ?>";
+        });
     }
 
     /**
