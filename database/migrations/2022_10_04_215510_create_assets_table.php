@@ -61,8 +61,6 @@ return new class extends Migration {
                 ->comment('User profile icon')
                 ->constrained('assets')
                 ->nullOnDelete(); // auto-set to NULL when the icon asset is deleted
-            $table->binary('password')->nullable()->default(null)->comment("User's password hash");
-            $table->rememberToken();
         });
 
         // Update company.icon_id foreign key to point to assets
@@ -95,12 +93,6 @@ return new class extends Migration {
             $table->dropForeign('blobs_owner_id_foreign');
             $table->dropForeign('blobs_company_id_foreign');
             $table->dropColumn(['name', 'mime_type', 'access', 'owner_id', 'company_id']);
-        });
-
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -150,7 +142,5 @@ return new class extends Migration {
         });
 
         Schema::dropIfExists('assets');
-
-        Schema::dropIfExists('password_resets');
     }
 };
