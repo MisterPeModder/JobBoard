@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder
         // Generate 20 job listings
         Advert::factory()
             ->count(20)
+            ->random()
             ->state([
                 'company_id' => fn () => Company::inRandomOrder()->first()->id,
             ])
