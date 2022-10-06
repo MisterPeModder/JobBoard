@@ -1,16 +1,3 @@
-@php
-use Illuminate\Support\Facades\URL;
-
-$currentPage = $_GET['page'] ?? '1';
-$maxPage = 8;
-
-// redirect user to first page if requested page is not valid
-if ($currentPage < 1 || $currentPage > $maxPage) {
-    header('Location: ' . URL::current(), true, 301);
-    exit();
-}
-@endphp
-
 <x-layout>
     <div class="shadow-xl">
         <div class="flex flex-row flex-wrap gap-2 w-11/12 mx-auto py-2 mt-2">

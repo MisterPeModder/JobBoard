@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\JobListController;
 use App\Models\Advert;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('job-list', ['adverts' => Advert::with('company.icon.blob')->get()]);
-});
+Route::get('/', [JobListController::class, 'show']);
 
 Route::get('/assets/{name}', [AssetController::class, 'show']);
