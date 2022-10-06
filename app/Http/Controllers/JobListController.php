@@ -9,7 +9,7 @@ class JobListController extends Controller
 {
     const ADVERTS_PER_PAGE = 5;
 
-    public function show(): Response
+    public function index(): Response
     {
         $currentPage = $_GET['page'] ?? '1';
         $maxPage = Advert::all()->count() / self::ADVERTS_PER_PAGE;

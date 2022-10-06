@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [JobListController::class, 'show']);
+Route::get('/', [JobListController::class, 'index']);
 
 Route::get('/assets/{name}', [AssetController::class, 'show']);
