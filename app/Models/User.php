@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'surname',
         'password',
+        'phone_number',
     ];
 
     /**
@@ -34,6 +35,7 @@ class User extends Authenticatable
     protected $attributes = [
         'name' => null,
         'surname' => null,
+        'phone_number' => null,
     ];
 
     /**
@@ -58,5 +60,13 @@ class User extends Authenticatable
     public function assets()
     {
         return $this->hasMany(Asset::class);
+    }
+
+    /**
+     * Get the applications that this user filed.
+     */
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
     }
 }

@@ -1,5 +1,7 @@
 {{-- Main layout of the JobBoard pages --}}
 
+@props(['title' => null, 'script' => null])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -7,13 +9,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The next-gen job search platform">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Job Board' }}</title>
+    <title>{{ $title ?? config('app.name', 'JobBoard') }}</title>
 
-    @vite(['resources/js/app.ts', 'resources/css/app.css'])
+    <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+
+    @vite(['resources/js/common.ts', 'resources/css/common.css'])
+
+    @isset($script)
+        @vite([$script])
+    @endisset
 </head>
 
-<body class="antialiased bg-l-bgr-main text-gray-700">
+<body class="font-sans antialiased bg-l-bgr-main text-gray-700">
     <header class="flex flex-col backdrop-blur-md sticky top-0 border-b border-l-brd/10 z-20">
         <span class="flex flex-row  justify-between items-center p-2">
             <span class="flex flex-row items-center gap-2">

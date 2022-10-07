@@ -58,9 +58,9 @@ class DatabaseSeeder extends Seeder
                 $boss->save();
             });
 
-        // Generate 20 job listings
+        // Generate 21 job listings
         Advert::factory()
-            ->count(20)
+            ->count(21)
             ->random()
             ->state([
                 'company_id' => fn () => Company::inRandomOrder()->first()->id,

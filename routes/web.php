@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobListController;
-use App\Models\Advert;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [JobListController::class, 'index']);
-
-Route::get('/assets/{name}', [AssetController::class, 'show']);
-
 require __DIR__.'/auth.php';
+
+Route::get('/', [JobListController::class, 'index'])->name('jobs');
+
+Route::resources([
+    'assets' => AssetController::class,
+    'jobs.apply' => JobApplicationController::class,
+]);

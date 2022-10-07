@@ -13,17 +13,17 @@ class Application extends Model
      * fillable values
      */
     protected $fillable = [
-        'content',
         'advert_id',
-        'applicationattachement_id',
+        'applicant_id',
+        'content',
     ];
 
     /**
      * Get the advertisements associated with the application.
      */
-    public function advertisements()
+    public function advert()
     {
-        return $this->hasMany(Advert::class);
+        return $this->belongsTo(Advert::class);
     }
 
     /**
@@ -31,6 +31,14 @@ class Application extends Model
      */
     public function applicant()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the assets that were attached to this job application.
+     */
+    public function attachments()
+    {
+        return $this->belongsToMany(Asset::class, 'application_attachments', 'application_id', 'asset_id');
     }
 }

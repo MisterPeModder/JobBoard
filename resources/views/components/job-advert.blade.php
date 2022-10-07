@@ -60,10 +60,10 @@
             </div>
         </div>
         <span class="mt-2 flex flex-row gap-2 items-center">
-            <button {{ $attributes->merge(['id' => "advert-$id-apply"]) }} type="button" aria-label="apply now"
+            <a {{ $attributes->merge(['id' => "advert-$id-apply", 'title' => __('advert.apply'), 'href' => route('jobs.apply.create', $id)]) }}
                 class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">
                 @tr('advert.apply')
-            </button>
+            </a>
             <button {{ $attributes->merge(['id' => "advert-$id-fav", 'title' => __('advert.favorite')]) }}
                 type="button" aria-label="save to favorites"
                 class="bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">

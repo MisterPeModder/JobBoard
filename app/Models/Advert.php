@@ -43,4 +43,12 @@ class Advert extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    /**
+     * Get the applications to this advert.
+     */
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }
