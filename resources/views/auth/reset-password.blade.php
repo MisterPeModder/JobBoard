@@ -1,4 +1,4 @@
-<x-layout>
+<x-blank-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -14,30 +14,24 @@
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email')" />
-
+                <x-input-label for="email" :value="__('form.field.email')" />
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)"
                     required autofocus />
-
                 <x-input-error field="email" class="mt-2" />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
-
+                <x-input-label for="password" :value="__('form.field.password')" />
                 <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-
                 <x-input-error field="password" class="mt-2" />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
+                <x-input-label for="password_confirmation" :value="__('form.field.confirm_password')" />
                 <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                     name="password_confirmation" required />
-
                 <x-input-error field="password_confirmation" class="mt-2" />
             </div>
 
@@ -48,4 +42,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-layout>
+</x-blank-layout>

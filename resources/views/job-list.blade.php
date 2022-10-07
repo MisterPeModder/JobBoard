@@ -1,4 +1,4 @@
-<x-layout script="resources/js/jobAdverts.ts">
+<x-main-layout script="resources/js/jobAdverts.ts">
     <div class="shadow-xl">
         <div class="flex flex-row flex-wrap gap-2 w-11/12 mx-auto py-2 mt-2">
             <div class="relative rounded-full shadow-sm w-full border border-inherit">
@@ -61,4 +61,4 @@
             </span>
         </div>
     </div>
-</x-layout>
+</x-main-layout>
