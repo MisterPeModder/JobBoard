@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Asset;
 use App\Models\Blob;
 use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Contracts\Filesystem\Filesystem;

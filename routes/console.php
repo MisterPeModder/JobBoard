@@ -1,6 +1,15 @@
 <?php
 
+use App\Models\Advert;
+use App\Models\Application;
+use App\Models\ApplicationAttachment;
+use App\Models\Asset;
+use App\Models\Blob;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -40,3 +49,23 @@ Artisan::command('blob:wipe', function () {
         }
     }
 })->purpose('Delete all blobs in the storage/app/blobs directory');
+
+Artisan::command('db:clear {--y|yes : Do not ask for confirmation}', function ($yes) {
+    if (! $yes && ! $this->confirm('Are you sure? This will truncate all tables!')) {
+        return;
+    }
+    Schema::disableForeignKeyConstraints();
+
+    Advert::truncate();
+    Application::truncate();
+    ApplicationAttachment::truncate();
+    Asset::truncate();
+    Blob::truncate();
+    Company::truncate();
+    User::truncate();
+    Artisan::call('blob:wipe');
+
+    Schema::enableForeignKeyConstraints();
+
+    $this->info('Database truncated successfully!');
+})->purpose('Deletes all rows in the database without dropping tables');

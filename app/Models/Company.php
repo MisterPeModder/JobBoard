@@ -38,4 +38,9 @@ class Company extends Model
     {
         return $this->hasMany(Asset::class);
     }
+
+    public function adverts()
+    {
+        return $this->hasMany(Advert::class);
+    }
 }
