@@ -9,6 +9,8 @@
     "advert.full_description": "Full Description",
     "advert.hide": "Not interested",
     "advert.report": "Report",
+    "company.details.close": "Collapse",
+    "company.details.open": "Description",
     "form.field.attachments": "Attachments",
     "form.field.email": "Email",
     "form.field.message": "Message",
