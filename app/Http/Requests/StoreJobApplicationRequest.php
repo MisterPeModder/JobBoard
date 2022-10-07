@@ -39,7 +39,7 @@ class StoreJobApplicationRequest extends FormRequest
             'phone-number' => 'string|nullable',
             'message' => 'string|required|filled|max:'.self::MAX_MESSAGE_SIZE,
             'attachments' => 'array|max:'.self::MAX_ATTACHMENT_COUNT,
-            'attachments.*' => 'file|mimes:jpg,png,wepb,pdf,docx,odt|max:'.self::MAX_ATTACHMENT_SIZE,
+            'attachments.*' => 'file|mimes:jpg,png,webp,pdf,docx,odt|max:'.self::MAX_ATTACHMENT_SIZE,
         ];
     }
 }
