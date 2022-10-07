@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\JobListController;
+use App\Http\Controllers\UserController;
+
 use App\Models\Advert;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +21,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [JobListController::class, 'index']);
 
 Route::get('/assets/{name}', [AssetController::class, 'show']);
+
+//user routes
+Route::get('/users/{user}', [UserController::class, 'show']);
+
+Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+
+Route::put('/users/{user}', [UserController::class, 'update']);
+
+Route::resource('users', UserController::class);
 
 require __DIR__.'/auth.php';
