@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -31,10 +32,10 @@ class UserController extends Controller
         if (Auth::user() != $user) {
             abort(404);
         }
-        Log::info("Showing User $user->id data");
+        Log::info("Showing User #$user->id data");
 
         //return profile page with user's data
-        return view('profile/profile', [
+        return view('users.show', [
             'user' => $user,
         ]);
     }
@@ -51,18 +52,33 @@ class UserController extends Controller
         if (Auth::user() != $user) {
             abort(404);
         }
+        Log::info("Showing User #$user->id editing form");
+        return view('users.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UpdateUserRequest  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
+        echo $request->name;
+        
+        //user is trying to access other one's data, access denied
+        if (Auth::user() != $user) {
+            abort(404);
+        }
+        Log::info("Updating User #$user->id data");
         $user->update($request->validated());
+
+        
+
+        return redirect()->route('users.show')->withSuccess(__('User updated successfully.'));
     }
 
     /**

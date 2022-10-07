@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobListController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +24,5 @@ Route::get('/', [JobListController::class, 'index'])->name('jobs');
 Route::resources([
     'assets' => AssetController::class,
     'jobs.apply' => JobApplicationController::class,
+    'users' => UserController::class
 ]);
