@@ -6,8 +6,12 @@ use App\Http\Requests\StoreJobApplicationRequest;
 use App\Http\Requests\UpdateJobApplicationRequest;
 use App\Models\Advert;
 use App\Models\Application;
+use App\Models\ApplicationAttachment;
+use App\Models\Asset;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class JobApplicationController extends Controller
@@ -37,20 +41,42 @@ class JobApplicationController extends Controller
      */
     public function store(Advert $job, StoreJobApplicationRequest $request)
     {
-        $validated = $request->validated();
-        $user = User::create([
-            'email' => $validated['email'],
-            'name' => $validated['name'],
-            'surname' => $validated['surname'],
-            'phone_number' => $validated['phone-number'],
-        ]);
-        $application = Application::create([
-            'advert_id' => $job->id,
-            'applicant_id' => $user->id,
-            'content' => $validated['message'],
-        ]);
+        // if an exception occurs in a transactions, all changes are rolled back.
+        DB::transaction(function () use ($job, $request) {
+            $validated = $request->validated();
+            $user = Auth::user();
 
-        Log::info("Application (#$application->id) filed for advert #$job->id with user #$user->id");
+            if ($user === null) {
+                // create a temporary user if not logged
+                $user = User::create([
+                    'email' => $validated['email'],
+                    'name' => $validated['name'],
+                    'surname' => $validated['surname'],
+                    'phone_number' => $validated['phone-number'],
+                ]);
+            }
+
+            // create the application
+            $application = Application::create([
+                'advert_id' => $job->id,
+                'applicant_id' => $user->id,
+                'content' => $validated['message'],
+            ]);
+
+            // store the attachments
+            if ($request->hasFile('attachments')) {
+                foreach ($request->file('attachments') as $i => $file) {
+                    $asset = Asset::factory()->storeFile($file, 'attachment_'.$job->id."_$i")->create();
+                    $attachment = ApplicationAttachment::create([
+                        'asset_id' => $asset->id,
+                        'application_id' => $application->id,
+                    ]);
+                    Log::info("Application attachment (#$attachment->id) of type $asset->mime_type  created for application #$application->id with asset #$asset->id");
+                }
+            }
+
+            Log::info("Application (#$application->id) filed for advert #$job->id with user #$user->id, ");
+        });
 
         return redirect()->route('jobs', ['applied' => 1]);
     }

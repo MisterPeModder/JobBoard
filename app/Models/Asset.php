@@ -44,4 +44,12 @@ class Asset extends Model
 
         return url('/assets/'.$this->blob->uuid.$extension);
     }
+
+    /**
+     * Get the applications that use this asset as an attachment.
+     */
+    public function applications()
+    {
+        return $this->belongsToMany(Application::class, 'application_attachments', 'asset_id', 'application_id');
+    }
 }

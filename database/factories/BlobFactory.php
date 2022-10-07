@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -47,6 +48,18 @@ class BlobFactory extends Factory
     {
         return $this->state(function (array $attributes) use ($contents) {
             Storage::disk('blobs')->put($attributes['uuid'], $contents);
+
+            return [];
+        });
+    }
+
+    /**
+     * Stores this blob in the `strorage/app/blobs` directory using the given contents.
+     */
+    public function storeFile(UploadedFile $file): Factory
+    {
+        return $this->state(function (array $attributes) use ($file) {
+            $file->storeAs('/', $attributes['uuid'], 'blobs');
 
             return [];
         });

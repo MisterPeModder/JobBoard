@@ -10,6 +10,14 @@ class ApplicationAttachment extends Model
     use HasFactory;
 
     /**
+     * fillable values
+     */
+    protected $fillable = [
+        'asset_id',
+        'application_id',
+    ];
+
+    /**
      * Get the application associated with the application's attachment.
      */
     public function application()

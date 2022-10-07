@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Blob;
 use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -46,6 +47,26 @@ class AssetFactory extends Factory
                 'name' => $basename,
                 'blob_id' => $blob->id,
                 'mime_type' => MimeType::fromFilename($basename),
+            ];
+        });
+    }
+
+    /**
+     * Creates an asset (and a correspoding blob) from the given file upload.
+     */
+    public function storeFile(UploadedFile $file, ?string $name = null): Factory
+    {
+        return $this->state(function () use ($file, $name) {
+            $blob = Blob::factory()->storeFile($file)->create();
+
+            if ($name === null) {
+                $name = $file->hashName();
+            }
+
+            return [
+                'name' => $name.'.'.$file->extension(),
+                'blob_id' => $blob->id,
+                'mime_type' => $file->getMimeType(),
             ];
         });
     }

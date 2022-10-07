@@ -33,4 +33,12 @@ class Application extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the assets that were attached to this job application.
+     */
+    public function attachments()
+    {
+        return $this->belongsToMany(Asset::class, 'application_attachments', 'application_id', 'asset_id');
+    }
 }

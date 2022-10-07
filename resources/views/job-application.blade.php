@@ -9,24 +9,24 @@
             <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('form.field.name') . '*'" />
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                    required autofocus />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="Auth::guest() ? old('name') : Auth::user()->name"
+                    :readonly="Auth::check()" required autofocus />
                 <x-input-error field="name" class="mt-2" />
             </div>
 
             <!-- Surname -->
             <div>
                 <x-input-label for="surname" :value="__('form.field.surname')" />
-                <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')"
-                    autofocus />
+                <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="Auth::guest() ? old('surname') : Auth::user()->surname"
+                    :readonly="Auth::check() && Auth::user()->surname != null" autofocus />
                 <x-input-error field="surname" class="mt-2" />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('form.field.email') . '*'" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                    required />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="Auth::guest() ? old('email') : Auth::user()->email"
+                    :readonly="Auth::check()" required />
                 <x-input-error field="email" class="mt-2" />
             </div>
 
@@ -34,7 +34,7 @@
             <div class="mt-4">
                 <x-input-label for="phone-number" :value="__('form.field.phone_number')" />
                 <x-text-input id="phone-number" class="block mt-1 w-full" type="tel" name="phone-number"
-                    :value="old('phone-number')" />
+                    :readonly="Auth::check() && Auth::user()->phone_number != null" :value="Auth::guest() ? old('phone-number') : Auth::user()->phone_number" />
                 <x-input-error field="phone-number" class="mt-2" />
             </div>
 
