@@ -4,6 +4,8 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobListController;
 use App\Http\Controllers\UserController;
+
+use App\Models\Advert;
 use Illuminate\Support\Facades\Route;
 
 /*

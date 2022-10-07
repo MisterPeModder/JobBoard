@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        abort(403);
     }
 
     /**
@@ -89,6 +89,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        //user is trying to access other one's data, access denied
+        if (Auth::user() != $user) {
+            abort(404);
+        }
+
         $user->delete();
     }
 }
