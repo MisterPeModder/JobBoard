@@ -25,13 +25,18 @@
 
             <label for="message" class="w-full">@tr('advert.apply.message')*</label>
             <textarea id="message" class="w-full" name="message" required
-                maxlength={{ App\Http\Requests\StoreJobApplicationRequest::MAX_MESSAGE_SIZE + 4000 }}>{{ old('message') }}</textarea>
+                maxlength={{ App\Http\Requests\StoreJobApplicationRequest::MAX_MESSAGE_SIZE }}>{{ old('message') }}</textarea>
             <x-input-error field="message" />
 
             <label for="attachments" class="w-full">@tr('advert.apply.attachments')</label>
             <input id="attachments" class="w-full" name="attachments[]" type="file" multiple
                 accept="image/jpeg,image/png,image/webp,application/pdf,application/msword,application/vnd.oasis.opendocument.text">
-            <x-input-error field="attachments" />
+            <div class="flex flex-col">
+                <x-input-error field="attachments" />
+                <x-input-error field="attachments.0" />
+                <x-input-error field="attachments.1" />
+                <x-input-error field="attachments.2" />
+            </div>
 
             <em class="w-full">@tr('advert.apply.required_hint')</em>
 

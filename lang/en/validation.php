@@ -171,6 +171,9 @@ return [
 
     'attributes' => [
         'phone-number' => 'phone number',
+        'attachments.0' => 'first attachment',
+        'attachments.1' => 'second attachment',
+        'attachments.2' => 'third attachment'
     ],
 
 ];
