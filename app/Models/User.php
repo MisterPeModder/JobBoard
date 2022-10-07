@@ -61,4 +61,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Asset::class);
     }
+
+    /**
+     * Get the applications that this user filed.
+     */
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

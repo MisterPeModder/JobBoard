@@ -6,7 +6,9 @@ use App\Http\Requests\StoreJobApplicationRequest;
 use App\Http\Requests\UpdateJobApplicationRequest;
 use App\Models\Advert;
 use App\Models\Application;
+use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class JobApplicationController extends Controller
 {
@@ -17,7 +19,7 @@ class JobApplicationController extends Controller
      */
     public function index()
     {
-        return redirect(route('jobs'));
+        return redirect()->route('jobs');
     }
 
     /**
@@ -30,10 +32,27 @@ class JobApplicationController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreJobApplicationRequest $request): Response
+    public function store(Advert $job, StoreJobApplicationRequest $request)
     {
-        abort(404);
+        $validated = $request->validated();
+        $user = User::create([
+            'email' => $validated['email'],
+            'name' => $validated['name'],
+            'surname' => $validated['surname'],
+            'phone_number' => $validated['phone-number'],
+        ]);
+        $application = Application::create([
+            'advert_id' => $job->id,
+            'applicant_id' => $user->id,
+            'content' => $validated['message'],
+        ]);
+
+        Log::info("Application (#$application->id) filed for advert #$job->id with user #$user->id");
+
+        return redirect()->route('jobs', ['applied' => 1]);
     }
 
     /**

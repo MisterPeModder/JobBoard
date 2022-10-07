@@ -7,7 +7,9 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreJobApplicationRequest extends FormRequest
 {
     const MAX_MESSAGE_SIZE = 4096;
+
     const MAX_ATTACHMENT_COUNT = 3;
+
     /**
      * The maximum size of an attachment, in kilobytes.
      */
@@ -37,7 +39,7 @@ class StoreJobApplicationRequest extends FormRequest
             'phone-number' => 'string|nullable',
             'message' => 'string|required|filled|max:'.self::MAX_MESSAGE_SIZE,
             'attachments' => 'array|max:'.self::MAX_ATTACHMENT_COUNT,
-            'attachments.*' => 'file|mimes:jpg,png,wepb,pdf,docx,odt|max:'.self::MAX_ATTACHMENT_SIZE
+            'attachments.*' => 'file|mimes:jpg,png,wepb,pdf,docx,odt|max:'.self::MAX_ATTACHMENT_SIZE,
         ];
     }
 }
