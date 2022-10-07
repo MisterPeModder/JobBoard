@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'surname',
         'password',
+        'phone_number',
     ];
 
     /**
@@ -34,6 +35,7 @@ class User extends Authenticatable
     protected $attributes = [
         'name' => null,
         'surname' => null,
+        'phone_number' => null,
     ];
 
     /**
