@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -28,15 +28,14 @@ class UserController extends Controller
     public function show(User $user)
     {
         //user is trying to access other one's data, access denied
-        if(Auth::user() != $user)
-        {
+        if (Auth::user() != $user) {
             abort(404);
         }
         Log::info("Showing User $user->id data");
 
         //return profile page with user's data
         return view('profile/profile', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -49,10 +48,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //user is trying to access other one's data, access denied
-        if(Auth::user() != $user)
-        {
+        if (Auth::user() != $user) {
             abort(404);
-        }      
+        }
     }
 
     /**
@@ -76,6 +74,5 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-
     }
 }
