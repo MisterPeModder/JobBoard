@@ -71,6 +71,7 @@ module.exports = {
           values: flattenColorPalette(theme('colors'))
         }
       );
-    })
+    }),
+    require('@tailwindcss/forms'),
   ],
 }

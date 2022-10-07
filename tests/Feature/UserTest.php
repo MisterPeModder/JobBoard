@@ -18,6 +18,6 @@ class UserTest extends TestCase
     public function test_that_users_table_can_be_filled_with_fake_values()
     {
         $users = User::factory(10)->make();
-        echo $users."\n";
+        //echo $users."\n";
     }
 }

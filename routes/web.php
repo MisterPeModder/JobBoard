@@ -19,3 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [JobListController::class, 'index']);
 
 Route::get('/assets/{name}', [AssetController::class, 'show']);
+
+require __DIR__.'/auth.php';

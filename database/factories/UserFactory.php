@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -21,6 +22,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(), //random valid email
             'name' => fake()->firstName(),
             'surname' => fake()->lastName(),
+            'password' => Hash::make('default'), //default password is 'default'
         ];
     }
 }

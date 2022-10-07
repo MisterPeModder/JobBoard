@@ -112,6 +112,8 @@ return new class extends Migration {
                 ->foreignId('icon_id')
                 ->nullable()
                 ->constrained('blobs');
+            $table->binary('password');
+            $table->rememberToken();
         });
 
         // Reverse update companies.icon_id foreign key to poin back to blobs
