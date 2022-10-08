@@ -13,6 +13,8 @@ class Company extends Model
         'name',
         'location',
         'description',
+        'owner_id',
+        'icon_id',
     ];
 
     /**

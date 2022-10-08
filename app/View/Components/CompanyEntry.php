@@ -30,7 +30,7 @@ class CompanyEntry extends Component
             $this->location = $company->location;
         }
 
-        $this->iconUrl = $company->icon->getUrl();
+        $this->iconUrl = $company->icon?->getUrl();
     }
 
     /**

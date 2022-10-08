@@ -3,17 +3,21 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCompanyRequest extends FormRequest
 {
+    const MAX_DESCRIPTION_SIZE = 4096;
+
+    const MAX_ICON_SIZE = 4000;
+
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        // can only create company if user doesn't already belong to one
+        return Auth::user()?->comapny == null;
     }
 
     /**
@@ -24,7 +28,10 @@ class StoreCompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'string|required|filled',
+            'location' => 'string|nullable',
+            'description' => 'string|required|filled|max:'.self::MAX_DESCRIPTION_SIZE,
+            'icon' => 'file|mimes:jpg,png,webp,pdf|max:'.self::MAX_ICON_SIZE,
         ];
     }
 }

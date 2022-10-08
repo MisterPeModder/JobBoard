@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use App\Models\Asset;
 use App\Models\Company;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CompanyController extends Controller
 {
     const COMPANIES_PER_PAGE = 10;
+
+    public function __construct()
+    {
+        // require authentification except for index and show, because company info is public
+        $this->middleware('auth')->except(['index', 'show']);
+    }
 
     /**
      * Display a listing of the resource.
@@ -32,7 +42,7 @@ class CompanyController extends Controller
             ->limit(self::COMPANIES_PER_PAGE)
             ->get();
 
-        return response()->view('company-list', [
+        return response()->view('company.list', [
             'companies' => $companies,
             'currentPage' => $currentPage,
             'maxPage' => $maxPage,
@@ -41,18 +51,55 @@ class CompanyController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create(): Response
+    public function create()
     {
-        abort(404);
+        $company = Auth::user()?->company;
+
+        // if user already belongs to a company, redirect them to the edit menu
+        if ($company != null) {
+            return redirect()->route('companies.edit', ['company' => $company->id]);
+        }
+
+        return response()->view('company.create');
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreCompanyRequest $request): Response
+    public function store(StoreCompanyRequest $request)
     {
-        abort(404);
+        $companyId = DB::transaction(function () use ($request) {
+            $validated = $request->validated();
+            /** @var User */
+            $owner = Auth::user();
+
+            $company = Company::create([
+                'name' => $validated['name'],
+                'location' => $validated['location'],
+                'description' => $validated['description'],
+            ]);
+            $company->owner()->save($owner);
+
+            $owner->company()->associate($company);
+            $owner->save();
+
+            if ($request->hasFile('icon')) {
+                $icon = Asset::factory()->storeFile($request->file('icon'), "company_$company->id")->create();
+                $company->icon()->save($icon);
+                Log::info("Created icon (#$icon->id) of company #$company->id");
+            }
+
+            Log::info("Company (#$company->id) created by user #$owner->id");
+
+            return $company->id;
+        });
+
+        return redirect()->route('companies.show', ['company' => $companyId]);
     }
 
     /**

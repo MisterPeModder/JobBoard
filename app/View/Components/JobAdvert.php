@@ -62,7 +62,7 @@ class JobAdvert extends Component
             $this->salaryType = 'salary_type.'.$advert->salary_type->value;
         }
 
-        $this->iconUrl = $advert->company->icon->getUrl();
+        $this->iconUrl = $advert->company->icon?->getUrl();
     }
 
     /**

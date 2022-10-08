@@ -1,4 +1,4 @@
-<x-main-layout title="Apply - Job Board" script="resources/js/jobApplication.ts">
+<x-main-layout :title="__('advert.apply.title')" script="resources/js/jobApplication.ts">
     <main
         class="mx-auto p-2 my-2 w-11/12 md:w-10/12 lg:w-9/12 bg-l-bgr-content rounded-md border-2 shadow-md overflow-hidden flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
         <h1 class="font-semibold">{{ $advert->title }}</h1>
