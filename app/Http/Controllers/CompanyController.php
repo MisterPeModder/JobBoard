@@ -128,9 +128,16 @@ class CompanyController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company): Response
+    public function destroy(Company $company)
     {
-        abort(404);
+        if ($company->owner == null || $company->owner->id != Auth::user()?->id) {
+            abort(404);
+        }
+        $company->delete();
+
+        return redirect()->route('companies.index');
     }
 }
