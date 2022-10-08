@@ -42,7 +42,7 @@ class CompanyController extends Controller
             ->limit(self::COMPANIES_PER_PAGE)
             ->get();
 
-        return response()->view('company.list', [
+        return response()->view('companies.list', [
             'companies' => $companies,
             'currentPage' => $currentPage,
             'maxPage' => $maxPage,
@@ -63,7 +63,7 @@ class CompanyController extends Controller
             return redirect()->route('companies.edit', ['company' => $company->id]);
         }
 
-        return response()->view('company.create');
+        return response()->view('companies.create');
     }
 
     /**
@@ -105,9 +105,9 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Company $company)
+    public function show(Company $company): Response
     {
-        abort(404);
+        return response()->view('companies.show', ['company' => $company]);
     }
 
     /**
@@ -133,7 +133,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        if ($company->owner == null || $company->owner->id != Auth::user()?->id) {
+        if (! $company->canUserEdit(Auth::user())) {
             abort(404);
         }
         $company->delete();

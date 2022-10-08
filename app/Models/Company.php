@@ -45,4 +45,17 @@ class Company extends Model
     {
         return $this->hasMany(Advert::class);
     }
+
+    public function canUserEdit(?User $user): bool
+    {
+        if ($user === null) {
+            return false;
+        }
+        // admins can always edit companies
+        if ($user->is_admin) {
+            return true;
+        }
+        // user can edit if they are the owner
+        return $this->owner !== null && $this->owner->id === $user->id;
+    }
 }

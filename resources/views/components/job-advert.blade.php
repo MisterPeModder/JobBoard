@@ -11,7 +11,7 @@
             @endisset
             <div>
                 <h2 class="font-semibold">{{ $title }}</h2>
-                <div class="hover:no-underline">{{ $company }}</div>
+                <a href="{{ $companyUrl }}" class="hover:underline">{{ $company }}</a>
                 @isset($location)
                     <div>{{ $location }}</div>
                 @endisset
