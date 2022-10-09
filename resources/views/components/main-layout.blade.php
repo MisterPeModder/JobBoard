@@ -36,6 +36,12 @@
                         class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
                         Sign in</a>
                 @endguest
+                @auth
+                    {{-- "My profile" widget, will only display when logged --}}
+                    <a href="{{ route('users.show', Auth::user()) }}"
+                        class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                        My profile</a>
+                @endauth
                 <img src="{{ Vite::asset('resources/images/hamburger.svg') }}" alt="menu" class="lg:hidden">
             </span>
         </span>
