@@ -1,6 +1,6 @@
-<x-main-layout>
+<x-blank-layout>
     <x-auth-card>
-        <form method="POST" action="{{ route('users.update', $user->id) }}">
+        <form method="POST" action="{{ route('users.update', Auth::user()) }}">
             @method('PUT')
             
             <!-- Name -->
@@ -59,4 +59,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-main-layout>
+</x-blank-layout>
