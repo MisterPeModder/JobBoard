@@ -5,6 +5,10 @@
 --}}
 @props(['initial' => null])
 
+@pushonce('scripts')
+    @vite(['resources/js/components/imageInput.ts'])
+@endpushonce
+
 <div class="w-full relative cursor-pointer">
     <div class="image-input aspect-square h-full p-1 border-l-brd/10 hover:border-highlight-light border-dashed border-4 rounded-xl bg-contain bg-no-repeat bg-center cursor-pointer hover:italic bg-origin-content"
         style="{{ $initial !== null ? 'background-image: url(' . $initial . ')' : '' }}">

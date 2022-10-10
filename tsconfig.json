@@ -12,5 +12,6 @@
     },
     "include": [
         "./resources/js/*.ts",
+        "./resources/js/components/*.ts"
     ]
 }

@@ -1,10 +1,10 @@
 /**
- * Powers the image-preview capabilities of the <x-image-input> component.
+ * Powers the image-preview capabilities of the <x-exclusive-details> component.
  * 
  * @module exclusiveDetails
  */
 
-import { differentFrom } from '../functional';
+import { differentFrom, initModule } from '../functional';
 
 /**
  * Attach events to the given image input component.
@@ -26,9 +26,9 @@ export function attach(details: HTMLDetailsElement, allDetails: HTMLDetailsEleme
     });
 }
 
-export function init() {
+export const init = initModule(() => {
     const allDetails = Array.from(document.querySelectorAll('details.exclusive')) as HTMLDetailsElement[];
     for (let details of allDetails) {
         attach(details, allDetails)
     }
-}
+});

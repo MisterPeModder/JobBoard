@@ -4,6 +4,8 @@
  * @module imageInput
  */
 
+import { initModule } from '../functional';
+
 /**
  * Attach events to the given image input component.
  */
@@ -36,7 +38,7 @@ export function attach(imageInput: HTMLElement) {
     field.ondragover = event => event.preventDefault();
 }
 
-export function init() {
+export const init = initModule(() => {
     // attach events to all <x-image-input> components currently on the page
     document.querySelectorAll('.image-input').forEach(imageInput => attach(imageInput as HTMLElement));
-}
+});

@@ -20,6 +20,7 @@
     @isset($script)
         @vite([$script])
     @endisset
+    @stack('scripts')
 </head>
 
 <body class="font-sans antialiased bg-l-bgr-main text-gray-700">

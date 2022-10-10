@@ -12,7 +12,7 @@ if ($company->location !== null) {
 $iconUrl = $company->icon?->getUrl();
 @endphp
 
-<x-main-layout :title="__('company.list.title')" script="resources/js/company.ts">
+<x-main-layout :title="__('company.list.title')">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
         <span class="flex flex-row justify-start">
             <x-primary-link href="{{ route('companies.show', $company->id) }}">

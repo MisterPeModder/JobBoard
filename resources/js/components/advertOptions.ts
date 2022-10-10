@@ -1,5 +1,10 @@
-import { findParent, sameAs } from './functional';
-import * as exclusiveDetails from './components/exclusiveDetails';
+/**
+ * Powers the <x-advert-options> component
+ * 
+ * @module advertOptions
+ */
+
+import { findParent, initModule, sameAs } from '../functional';
 
 class JobOptions {
     private dropdown: HTMLElement;
@@ -76,13 +81,8 @@ class JobOptions {
 export let options: JobOptions | null = null;
 
 /**
- * Initializes the jobAdverts module.
+ * Initializes the advertOptions component module.
  */
-function init() {
+export const init = initModule(() => {
     options = new JobOptions();
-    exclusiveDetails.init();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    init();
 });

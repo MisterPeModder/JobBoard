@@ -26,7 +26,7 @@
             <li>{{ $shortDescLine }}</li>
         @endforeach
     </ol>
-    <details class="text-sm relative exclusive">
+    <x-exclusive-details class="text-sm relative">
         <summary data-open="{{ __('advert.details.open') }}" data-close="{{ __('advert.details.close') }}"
             class="marker-rotating marker-rotating-highlight text-base text-highlight hover:underline cursor-pointer">
         </summary>
@@ -64,9 +64,9 @@
             </x-primary-link>
             <button id="{{ 'advert-' . $id . '-fav' }}" title="{{ __('advert.favorite') }}" type="button"
                 aria-label="save to favorites"
-                class="bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">
-                @svg('resources/images/star-outline.svg', 'fill-white hover:fill-yellow-200 ease-in-out duration-150')
+                class="group bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">
+                @svg('resources/images/star-outline.svg', 'fill-white group-hover:fill-yellow-200 ease-in-out duration-150')
             </button>
         </span>
-    </details>
+    </x-exclusive-details>
 </div>

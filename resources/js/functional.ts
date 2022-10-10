@@ -26,6 +26,11 @@ export function findParent(element: Element, predicate: (parent: Element) => boo
 /** A function that tests its argument and returns a boolean. */
 export type Predicate<T> = (value: T) => boolean;
 
+export interface ModuleInitializer {
+    (): void;
+    initialized?: boolean;
+}
+
 /**
  * @returns Strict equality predicate.
  */
@@ -38,4 +43,27 @@ export function sameAs(value: unknown): Predicate<unknown> {
  */
 export function differentFrom(value: unknown): Predicate<unknown> {
     return (other) => other !== value;
+}
+
+/**
+ * Registers a module initializer.
+ * 
+ * Initializers will automatically call themselves on DOM load,
+ * but can be manually called.
+ * 
+ * @param initFn The function that will be executed to initilize the module.
+ * @returns The module initializer function.
+ */
+export function initModule(initFn: () => void): ModuleInitializer {
+    const wrapper: ModuleInitializer = function () {
+        if ('initialized' in wrapper && wrapper.initialized === true)
+            return;
+        try {
+            initFn();
+        } finally {
+            wrapper.initialized = true;
+        }
+    }
+    document.addEventListener("DOMContentLoaded", wrapper);
+    return wrapper;
 }

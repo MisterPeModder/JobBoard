@@ -8,8 +8,9 @@ export default defineConfig({
                 'resources/css/common.css',
                 'resources/js/common.ts',
 
-                'resources/js/jobApplication.ts',
-                'resources/js/jobAdverts.ts'
+                'resources/js/components/advertOptions.ts',
+                'resources/js/components/exclusiveDetails.ts',
+                'resources/js/components/imageInput.ts',
             ],
             refresh: true,
         }),

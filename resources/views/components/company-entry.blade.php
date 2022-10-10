@@ -16,13 +16,13 @@
             @isset($location)
                 <div>{{ $location }}</div>
             @endisset
-            <details class="exclusive text-sm relative">
+            <x-exclusive-details class="text-sm relative">
                 <summary
                     {{ $attributes->merge(['data-open' => __('company.details.open'), 'data-close' => __('company.details.close')]) }}
                     class="marker-rotating marker-rotating-highlight text-base text-highlight hover:underline cursor-pointer">
                 </summary>
                 <p class="flex flex-col divide-y divide-solid divide-l-brd/10 gap-1">{{ $description }}</p>
-            </details>
+            </x-exclusive-details>
         </div>
     </span>
 </div>
