@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -17,7 +18,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        abort(403);
+        $users = DB::table('users')->get();
+ 
+        return view('user.index', ['users' => $users]);
     }
 
     /**
@@ -67,8 +70,6 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        echo $request->name;
-        
         //user is trying to access other one's data, access denied
         if (Auth::user() != $user) {
             abort(404);
@@ -78,7 +79,7 @@ class UserController extends Controller
 
         
 
-        return redirect()->route('users.show')->withSuccess(__('User updated successfully.'));
+        return redirect()->route('users.show', $user)->withSuccess(__('User updated successfully.'));
     }
 
     /**

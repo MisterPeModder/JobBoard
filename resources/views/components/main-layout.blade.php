@@ -1,6 +1,6 @@
 {{-- Main layout of the JobBoard pages --}}
 
-@props(['title' => null, 'script' => null])
+@props(['title' => null, 'script' => null, 'showprofile' => true])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -30,6 +30,7 @@
                 <a id="logo" href="/" class="text-2xl font-bold">JobBoard</a>
             </span>
             <span class="flex flex-row gap-2">
+                @if ($showprofile)
                 @guest
                     {{-- "Sign In" widget, will only display when not logged --}}
                     <a href="{{ route('register') }}"
@@ -41,6 +42,16 @@
                     <a href="{{ route('users.show', Auth::user()) }}"
                         class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
                         My profile</a>
+                @endauth
+                @endif
+                @auth
+                    {{-- "log out" widget, will only display when logged --}}
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();"
+                            class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                            Log out</a>
+                    </form>
                 @endauth
                 <img src="{{ Vite::asset('resources/images/hamburger.svg') }}" alt="menu" class="lg:hidden">
             </span>
