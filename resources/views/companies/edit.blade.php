@@ -10,6 +10,8 @@ if ($company->location !== null) {
 }
 
 $iconUrl = $company->icon?->getUrl();
+$members = App\Models\User::where('company_id', $company->id)->get();
+$user = Illuminate\Support\Facades\Auth::user();
 @endphp
 
 <x-main-layout :title="__('company.list.title')">
@@ -20,12 +22,14 @@ $iconUrl = $company->icon?->getUrl();
                 @tr('company.show')
             </x-primary-link>
         </span>
+
+        {{-- General Information Section --}}
         <form method="POST" action="{{ route('companies.update', $company->id) }}" enctype="multipart/form-data"
             class="relative bg-l-bgr-content rounded-md p-2 w-full border border-l-brd/10">
             @method('PATCH')
             @csrf
 
-            <span class="w-full flex flex-row flex-wrap">
+            <div class="w-full flex flex-row flex-wrap">
                 <div
                     class="w-2/5 md:w-1/6 lg:w-1/12 flex flex-col md:items-center pb-2 md:pb-0 md:pr-2 md:text-center gap-2">
                     @isset($iconUrl)
@@ -72,15 +76,42 @@ $iconUrl = $company->icon?->getUrl();
                         @tr('company.edit')
                     </x-primary-button>
                 </div>
-            </span>
+            </div>
         </form>
+
+        {{-- Members Section --}}
+        <div class="relative bg-l-bgr-content rounded-md p-2 w-full border border-l-brd/10 flex flex-col gap-2">
+            <h2 class="font-semibold pb-2">{{ __('company.members.edit', ['count' => $members->count()]) }}</h2>
+            <div class="flex flex-row flex-wrap gap-2">
+                @foreach ($members as $member)
+                    <x-company-member :member="$member" :editable="true" />
+                @endforeach
+            </div>
+
+            <form method="POST" action="{{ route('companies.edit.member.add', $company) }}">
+                @csrf
+
+                <x-input-label for="new-member" :value="__('form.field.new_member') . '*'" />
+                <x-text-input id="new-member" class="mt-1" type="text" name="new-member" :value="old('new-member')"
+                    placeholder="user@example.com" required autofocus />
+
+                <x-primary-button class="ml-4">
+                    @tr('company.members.add')
+                </x-primary-button>
+                <x-input-error field="new-member" class="mt-2" />
+            </form>
+        </div>
+
+        {{-- Danger Zone Section --}}
         <form method="POST" action="{{ route('companies.update', $company->id) }}" enctype="multipart/form-data"
             class="relative bg-l-bgr-content rounded-md p-2 w-full border border-l-brd/10">
             @method('DELETE')
-            <x-primary-button class="ml-4">
-                delete
-            </x-primary-button>
             @csrf
+
+            <h2 class="font-semibold pb-2">{{ 'Danger Zone' }}</h2>
+            <x-primary-button class="ml-4" :disabled="!$user?->can('delete', $company)">
+                @tr('company.delete')
+            </x-primary-button>
         </form>
     </main>
 </x-main-layout>

@@ -10,10 +10,11 @@ if ($company->location !== null) {
 }
 
 $iconUrl = $company->icon?->getUrl();
+$members = App\Models\User::where('company_id', $company->id)->get();
 @endphp
 
 <x-main-layout :title="__('company.list.title')">
-    <main class="container mx-auto py-2 divide-y divide-l-brd/10 flex flex-col gap-2 px-2">
+    <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
         <span class="flex flex-row flex-wrap justify-start gap-2">
             @can('update', $company)
                 <x-primary-link href="{{ route('companies.edit', $company->id) }}">
@@ -25,7 +26,7 @@ $iconUrl = $company->icon?->getUrl();
                 @tr('company.adverts')
             </x-primary-link>
         </span>
-        <div class="relative bg-l-bgr-content rounded-md p-2 w-full border border-l-brd/10">
+        <section class="relative bg-l-bgr-content rounded-md p-2 w-full border border-l-brd/10">
             <span class="w-full flex flex-row flex-wrap">
                 @isset($iconUrl)
                     <div
@@ -35,7 +36,7 @@ $iconUrl = $company->icon?->getUrl();
                     </div>
                 @endisset
                 <div
-                    class="w-full md:w-5/6 lg:w-11/12 border-t md:border-t-0 md:border-l border-l-brd/10 pt-2 md:pt-0 pl-2">
+                    class="w-full md:w-5/6 lg:w-11/12 border-t md:border-t-0 md:border-l border-l-brd/10 pt-2 md:pt-0 pl-2 flex flex-col gap-2">
                     <h1 class="font-bold text-xl">{{ $name }}</h1>
                     @isset($location)
                         <div>
@@ -47,8 +48,16 @@ $iconUrl = $company->icon?->getUrl();
                         <h2 class="font-semibold">Description</h2>
                         <p class="flex flex-col divide-y divide-solid divide-l-brd/10 gap-1">{{ $description }}</p>
                     </div>
+                    <div>
+                        <h2 class="font-semibold">{{ __('company.members', ['count' => $members->count()]) }}</h2>
+                        <div class="flex flex-row flex-wrap gap-2">
+                            @foreach ($members as $member)
+                                <x-company-member :member="$member" />
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </span>
-        </div>
+        </section>
     </main>
 </x-main-layout>

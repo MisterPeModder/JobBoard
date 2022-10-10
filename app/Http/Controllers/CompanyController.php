@@ -6,12 +6,13 @@ use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Asset;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -182,7 +183,7 @@ class CompanyController extends Controller
             return $company->id;
         });
 
-        return redirect()->route('companies.show', $company);
+        return redirect()->route('companies.edit', $company);
     }
 
     /**
@@ -197,5 +198,47 @@ class CompanyController extends Controller
         $company->delete();
 
         return redirect()->route('companies.index');
+    }
+
+    /**
+     * Adds a new member to the company.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addMember(Company $company, Request $request)
+    {
+        $validated = $request->validate([
+            'new-member' => ['required', 'email', 'exists:users,email'],
+        ]);
+
+        $candidate = User::where('email', $validated['new-member'])->first();
+
+        Validator::validate(['candidate' => $candidate], [
+            'candidate' => [
+                function ($attribute, $value, $fail) {
+                    if ($value->company !== null) {
+                        $fail('validation.uppercase')->translate();
+                    }
+                },
+            ],
+        ]);
+
+        $candidate->company()->associate($company);
+        $candidate->save();
+
+        return redirect()->route('companies.edit', $company->fresh());
+    }
+
+    /**
+     * Removes an existing member from the company.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeMember(Company $company, User $member, Request $request)
+    {
+        $member->company()->dissociate($company);
+        $member->save();
+
+        return redirect()->route('companies.edit', $company->fresh());
     }
 }

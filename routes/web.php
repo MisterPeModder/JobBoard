@@ -26,3 +26,10 @@ Route::resources([
     'companies' => CompanyController::class,
     'jobs.apply' => JobApplicationController::class,
 ]);
+
+Route::post('/companies/{company}/edit/member', [CompanyController::class, 'addMember'])
+    ->can('update', 'company')
+    ->name('companies.edit.member.add');
+Route::delete('/companies/{company}/edit/member/{member}', [CompanyController::class, 'removeMember'])
+    ->can('update', 'company')
+    ->name('companies.edit.member.remove');
