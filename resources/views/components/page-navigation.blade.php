@@ -1,6 +1,6 @@
 {{-- Page button list --}}
 
-<nav class="w-2/3 mx-auto flex flex-row items-center justify-center gap-2 pt-2">
+<nav {{ $attributes->merge(['class' => 'w-2/3 mx-auto flex flex-row items-center justify-center gap-2 pt-2']) }}>
     @php
         // Styling
         $baseClasses = 'w-9 h-9 text-white ease-in-out duration-150 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold';

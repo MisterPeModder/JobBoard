@@ -9,13 +9,13 @@
             @csrf
 
             <div class="w-2/5 md:w-1/6 flex flex-col md:items-center pb-2 md:pb-0 md:pr-2 md:text-center gap-2">
-                <x-input-label for="name" :value="__('form.field.icon')" />
+                <x-input-label for="icon" :value="__('form.field.icon')" />
                 <x-image-input id="icon" name="icon" />
                 <x-input-error field="icon" class="mt-2" />
             </div>
 
             <div class="w-full md:w-5/6 border-t md:border-t-0 md:border-l border-l-brd/10 pt-2 md:pt-0 pl-2">
-                <!-- Name -->
+                {{-- Name --}}
                 <div>
                     <x-input-label for="name" :value="__('form.field.name') . '*'" />
                     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
@@ -23,7 +23,7 @@
                     <x-input-error field="name" class="mt-2" />
                 </div>
 
-                <!-- Location -->
+                {{-- Location --}}
                 <div class="mt-4">
                     <x-input-label for="location" :value="__('form.field.location')" />
                     <x-text-input id="location" class="block mt-1 w-full" type="text" name="location"
@@ -31,6 +31,7 @@
                     <x-input-error field="location" class="mt-2" />
                 </div>
 
+                {{-- Description --}}
                 <div class="mt-4">
                     <x-input-label for="description" :value="__('form.field.description') . '*'" />
                     <x-text-area id="description" class="block mt-1 w-full" name="description">

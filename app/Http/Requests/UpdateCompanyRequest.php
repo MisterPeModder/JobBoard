@@ -13,7 +13,7 @@ class UpdateCompanyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true; // already checked in CompanyController::update
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateCompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'string|required|filled',
+            'location' => 'string|nullable',
+            'description' => 'string|required|filled|max:'.StoreCompanyRequest::MAX_DESCRIPTION_SIZE,
+            'icon' => 'nullable|file|mimes:jpg,png,webp,pdf|max:'.StoreCompanyRequest::MAX_ICON_SIZE,
         ];
     }
 }

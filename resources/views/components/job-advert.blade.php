@@ -26,7 +26,7 @@
             <li>{{ $shortDescLine }}</li>
         @endforeach
     </ol>
-    <details class="text-sm relative">
+    <details class="text-sm relative exclusive">
         <summary data-open="{{ __('advert.details.open') }}" data-close="{{ __('advert.details.close') }}"
             class="marker-rotating marker-rotating-highlight text-base text-highlight hover:underline cursor-pointer">
         </summary>

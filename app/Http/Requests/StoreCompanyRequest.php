@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class StoreCompanyRequest extends FormRequest
 {
@@ -16,8 +15,7 @@ class StoreCompanyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // can only create company if user doesn't already belong to one
-        return Auth::user()?->comapny == null;
+        return true; // already checked in CompanyController::store
     }
 
     /**

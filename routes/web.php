@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [JobListController::class, 'index'])->name('jobs');
+Route::get('/', [JobListController::class, 'index'])->name('jobs.index');
 
 Route::resources([
     'assets' => AssetController::class,

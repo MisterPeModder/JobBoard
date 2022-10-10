@@ -23,7 +23,7 @@ class JobApplicationController extends Controller
      */
     public function index()
     {
-        return redirect()->route('jobs');
+        return redirect()->route('jobs.index');
     }
 
     /**
@@ -78,7 +78,7 @@ class JobApplicationController extends Controller
             Log::info("Application (#$application->id) filed for advert #$job->id with user #$user->id, ");
         });
 
-        return redirect()->route('jobs', ['applied' => 1]);
+        return redirect()->route('jobs.index', ['applied' => 1]);
     }
 
     /**

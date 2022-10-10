@@ -5,16 +5,18 @@
 
     <span class="flex flex-row gap-2">
         @isset($iconUrl)
-            <img src={{ $iconUrl }} alt="icon"
-                class="aspect-square h-20 p-1 border border-l-brd/10 border-solid rounded-xl">
+            <a href="{{ route('companies.show', $company->id) }}" class="font-semibold hover:underline shrink-0">
+                <img src={{ $iconUrl }} alt="icon"
+                    class="aspect-square h-20 p-1 border border-l-brd/10 border-solid rounded-xl">
+            </a>
         @endisset
         <div class="border-l border-1 border-l-brd/10 pl-2">
-            <a href="{{ route('companies.show', ['company' => $company->id]) }}"
+            <a href="{{ route('companies.show', $company->id) }}"
                 class="font-semibold hover:underline">{{ $name }}</a>
             @isset($location)
                 <div>{{ $location }}</div>
             @endisset
-            <details class="text-sm relative">
+            <details class="exclusive text-sm relative">
                 <summary
                     {{ $attributes->merge(['data-open' => __('company.details.open'), 'data-close' => __('company.details.close')]) }}
                     class="marker-rotating marker-rotating-highlight text-base text-highlight hover:underline cursor-pointer">

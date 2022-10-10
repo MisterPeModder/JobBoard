@@ -66,7 +66,7 @@ class CompanyController extends Controller
             // if user already belongs to a company, redirect them to the edit menu
             $company = $request->user()->company;
             if ($company !== null) {
-                return redirect()->route('companies.edit', ['company' => $company->id]);
+                return redirect()->route('companies.edit', $company->id);
             }
 
             return $response;
@@ -87,12 +87,13 @@ class CompanyController extends Controller
         $companyId = DB::transaction(function () use ($request) {
             $validated = $request->validated();
             /** @var User */
-            $owner = Auth::user();
+            $owner = $request->user();
 
             $company = Company::create([
                 'name' => $validated['name'],
                 'location' => $validated['location'],
                 'description' => $validated['description'],
+                'owner_id' => $owner->id,
             ]);
             $company->owner()->save($owner);
 
@@ -101,9 +102,14 @@ class CompanyController extends Controller
 
             if ($request->hasFile('icon')) {
                 $icon = Asset::factory()->storeFile($request->file('icon'), "company_$company->id")->create();
+                $company->icon_id = $icon->id;
                 $company->icon()->save($icon);
+                $icon->company()->associate($company);
+                $icon->save();
                 Log::info("Created icon (#$icon->id) of company #$company->id");
             }
+
+            $company->save();
 
             Log::info("Company (#$company->id) created by user #$owner->id");
 
@@ -135,11 +141,48 @@ class CompanyController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCompanyRequest $request, Company $company): Response
+    public function update(UpdateCompanyRequest $request, Company $company)
     {
         $this->authorize('update', $company);
-        abort(404);
+
+        DB::transaction(function () use ($request, $company) {
+            $validated = $request->validated();
+            /** @var User */
+            $owner = $request->user();
+
+            $company->fill([
+                'name' => $validated['name'],
+                'location' => $validated['location'],
+                'description' => $validated['description'],
+            ]);
+            $company->save();
+
+            if ($request->hasFile('icon')) {
+                $oldIcon = $company->icon;
+                if ($oldIcon !== null) {
+                    $company->icon()->delete();
+                }
+
+                $icon = Asset::factory()->storeFile($request->file('icon'), "company_$company->id")->create();
+                $company->icon_id = $icon->id;
+                $company->icon()->save($icon);
+                $icon->company()->associate($company);
+                $icon->save();
+                Log::info("Created icon (#$icon->id) of company #$company->id");
+            }
+
+            $company->save();
+            $company->refresh();
+
+            Log::info("Company (#$company->id) updated by user #$owner->id");
+
+            return $company->id;
+        });
+
+        return redirect()->route('companies.show', $company);
     }
 
     /**
