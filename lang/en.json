@@ -23,6 +23,7 @@
     "company.members.add": "Add Member",
     "company.members.delete": "remove member",
     "company.members.edit": "Edit Members (:count)",
+    "company.members.transfer_ownership": "transfer ownership",
     "company.show": "Company Overview",
     "component.image_input.hint": "click or drop image",
     "form.field.attachments": "Attachments",

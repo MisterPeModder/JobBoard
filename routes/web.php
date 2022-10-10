@@ -33,3 +33,6 @@ Route::post('/companies/{company}/edit/member', [CompanyController::class, 'addM
 Route::delete('/companies/{company}/edit/member/{member}', [CompanyController::class, 'removeMember'])
     ->can('update', 'company')
     ->name('companies.edit.member.remove');
+Route::get('/companies/{company}/edit/set-owner/{owner}', [CompanyController::class, 'setOwner'])
+    ->can('change-owner', 'company')
+    ->name('companies.edit.set-owner');

@@ -30,7 +30,7 @@
                 <span class="logo-dot"></span>
                 <a id="logo" href="/" class="text-2xl font-bold">JobBoard</a>
             </span>
-            <span class="flex flex-row gap-2">
+            <span class="flex flex-row gap-2 items-center">
                 @if ($companies_link)
                     <a href="{{ route('companies.index') }}" class="hidden lg:block underline font-semibold">
                         @tr('company.list.title')

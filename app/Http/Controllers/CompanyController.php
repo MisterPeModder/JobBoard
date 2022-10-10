@@ -223,8 +223,10 @@ class CompanyController extends Controller
             ],
         ]);
 
-        $candidate->company()->associate($company);
-        $candidate->save();
+        DB::transaction(function () use ($company, $candidate) {
+            $candidate->company()->associate($company);
+            $candidate->save();
+        });
 
         return redirect()->route('companies.edit', $company->fresh());
     }
@@ -234,10 +236,31 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function removeMember(Company $company, User $member, Request $request)
+    public function removeMember(Company $company, User $member)
     {
-        $member->company()->dissociate($company);
-        $member->save();
+        DB::transaction(function () use ($company, $member) {
+            $member->company()->dissociate($company);
+            $member->save();
+        });
+
+        return redirect()->route('companies.edit', $company->fresh());
+    }
+
+    /**
+     * Transfers ownership of the company
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function setOwner(Company $company, User $owner)
+    {
+        DB::transaction(function () use ($company, $owner) {
+            if ($company->owner !== null) {
+                $company->update(['owner_id' => null]);
+            }
+
+            $company->owner()->save($owner);
+            $company->update(['owner_id' => $owner->id]);
+        });
 
         return redirect()->route('companies.edit', $company->fresh());
     }
