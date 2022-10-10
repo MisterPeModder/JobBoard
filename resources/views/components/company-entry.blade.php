@@ -9,7 +9,8 @@
                 class="aspect-square h-20 p-1 border border-l-brd/10 border-solid rounded-xl">
         @endisset
         <div class="border-l border-1 border-l-brd/10 pl-2">
-            <h2 class="font-semibold">{{ $name }}</h2>
+            <a href="{{ route('companies.show', ['company' => $company->id]) }}"
+                class="font-semibold hover:underline">{{ $name }}</a>
             @isset($location)
                 <div>{{ $location }}</div>
             @endisset

@@ -17,8 +17,7 @@
                 @endisset
             </div>
         </div>
-        <button {{ $attributes->merge(['id' => "advert-$id-options"]) }} type="button" aria-label="advert options"
-            class="advert-options">
+        <button id="{{ 'advert-' . $id . '-options' }}" type="button" aria-label="advert options" class="advert-options">
             <img src="{{ Vite::asset('resources/images/three-dots.svg') }}" alt="advert options">
         </button>
     </span>
@@ -28,8 +27,7 @@
         @endforeach
     </ol>
     <details class="text-sm relative">
-        <summary
-            {{ $attributes->merge(['data-open' => __('advert.details.open'), 'data-close' => __('advert.details.close')]) }}
+        <summary data-open="{{ __('advert.details.open') }}" data-close="{{ __('advert.details.close') }}"
             class="marker-rotating marker-rotating-highlight text-base text-highlight hover:underline cursor-pointer">
         </summary>
         <div class="flex flex-col divide-y divide-solid divide-l-brd/10 gap-1">
@@ -60,12 +58,12 @@
             </div>
         </div>
         <span class="mt-2 flex flex-row gap-2 items-center">
-            <a {{ $attributes->merge(['id' => "advert-$id-apply", 'title' => __('advert.apply'), 'href' => route('jobs.apply.create', $id)]) }}
-                class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">
+            <x-primary-link id="{{ 'advert-' . $id . '-apply' }}" title="{{ __('advert.apply') }}"
+                href="{{ route('jobs.apply.create', $id) }}">
                 @tr('advert.apply')
-            </a>
-            <button {{ $attributes->merge(['id' => "advert-$id-fav", 'title' => __('advert.favorite')]) }}
-                type="button" aria-label="save to favorites"
+            </x-primary-link>
+            <button id="{{ 'advert-' . $id . '-fav' }}" title="{{ __('advert.favorite') }}" type="button"
+                aria-label="save to favorites"
                 class="bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">
                 @svg('resources/images/star-outline.svg', 'fill-white hover:fill-yellow-200 ease-in-out duration-150')
             </button>

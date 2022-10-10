@@ -6,9 +6,11 @@ use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Asset;
 use App\Models\Company;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class CompanyController extends Controller
@@ -28,6 +30,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Company::class);
+
         $currentPage = $_GET['page'] ?? '1';
         $maxPage = ceil(Company::all()->count() / self::COMPANIES_PER_PAGE);
 
@@ -54,13 +58,18 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $company = Auth::user()?->company;
+        $response = Gate::inspect('create', Company::class);
 
-        // if user already belongs to a company, redirect them to the edit menu
-        if ($company != null) {
-            return redirect()->route('companies.edit', ['company' => $company->id]);
+        if ($response->denied()) {
+            // if user already belongs to a company, redirect them to the edit menu
+            $company = $request->user()->company;
+            if ($company !== null) {
+                return redirect()->route('companies.edit', ['company' => $company->id]);
+            }
+
+            return $response;
         }
 
         return response()->view('companies.create');
@@ -73,6 +82,8 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
+        $this->authorize('create', Company::class);
+
         $companyId = DB::transaction(function () use ($request) {
             $validated = $request->validated();
             /** @var User */
@@ -107,6 +118,8 @@ class CompanyController extends Controller
      */
     public function show(Company $company): Response
     {
+        $this->authorize('view', $company);
+
         return response()->view('companies.show', ['company' => $company]);
     }
 
@@ -115,7 +128,9 @@ class CompanyController extends Controller
      */
     public function edit(Company $company): Response
     {
-        abort(404);
+        $this->authorize('update', $company);
+
+        return response()->view('companies.edit', ['company' => $company]);
     }
 
     /**
@@ -123,6 +138,7 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company): Response
     {
+        $this->authorize('update', $company);
         abort(404);
     }
 
@@ -133,9 +149,8 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        if (! $company->canUserEdit(Auth::user())) {
-            abort(404);
-        }
+        $this->authorize('delete', $company);
+
         $company->delete();
 
         return redirect()->route('companies.index');

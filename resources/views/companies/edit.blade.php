@@ -14,15 +14,9 @@ $iconUrl = $company->icon?->getUrl();
 
 <x-main-layout :title="__('company.list.title')">
     <main class="container mx-auto py-2 divide-y divide-l-brd/10 flex flex-col gap-2 px-2">
-        <span class="flex flex-row flex-wrap justify-start gap-2">
-            @can('update', $company)
-                <x-primary-link href="{{ route('companies.edit', ['company' => $company->id]) }}">
-                    @svg('resources/images/gear.svg', 'fill-white mr-1')
-                    @tr('company.edit.title')
-                </x-primary-link>
-            @endcan
-            <x-primary-link href="#">
-                @tr('company.adverts')
+        <span class="flex flex-row justify-start">
+            <x-primary-link href="{{ route('companies.show', ['company' => $company->id]) }}">
+                &#10094; @tr('company.show')
             </x-primary-link>
         </span>
         <div class="relative bg-l-bgr-content rounded-md p-2 w-full border border-l-brd/10">
