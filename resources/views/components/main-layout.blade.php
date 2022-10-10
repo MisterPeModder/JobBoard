@@ -45,12 +45,12 @@
                 @endauth
                 @endif
                 @auth
-                    {{-- "log out" widget, will only display when logged --}}
+                    {{-- "Log out" widget, will only display when logged --}}
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();"
+                        <button type="submit"
                             class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                            Log out</a>
+                            Log out</button>
                     </form>
                 @endauth
                 <img src="{{ Vite::asset('resources/images/hamburger.svg') }}" alt="menu" class="lg:hidden">

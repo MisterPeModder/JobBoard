@@ -36,6 +36,9 @@
             <x-input-error field="phone_number" class="mt-2" />
 
             <div class="flex items-center justify-end mt-5">
+                <a href="{{ route('users.show', Auth::user()) }}" class="inline-flex items-center px-4 py-2 bg-highlight border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-highlight-light active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                    {{ __('Cancel') }}
+                </a>
                 <x-primary-button class="ml-5">
                     {{ __('Apply') }}
                 </x-primary-button>
