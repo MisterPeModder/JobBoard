@@ -1,4 +1,4 @@
-{{-- The list of companies in the 'GET /companies' route --}}
+{{-- Details about a single company --}}
 
 @php
 $id = $company->id;
@@ -16,11 +16,15 @@ $members = App\Models\User::where('company_id', $company->id)->get();
 <x-main-layout :title="__('company.list.title')">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
         <span class="flex flex-row flex-wrap justify-start gap-2">
+            <x-secondary-link href="{{ route('companies.index') }}" class="group">
+                @svg('resources/images/left-angle.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
+                @tr('company.list.title')
+            </x-secondary-link>
             @can('update', $company)
-                <x-primary-link href="{{ route('companies.edit', $company->id) }}">
-                    @svg('resources/images/gear.svg', 'fill-white mr-1')
+                <x-secondary-link href="{{ route('companies.edit', $company->id) }}" class="group">
+                    @svg('resources/images/gear.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
                     @tr('company.edit.title')
-                </x-primary-link>
+                </x-secondary-link>
             @endcan
             <x-primary-link href="{{ route('jobs.index', ['company' => $company->id]) }}">
                 @tr('company.adverts')

@@ -1,4 +1,4 @@
-{{-- The list of companies in the 'GET /companies' route --}}
+{{-- Edit properties of a company  --}}
 
 @php
 $id = $company->id;
@@ -17,10 +17,10 @@ $user = Illuminate\Support\Facades\Auth::user();
 <x-main-layout :title="__('company.list.title')">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
         <span class="flex flex-row justify-start">
-            <x-primary-link href="{{ route('companies.show', $company->id) }}">
-                @svg('resources/images/left-angle.svg', 'fill-white mr-1')
+            <x-secondary-link href="{{ route('companies.show', $company->id) }}" class="group">
+                @svg('resources/images/left-angle.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
                 @tr('company.show')
-            </x-primary-link>
+            </x-secondary-link>
         </span>
 
         {{-- General Information Section --}}

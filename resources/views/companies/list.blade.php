@@ -1,6 +1,6 @@
 {{-- The list of companies in the 'GET /companies' route --}}
 
-<x-main-layout :title="__('company.list.title')">
+<x-main-layout :title="__('company.list.title')" :companies_link="false">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
         <span class="flex flex-row justify-between">
             <h1 class="font-semibold text-xl">@tr('company.list.title')</h1>
