@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -64,22 +64,32 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\UpdateUserRequest  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
         //user is trying to access other one's data, access denied
         if (Auth::user() != $user) {
             abort(404);
         }
         Log::info("Updating User #$user->id data");
-        $user->update($request->validated());
+        //validate data with rules
+        $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'surname' => ['nullable', 'string','max:255'],
+            'email' => ['string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],// email must not be alrealy used, expect self
+            'phone_number' => ['nullable', 'string'],
+        ]);
+        //updating data
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->email = $request->email;
+        $user->phone_number = $request->phone_number;
+        $user->save();//saving it
 
-        
-
-        return redirect()->route('users.show', $user)->withSuccess(__('User updated successfully.'));
+        return redirect()->route('users.show', $user);
     }
 
     /**
@@ -97,4 +107,42 @@ class UserController extends Controller
 
         $user->delete();
     }
+
+    /**
+     * Display changing password page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changePassword()
+    {
+        return view('users/change-password');
+    }
+
+    /**
+     * Change the password by the new one
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request, User $user)
+    {
+        //user is trying to access other one's data, access denied
+        if (Auth::user() != $user) {
+            abort(404);
+        }
+
+        $request->validate([
+            'oldpassword' => 'required',
+            'newpassword' => 'required|confirmed'
+        ]);
+
+        if(Hash::check('oldpassword', $user->password))
+        {
+            abort(419);
+        }
+
+        return view('users/change-password');
+    }
+
 }

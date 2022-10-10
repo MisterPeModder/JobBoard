@@ -23,6 +23,10 @@ require __DIR__.'/auth.php';
 
 Route::get('/', [JobListController::class, 'index'])->name('jobs');
 
+Route::get('change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
+
+Route::put('update-password/{user}', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update-password');
+
 Route::resources([
     'assets' => AssetController::class,
     'jobs.apply' => JobApplicationController::class,
