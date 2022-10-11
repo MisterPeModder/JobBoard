@@ -215,8 +215,10 @@ class CompanyController extends Controller
 
         $request->validate([
             'new-member' => [
-                function ($attribute, $value, $fail) use ($candidate) {
-                    if ($candidate->company_id !== null) {
+                function ($attribute, $value, $fail) use ($candidate, $company) {
+                    if ($candidate->company->id === $company->id) {
+                        $fail(__('form.field.new_member.in_company'));
+                    } else if ($candidate->company->id !== null) {
                         $fail(__('form.field.new_member.exists'));
                     }
                 }
