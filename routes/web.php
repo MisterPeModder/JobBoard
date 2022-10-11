@@ -27,10 +27,10 @@ Route::put('update-password/{user}', [App\Http\Controllers\UserController::class
 Route::resources([
     'assets' => AssetController::class,
     'companies' => CompanyController::class,
-    'jobs' => AdvertController::class,
     'jobs.apply' => AdvertApplicationController::class,
     'users' => UserController::class,
 ]);
+Route::resource('jobs', AdvertController::class)->parameter('jobs', 'advert');
 
 // TODO (#37): add a front page and change this line
 Route::permanentRedirect('/', route('jobs.index'));

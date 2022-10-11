@@ -1,6 +1,8 @@
 {
     "advert.apply": "Apply now",
     "advert.apply.title": "Apply",
+    "advert.edit": "Edit Advert",
+    "advert.delete": "Delete",
     "advert.details": "Job Details",
     "advert.details.close": "Collapse",
     "advert.details.open": "Learn more",
