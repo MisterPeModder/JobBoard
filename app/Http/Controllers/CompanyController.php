@@ -35,12 +35,12 @@ class CompanyController extends Controller
         $companies = Company::paginate(self::COMPANIES_PER_PAGE);
         $currentPage = $_GET['page'] ?? '1';
 
-        if ($currentPage < 1 || $currentPage > $companies) {
+        if ($currentPage < 1 || $currentPage > $companies->lastPage()) {
             return redirect($request->fullUrlWithoutQuery('page'));
         }
 
         return response()->view('companies.list', [
-            'companies' => $companies
+            'companies' => $companies,
         ]);
     }
 

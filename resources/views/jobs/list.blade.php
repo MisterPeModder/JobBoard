@@ -7,7 +7,7 @@
                 </div>
                 <input type="text" aria-label="search job type"
                     class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-highlight focus:ring-highlight sm:text-sm"
-                    placeholder="What position are you looking for?"></input>
+                    placeholder="{{ __('search.field.job_type') }}"></input>
             </div>
             <div class="relative rounded-full shadow-sm w-full border border-inherit">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
@@ -15,16 +15,28 @@
                 </div>
                 <input type="text" aria-label="search job location"
                     class="bg-inherit block py-2 w-full rounded-full pl-10 pr-4 border-0 focus:outline-2 focus:outline-highlight focus:ring-highlight sm:text-sm"
-                    placeholder="Location"></input>
+                    placeholder="{{ __('search.field.location') }}"></input>
             </div>
-            <a href="#"
-                class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                Find Jobs
-            </a>
-            <a href="#"
-                class="border-2 border-highlight hover:border-highlight-light transition ease-in-out duration-150 text-highlight hover:text-highlight-light rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                Filters
-            </a>
+
+            <x-primary-link href="#">
+                @tr('search.perform')
+            </x-primary-link>
+
+            {{-- Filters --}}
+            @if (!empty($filters))
+                <span
+                    class="border-2 border-highlight text-highlight rounded-xl p-1.5 text-sm flex flex-row flex-wrap gap-1 items-center font-semibold divide-highlight">
+                    <p class="shrink-0 border-r border-highlight pr-1">@tr('search.filters')</p>
+
+                    @foreach ($filters as $name => $value)
+                        <a href="{{ $request->fullUrlWithoutQuery($name) }}"
+                            class="hover:text-highlight-light transition ease-in-out duration-150 pl-1 shrink-0 underline hover:italic font-normal"
+                            title="{{ __('search.filters.remove') }}">
+                            {{ __('search.filters.' . $name, [$name => $value]) }}
+                        </a>
+                    @endforeach
+                </span>
+            @endif
         </div>
     </div>
     <main class="container mx-auto py-2 divide-y divide-l-brd/10 flex flex-col gap-2">

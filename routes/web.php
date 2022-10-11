@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\AssetController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\AdvertApplicationController;
 use App\Http\Controllers\AdvertController;
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\UserController;
-use App\Models\Advert;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAdvertRequest;
 use App\Http\Requests\UpdateAdvertRequest;
 use App\Models\Advert;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class AdvertController extends Controller
@@ -18,7 +19,19 @@ class AdvertController extends Controller
      */
     public function index(Request $request)
     {
-        $adverts = Advert::paginate(self::ADVERTS_PER_PAGE);
+        $filters = [];
+
+        if (isset($_GET['company'])) {
+            $companyId = $_GET['company'];
+            $company = Company::find($companyId);
+            $adverts = Advert::where('company_id', $companyId)->paginate(self::ADVERTS_PER_PAGE)->withQueryString();
+            if ($company !== null) {
+                $filters['company'] = $company->name;
+            }
+        } else {
+            $adverts = Advert::paginate(self::ADVERTS_PER_PAGE)->withQueryString();
+        }
+
         $currentPage = $_GET['page'] ?? '1';
 
         if ($currentPage < 1 || $currentPage > $adverts->lastPage()) {
@@ -26,7 +39,9 @@ class AdvertController extends Controller
         }
 
         return response()->view('jobs.list', [
+            'request' => $request,
             'adverts' => $adverts,
+            'filters' => $filters,
         ]);
     }
 
@@ -48,7 +63,6 @@ class AdvertController extends Controller
     public function store(Advert $advert, StoreAdvertRequest $request)
     {
     }
-
 
     /**
      * Display the specified resource.
