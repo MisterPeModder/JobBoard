@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -19,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = DB::table('users')->get();
- 
+
         return view('user.index', ['users' => $users]);
     }
 
@@ -56,8 +59,9 @@ class UserController extends Controller
             abort(404);
         }
         Log::info("Showing User #$user->id editing form");
+
         return view('users.edit', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -78,8 +82,8 @@ class UserController extends Controller
         //validate data with rules
         $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
-            'surname' => ['nullable', 'string','max:255'],
-            'email' => ['string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],// email must not be alrealy used, expect self
+            'surname' => ['nullable', 'string', 'max:255'],
+            'email' => ['string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)], // email must not be alrealy used, expect self
             'phone_number' => ['nullable', 'string'],
         ]);
         //updating data
@@ -87,7 +91,7 @@ class UserController extends Controller
         $user->surname = $request->surname;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
-        $user->save();//saving it
+        $user->save(); //saving it
 
         return redirect()->route('users.show', $user);
     }
@@ -106,6 +110,16 @@ class UserController extends Controller
         }
 
         $user->delete();
+    }
+
+    /**
+     * Check if current logged user is admin
+     *
+     * @return bool
+     */
+    public function is_admin()
+    {
+        return Auth::user() == 1 ? true : false;
     }
 
     /**
@@ -133,16 +147,21 @@ class UserController extends Controller
         }
 
         $request->validate([
-            'oldpassword' => 'required',
-            'newpassword' => 'required|confirmed'
+            'oldpassword' => ['required'],
+            'newpassword' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
-        if(Hash::check('oldpassword', $user->password))
-        {
-            abort(419);
+        // if old password hash is not the same as current one, error
+        if (! Hash::check($request->oldpassword, $user->password)) {
+            return back()->withErrors(['oldpassword' => __('Old password does not match')]);
         }
 
-        return view('users/change-password');
-    }
+        $user->forceFill([
+            'password' => Hash::make($request->newpassword),
+            'remember_token' => Str::random(60),
+        ])->save();
 
+        Log::info("Updating User #$user->id password");
+
+        return redirect()->route('users.show', $user);
+    }
 }
