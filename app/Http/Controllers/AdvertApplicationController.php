@@ -89,26 +89,44 @@ class AdvertApplicationController extends Controller
 
     /**
      * Display the specified resource.
+     * 
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
      */
     public function show(Application $application): Response
     {
-        abort(404);
+        return response()->view('applications.show', ['application' => $application]);
     }
 
     /**
      * Show the form for editing the specified resource.
+     * 
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
      */
     public function edit(Application $application): Response
     {
-        abort(404);
+        return response()->view('applications.edit', ['application' => $application]);
     }
 
     /**
      * Update the specified resource in storage.
+     * 
+     * @param App\Http\Requests\UpdateJobApplicationRequest $request
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
      */
     public function update(UpdateAdvertApplicationRequest $request, Application $application): Response
     {
-        abort(404);
+        $request->validated();
+
+        $application->update([
+            'content' => $request->content,
+            'advert_id' => $request->advert_id,
+            'applicant_id' => $request->applicant_id
+        ]);
+
+        return response();
     }
 
     /**
@@ -116,6 +134,8 @@ class AdvertApplicationController extends Controller
      */
     public function destroy(Application $application): Response
     {
-        abort(404);
+        $application->delete();
+
+        
     }
 }
