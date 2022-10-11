@@ -47,7 +47,7 @@
                     @auth
                         {{-- "My profile" widget, will only display when logged --}}
                         <a href="{{ route('users.show', Auth::user()) }}"
-                            class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                            class="lb:block underline font-semibold">
                             My profile</a>
                     @endauth
                 @endif
@@ -56,7 +56,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
-                            class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                            class="lb:block underline font-semibold">
                             Log out</button>
                     </form>
                 @endauth
