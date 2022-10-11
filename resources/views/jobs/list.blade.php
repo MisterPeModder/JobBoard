@@ -33,7 +33,7 @@
                 <x-job-advert :advert=$advert />
             @endforeach
         </section>
-        <x-page-navigation :max=$maxPage :current=$currentPage width=5 />
+        <x-page-navigation :paginator="$adverts" width="5" />
     </main>
 
     <x-advert-options />

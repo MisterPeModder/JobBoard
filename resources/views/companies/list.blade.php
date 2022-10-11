@@ -15,6 +15,6 @@
                 <x-company-entry :company=$company />
             @endforeach
         </section>
-        <x-page-navigation :max=$maxPage :current=$currentPage width=5 class="border-t border-l-brd/10" />
+        <x-page-navigation :paginator="$companies" width=5 class="border-t border-l-brd/10" />
     </main>
 </x-main-layout>

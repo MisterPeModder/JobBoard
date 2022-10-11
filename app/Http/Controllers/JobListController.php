@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advert;
+use Illuminate\Http\Request;
 
 class JobListController extends Controller
 {
@@ -13,25 +14,17 @@ class JobListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $adverts = Advert::paginate(self::ADVERTS_PER_PAGE);
         $currentPage = $_GET['page'] ?? '1';
-        $maxPage = ceil(Advert::all()->count() / self::ADVERTS_PER_PAGE);
 
-        // redirect user to first page if requested page is not valid
-        if ($currentPage < 1 || $currentPage > $maxPage) {
-            return redirect(action([self::class, 'index']));
+        if ($currentPage < 1 || $currentPage > $adverts->lastPage()) {
+            return redirect($request->fullUrlWithoutQuery('page'));
         }
 
-        $adverts = Advert::with('company.icon.blob')
-            ->where('id', '>', ($currentPage - 1) * self::ADVERTS_PER_PAGE)
-            ->limit(self::ADVERTS_PER_PAGE)
-            ->get();
-
-        return response()->view('job-list', [
+        return response()->view('jobs.list', [
             'adverts' => $adverts,
-            'currentPage' => $currentPage,
-            'maxPage' => $maxPage,
         ]);
     }
 }
