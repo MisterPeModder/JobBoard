@@ -14,6 +14,8 @@ class JobAdvert extends Component
 
     public string $company;
 
+    public string $companyUrl;
+
     public ?string $location = null;
 
     /**
@@ -41,6 +43,7 @@ class JobAdvert extends Component
         $this->id = $advert->id;
         $this->title = $advert->title;
         $this->company = $advert->company->name;
+        $this->companyUrl = route('companies.show', $advert->company->id);
         $this->shortDescription = explode('\n', $advert->short_description);
         $this->fullDescription = $advert->full_description;
 
@@ -62,7 +65,7 @@ class JobAdvert extends Component
             $this->salaryType = 'salary_type.'.$advert->salary_type->value;
         }
 
-        $this->iconUrl = $advert->company->icon->getUrl();
+        $this->iconUrl = $advert->company->icon?->getUrl();
     }
 
     /**

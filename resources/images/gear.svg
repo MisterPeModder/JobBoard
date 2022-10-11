@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="22"
+   height="22"
+   viewBox="0 0 22 22"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <g
+     id="layer1"
+     transform="translate(0,-3.5229273)">
+    <g
+       id="path2596"
+       transform="matrix(0.7071303,0.70708327,-0.7071303,0.70708327,0,0)">
+      <path
+         style="color:#000000;-inkscape-stroke:none;paint-order:markers fill stroke"
+         d="m 18.046875,-4.5800781 c -3.886916,0 -7.070312,3.18535 -7.070312,7.0722656 0,3.8869156 3.183396,7.0703125 7.070312,7.0703125 3.886916,0 7.072266,-3.1833969 7.072266,-7.0703125 0,-3.8869156 -3.18535,-7.0722656 -7.072266,-7.0722656 z m 0,3.125 c 2.198042,0 3.947266,1.74922367 3.947266,3.9472656 0,2.1980419 -1.749224,3.9453125 -3.947266,3.9453125 -2.198042,0 -3.945312,-1.7472706 -3.945312,-3.9453125 0,-2.19804193 1.74727,-3.9472656 3.945312,-3.9472656 z"
+         id="path18787" />
+    </g>
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592"
+       cx="18.047434"
+       cy="-4.508914"
+       r="2"
+       transform="rotate(45)" />
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592-9"
+       cx="13.133221"
+       cy="-2.4231272"
+       r="2"
+       transform="rotate(45)" />
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592-1"
+       cx="22.961647"
+       cy="7.4052982"
+       r="2"
+       transform="rotate(45)" />
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592-2"
+       cx="22.961647"
+       cy="-2.4231272"
+       r="2"
+       transform="rotate(45)" />
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592-7"
+       cx="13.133221"
+       cy="7.4052992"
+       r="2"
+       transform="rotate(45)" />
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592-3"
+       cx="18.047434"
+       cy="9.4910851"
+       r="2"
+       transform="rotate(45)" />
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592-3-2"
+       cx="11.047435"
+       cy="2.491086"
+       r="2"
+       transform="rotate(45)" />
+    <circle
+       style="fill-opacity:1;fill-rule:nonzero;stroke-width:3.37796;paint-order:markers fill stroke"
+       id="path10592-5"
+       cx="25.047434"
+       cy="2.491086"
+       r="2"
+       transform="rotate(45)" />
+  </g>
+</svg>

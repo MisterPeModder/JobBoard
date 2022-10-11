@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Whether the user can edit the members of a company
+        Gate::define('update-members', function (User $user, Company $company) {
+            return $user->company_id == $company->id;
+        });
+        // Whether the user can change the owner of a company
+        Gate::define('change-owner', function (User $user, Company $company) {
+            return $user->owns($company) || $user->is_admin;
+        });
     }
 }
