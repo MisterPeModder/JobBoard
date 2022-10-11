@@ -4,6 +4,7 @@
 $id = $company->id;
 $name = $company->name;
 $description = $company->description;
+$location = '';
 
 if ($company->location !== null) {
     $location = $company->location;
