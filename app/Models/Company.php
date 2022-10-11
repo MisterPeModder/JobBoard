@@ -13,6 +13,8 @@ class Company extends Model
         'name',
         'location',
         'description',
+        'owner_id',
+        'icon_id',
     ];
 
     /**
@@ -42,5 +44,18 @@ class Company extends Model
     public function adverts()
     {
         return $this->hasMany(Advert::class);
+    }
+
+    public function canUserEdit(?User $user): bool
+    {
+        if ($user === null) {
+            return false;
+        }
+        // admins can always edit companies
+        if ($user->is_admin) {
+            return true;
+        }
+        // user can edit if they are the owner
+        return $this->owner !== null && $this->owner->id === $user->id;
     }
 }

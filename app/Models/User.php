@@ -76,4 +76,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Application::class);
     }
+
+    /**
+     * Returns whether this user is part of the given company.
+     */
+    public function isMemberOf(Company $company): bool
+    {
+        return $this->company_id === $company->id;
+    }
+
+    /**
+     * Returns whether this user owns the given company.
+     */
+    public function owns(company $company): bool
+    {
+        return $company->owner_id == $this->id;
+    }
 }

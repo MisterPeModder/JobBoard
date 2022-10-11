@@ -1,6 +1,7 @@
 {{-- Main layout of the JobBoard pages --}}
 
-@props(['title' => null, 'script' => null, 'showprofile' => true])
+
+@props(['title' => null, 'script' => null, 'showprofile' => true, 'companies_link' => true])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -11,7 +12,7 @@
     <meta name="description" content="The next-gen job search platform">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? config('app.name', 'JobBoard') }}</title>
+    <title>{{ ($title === null ? '' : "$title - ") . config('app.name', 'JobBoard') }}</title>
 
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -20,29 +21,35 @@
     @isset($script)
         @vite([$script])
     @endisset
+    @stack('scripts')
 </head>
 
 <body class="font-sans antialiased bg-l-bgr-main text-gray-700">
-    <header class="flex flex-col backdrop-blur-md sticky top-0 border-b border-l-brd/10 z-20">
+    <header class="flex flex-col backdrop-blur-md sticky top-0 border-b border-l-brd/10 z-20 px-2">
         <span class="flex flex-row  justify-between items-center p-2">
             <span class="flex flex-row items-center gap-2">
                 <span class="logo-dot"></span>
                 <a id="logo" href="/" class="text-2xl font-bold">JobBoard</a>
             </span>
-            <span class="flex flex-row gap-2">
+            <span class="flex flex-row gap-2 items-center">
+                @if ($companies_link)
+                    <a href="{{ route('companies.index') }}" class="hidden lg:block underline font-semibold">
+                        @tr('company.list.title')
+                    </a>
+                @endif
                 @if ($showprofile)
-                @guest
-                    {{-- "Sign In" widget, will only display when not logged --}}
-                    <a href="{{ route('register') }}"
-                        class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                        Sign in</a>
-                @endguest
-                @auth
-                    {{-- "My profile" widget, will only display when logged --}}
-                    <a href="{{ route('users.show', Auth::user()) }}"
-                        class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                        My profile</a>
-                @endauth
+                    @guest
+                        {{-- "Sign In" widget, will only display when not logged --}}
+                        <a href="{{ route('register') }}"
+                            class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                            Sign in</a>
+                    @endguest
+                    @auth
+                        {{-- "My profile" widget, will only display when logged --}}
+                        <a href="{{ route('users.show', Auth::user()) }}"
+                            class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                            My profile</a>
+                    @endauth
                 @endif
                 @auth
                     {{-- "Log out" widget, will only display when logged --}}
