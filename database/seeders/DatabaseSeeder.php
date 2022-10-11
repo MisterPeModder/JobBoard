@@ -58,6 +58,13 @@ class DatabaseSeeder extends Seeder
                 $boss->save();
             });
 
+        // Get one random user that will be admin
+        $admin = User::all()->random(1)[0];
+
+        // change his isadmin column to true
+        $admin->is_admin = true;
+        $admin->save();
+
         // Generate 21 job listings
         Advert::factory()
             ->count(21)

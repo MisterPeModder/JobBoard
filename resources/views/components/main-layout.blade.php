@@ -1,6 +1,7 @@
 {{-- Main layout of the JobBoard pages --}}
 
-@props(['title' => null, 'script' => null, 'companies_link' => true])
+
+@props(['title' => null, 'script' => null, 'showprofile' => true, 'companies_link' => true])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -36,12 +37,29 @@
                         @tr('company.list.title')
                     </a>
                 @endif
-                @guest
-                    {{-- "Sign In" widget, will only display when not logged --}}
-                    <a href="{{ route('register') }}"
-                        class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                        Sign in</a>
-                @endguest
+                @if ($showprofile)
+                    @guest
+                        {{-- "Sign In" widget, will only display when not logged --}}
+                        <a href="{{ route('register') }}"
+                            class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                            Sign in</a>
+                    @endguest
+                    @auth
+                        {{-- "My profile" widget, will only display when logged --}}
+                        <a href="{{ route('users.show', Auth::user()) }}"
+                            class="lb:block underline font-semibold">
+                            My profile</a>
+                    @endauth
+                @endif
+                @auth
+                    {{-- "Log out" widget, will only display when logged --}}
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="lb:block underline font-semibold">
+                            Log out</button>
+                    </form>
+                @endauth
                 <img src="{{ Vite::asset('resources/images/hamburger.svg') }}" alt="menu" class="lg:hidden">
             </span>
         </span>
