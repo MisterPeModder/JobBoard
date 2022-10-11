@@ -19,9 +19,7 @@ class CompanyPolicy
      */
     public function before(User $user, $ability)
     {
-        if ($user->is_admin) {
-            return true;
-        }
+        return $user->is_admin;
     }
 
     /**

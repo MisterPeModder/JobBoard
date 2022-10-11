@@ -42,7 +42,7 @@ class UserController extends Controller
 
         //return profile page with user's data
         return view('users.show', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
