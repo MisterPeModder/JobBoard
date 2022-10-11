@@ -187,7 +187,7 @@ class CompanyController extends Controller
 
         $id = $company->id;
         $company->delete();
-        Log::info("Deleting #$id");
+        Log::info("Deleted company #$id");
 
         return redirect()->route('companies.index');
     }

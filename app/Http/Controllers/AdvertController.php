@@ -7,10 +7,17 @@ use App\Http\Requests\UpdateAdvertRequest;
 use App\Models\Advert;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AdvertController extends Controller
 {
     const ADVERTS_PER_PAGE = 5;
+
+    public function __construct()
+    {
+        // require authentification except for index and show, because adverts are public
+        $this->middleware('auth')->except(['index', 'show']);
+    }
 
     /**
      * Display a listing of the resource.
@@ -62,6 +69,7 @@ class AdvertController extends Controller
      */
     public function store(Advert $advert, StoreAdvertRequest $request)
     {
+        abort(404);
     }
 
     /**
@@ -69,7 +77,7 @@ class AdvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Advert $application)
+    public function show(Advert $advert)
     {
         abort(404);
     }
@@ -79,7 +87,7 @@ class AdvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Advert $application)
+    public function edit(Advert $advert)
     {
         abort(404);
     }
@@ -89,7 +97,7 @@ class AdvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAdvertRequest $request, Advert $application)
+    public function update(UpdateAdvertRequest $request, Advert $advert)
     {
         abort(404);
     }
@@ -99,8 +107,14 @@ class AdvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Advert $application)
+    public function destroy(Advert $advert)
     {
-        abort(404);
+        // $this->authorize('delete', $advert);
+
+        $id = $advert->id;
+        $advert->delete();
+        Log::info("Deleted advert #$id");
+
+        return redirect()->back();
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Company;
+use App\Models\Advert;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CompanyPolicy
+class AdvertPolicy
 {
     use HandlesAuthorization;
 
@@ -39,10 +39,10 @@ class CompanyPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User|null  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Advert  $advert
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user, Company $company)
+    public function view(?User $user, Advert $advert)
     {
         return true;
     }
@@ -55,43 +55,43 @@ class CompanyPolicy
      */
     public function create(User $user)
     {
-        // user may only create company if they don't already have one
-        return $user->company === null;
+        // user may only create advert if they are part of a company
+        return $user->company_id !== null;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Advert  $advert
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Company $company)
+    public function update(User $user, Advert $advert)
     {
-        return $user->isMemberOf($company);
+        return $user->isMemberOf($advert->company);
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Advert  $advert
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Company $company)
+    public function delete(User $user, Advert $advert)
     {
-        return $user->owns($company);
+        return $user->isMemberOf($advert->company);
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Advert  $advert
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Company $company)
+    public function forceDelete(User $user, Advert $advert)
     {
-        return $this->delete($user, $company);
+        return $this->delete($user, $advert);
     }
 }
