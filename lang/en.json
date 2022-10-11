@@ -36,6 +36,7 @@
     "form.field.message": "Message",
     "form.field.name": "Name",
     "form.field.new_member": "New Member Email",
+    "form.field.new_member.exists": "This member already exists",
     "form.field.password": "Password",
     "form.field.phone_number": "Phone Number",
     "form.field.remember_me": "Remember Me",

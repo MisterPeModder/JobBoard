@@ -213,13 +213,13 @@ class CompanyController extends Controller
 
         $candidate = User::where('email', $validated['new-member'])->first();
 
-        Validator::validate(['candidate' => $candidate], [
-            'candidate' => [
-                function ($attribute, $value, $fail) {
-                    if ($value->company !== null) {
-                        $fail('validation.uppercase')->translate();
+        $request->validate([
+            'new-member' => [
+                function ($attribute, $value, $fail) use ($candidate) {
+                    if ($candidate->company_id !== null) {
+                        $fail(__('form.field.new_member.exists'));
                     }
-                },
+                }
             ],
         ]);
 

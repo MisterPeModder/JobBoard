@@ -61,7 +61,7 @@ $user = Illuminate\Support\Facades\Auth::user();
                         action="{{ route('companies.edit.set-owner', ['company' => $company, 'owner' => $member]) }}">
                         @csrf
 
-                        <button type="submit" title="{{ __('company.members.delete') }}"
+                        <button type="submit" title="{{ __('company.members.transfer_ownership') }}"
                             class="text-highlight hover:text-highlight-light">
                             @tr('company.members.transfer_ownership')
                         </button>
