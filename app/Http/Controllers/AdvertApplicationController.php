@@ -121,12 +121,10 @@ class AdvertApplicationController extends Controller
         $request->validated();
 
         $application->update([
-            'content' => $request->content,
-            'advert_id' => $request->advert_id,
-            'applicant_id' => $request->applicant_id
+            'content' => $request->content
         ]);
 
-        return response();
+        return response()->view('/');
     }
 
     /**
@@ -136,6 +134,6 @@ class AdvertApplicationController extends Controller
     {
         $application->delete();
 
-        
+        return response()->view('/');
     }
 }

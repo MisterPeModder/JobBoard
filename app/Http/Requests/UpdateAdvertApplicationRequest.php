@@ -24,9 +24,7 @@ class UpdateAdvertApplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'string',
-            'advert_id' => 'required|numeric',
-            'applicant_id' => 'required|numeric'
+            'content' => 'string'
         ];
     }
 }
