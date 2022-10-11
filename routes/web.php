@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\JobApplicationController;
-use App\Http\Controllers\JobListController;
+use App\Http\Controllers\AdvertApplicationController;
+use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\UserController;
 use App\Models\Advert;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [JobListController::class, 'index'])->name('jobs.index');
-
 Route::get('change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
 
 Route::put('update-password/{user}', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update-password');
@@ -30,9 +28,13 @@ Route::put('update-password/{user}', [App\Http\Controllers\UserController::class
 Route::resources([
     'assets' => AssetController::class,
     'companies' => CompanyController::class,
-    'jobs.apply' => JobApplicationController::class,
+    'jobs' => AdvertController::class,
+    'jobs.apply' => AdvertApplicationController::class,
     'users' => UserController::class,
 ]);
+
+// TODO (#37): add a front page and change this line
+Route::permanentRedirect('/', route('jobs.index'));
 
 Route::post('/companies/{company}/edit/member', [CompanyController::class, 'addMember'])
     ->can('update-members', 'company')

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreJobApplicationRequest;
-use App\Http\Requests\UpdateJobApplicationRequest;
+use App\Http\Requests\StoreAdvertApplicationRequest;
+use App\Http\Requests\UpdateAdvertApplicationRequest;
 use App\Models\Advert;
 use App\Models\Application;
 use App\Models\ApplicationAttachment;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class JobApplicationController extends Controller
+class AdvertApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class JobApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Advert $job, StoreJobApplicationRequest $request)
+    public function store(Advert $job, StoreAdvertApplicationRequest $request)
     {
         // if an exception occurs in a transactions, all changes are rolled back.
         DB::transaction(function () use ($job, $request) {
@@ -100,7 +100,7 @@ class JobApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobApplicationRequest $request, Application $application): Response
+    public function update(UpdateAdvertApplicationRequest $request, Application $application): Response
     {
         abort(404);
     }
