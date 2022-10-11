@@ -26,8 +26,8 @@ $user = Illuminate\Support\Facades\Auth::user();
                 @endif
             </h3>
 
-            @if ($editable && !$isOwner)
-                @can('update', $company)
+            @if ($editable && !$member->owns($company))
+                @can('update-members', $company)
                     <form method="POST"
                         action="{{ route('companies.edit.member.remove', ['company' => $company, 'member' => $member]) }}"
                         class="relative w-full h-full">

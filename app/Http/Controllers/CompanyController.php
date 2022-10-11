@@ -12,7 +12,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -182,8 +181,7 @@ class CompanyController extends Controller
 
             return $company->id;
         });
-
-        return redirect()->route('companies.edit', $company);
+        return $this->redirectToCompany($company, $request);
     }
 
     /**
@@ -195,7 +193,9 @@ class CompanyController extends Controller
     {
         $this->authorize('delete', $company);
 
+        $id = $company->id;
         $company->delete();
+        Log::info("Deleting #$id");
 
         return redirect()->route('companies.index');
     }
@@ -216,9 +216,9 @@ class CompanyController extends Controller
         $request->validate([
             'new-member' => [
                 function ($attribute, $value, $fail) use ($candidate, $company) {
-                    if ($candidate->company->id === $company->id) {
+                    if ($candidate->company_id === $company->id) {
                         $fail(__('form.field.new_member.in_company'));
-                    } else if ($candidate->company->id !== null) {
+                    } else if ($candidate->company_id !== null) {
                         $fail(__('form.field.new_member.exists'));
                     }
                 }
@@ -229,8 +229,8 @@ class CompanyController extends Controller
             $candidate->company()->associate($company);
             $candidate->save();
         });
-
-        return redirect()->route('companies.edit', $company->fresh());
+        Log::info("Added member #$candidate->id to company #$company->id");
+        return $this->redirectToCompany($company, $request);
     }
 
     /**
@@ -238,14 +238,14 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function removeMember(Company $company, User $member)
+    public function removeMember(Company $company, User $member, Request $request)
     {
         DB::transaction(function () use ($company, $member) {
             $member->company()->dissociate($company);
             $member->save();
         });
-
-        return redirect()->route('companies.edit', $company->fresh());
+        Log::info("Removed member #$member->id from company #$company->id");
+        return $this->redirectToCompany($company, $request);
     }
 
     /**
@@ -253,7 +253,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function setOwner(Company $company, User $owner)
+    public function setOwner(Company $company, User $owner, Request $request)
     {
         DB::transaction(function () use ($company, $owner) {
             if ($company->owner !== null) {
@@ -262,8 +262,22 @@ class CompanyController extends Controller
 
             $company->owner()->save($owner);
             $company->update(['owner_id' => $owner->id]);
+            $company->save();
         });
+        Log::info("Changed owner of company #$company->id to #$owner->id");
+        return $this->redirectToCompany($company, $request);
+    }
 
-        return redirect()->route('companies.edit', $company->fresh());
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    private function redirectToCompany(Company $company, Request $request) {
+        $request->user()->refresh();
+        $company->refresh();
+
+        if ($request->user()->can('update', $company)) {
+            return redirect()->route('companies.edit', $company);
+        }
+        return redirect()->route('companies.show', $company);
     }
 }

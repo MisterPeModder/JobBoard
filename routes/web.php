@@ -28,10 +28,10 @@ Route::resources([
 ]);
 
 Route::post('/companies/{company}/edit/member', [CompanyController::class, 'addMember'])
-    ->can('update', 'company')
+    ->can('update-members', 'company')
     ->name('companies.edit.member.add');
 Route::delete('/companies/{company}/edit/member/{member}', [CompanyController::class, 'removeMember'])
-    ->can('update', 'company')
+    ->can('update-members', 'company')
     ->name('companies.edit.member.remove');
 Route::get('/companies/{company}/edit/set-owner/{owner}', [CompanyController::class, 'setOwner'])
     ->can('change-owner', 'company')

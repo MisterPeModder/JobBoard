@@ -66,7 +66,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company)
     {
-        return $company->owner !== null && $company->owner->id === $user->id;
+        return $user->company_id == $company->id;
     }
 
     /**
@@ -78,7 +78,7 @@ class CompanyPolicy
      */
     public function delete(User $user, Company $company)
     {
-        return $company->owner !== null && $company->owner->id === $user->id;
+        return $company->owner_id !== null && $company->owner_id === $user->id;
     }
 
     /**
