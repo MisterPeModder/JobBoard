@@ -42,7 +42,7 @@ class UserController extends Controller
 
         //return profile page with user's data
         return view('users.show', [
-            'user' => $user,
+            'user' => $user
         ]);
     }
 
@@ -119,7 +119,7 @@ class UserController extends Controller
      */
     public function is_admin()
     {
-        return Auth::user() == 1 ? true : false;
+        return Auth::user()->is_admin == 1 ? true : false;
     }
 
     /**
