@@ -23,6 +23,7 @@ class UserFactory extends Factory
             'name' => fake()->firstName(),
             'surname' => fake()->lastName(),
             'password' => Hash::make('default'), //default password is 'default'
+            'is_admin' => false,
         ];
     }
 }
