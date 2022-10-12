@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
+Route::view('/', 'main-page');
+
 Route::get('change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
 
 Route::put('update-password/{user}', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update-password');
@@ -34,9 +36,6 @@ Route::resources([
 Route::resource('jobs', AdvertController::class)
     ->except(['create', 'store'])
     ->parameter('jobs', 'advert');
-
-// TODO (#37): add a front page and change this line
-Route::permanentRedirect('/', route('jobs.index'));
 
 Route::post('/companies/{company}/edit/member', [CompanyController::class, 'addMember'])
     ->can('update-members', 'company')

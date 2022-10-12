@@ -18,6 +18,14 @@
         display: inline-block;
     }
 
+    .logo-dot-xl {
+        background-color: theme('colors.highlight.DEFAULT');
+        border-radius: 50%;
+        width: 51px;
+        height: 51px;
+        display: inline-block;
+    }
+
     summary.marker-hide,
     summary.marker-rotating {
         @apply list-none
