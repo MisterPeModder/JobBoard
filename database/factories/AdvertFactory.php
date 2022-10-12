@@ -51,7 +51,7 @@ class AdvertFactory extends Factory
             return [
                 'title' => fake()->sentence(4), //random title
                 'full_description' => fake()->realText(), //random text
-                'short_description' => Arr::join($shortDesc, '\n'),
+                'short_description' => Arr::join($shortDesc, PHP_EOL),
                 'location' => mt_rand(1, 5) == 1 ? 'remote' : fake()->city(), // 1/5 chance to be 'remote'
                 'job_type' => Arr::random(JobType::stringCases()),
                 'salary_min' => $hourlySalaryMin * $salaryMultiplier,

@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\View\Component;
 
 /**
@@ -12,7 +13,7 @@ class PageNavigation extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public int $max, public int $current, public int $width)
+    public function __construct(public LengthAwarePaginator $paginator, public int $width, public string $class = '')
     {
     }
 

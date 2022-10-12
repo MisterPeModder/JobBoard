@@ -80,16 +80,16 @@ class User extends Authenticatable
     /**
      * Returns whether this user is part of the given company.
      */
-    public function isMemberOf(Company $company): bool
+    public function isMemberOf(?Company $company): bool
     {
-        return $this->company_id === $company->id;
+        return $company !== null && $this->company_id === $company->id;
     }
 
     /**
      * Returns whether this user owns the given company.
      */
-    public function owns(company $company): bool
+    public function owns(?Company $company): bool
     {
-        return $company->owner_id == $this->id;
+        return $company !== null && $company->owner_id === $this->id;
     }
 }

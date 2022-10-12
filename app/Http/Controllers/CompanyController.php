@@ -28,28 +28,19 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Company::class);
 
+        $companies = Company::paginate(self::COMPANIES_PER_PAGE);
         $currentPage = $_GET['page'] ?? '1';
-        $maxPage = ceil(Company::all()->count() / self::COMPANIES_PER_PAGE);
 
-        // redirect user to first page if requested page is not valid
-        if ($currentPage < 1 || $currentPage > $maxPage) {
-            return redirect(action([self::class, 'index']));
+        if ($currentPage < 1 || $currentPage > $companies->lastPage()) {
+            return redirect($request->fullUrlWithoutQuery('page'));
         }
-
-        $companies = Company::with('icon.blob')
-            ->orderBy('name', 'asc')
-            ->offset(($currentPage - 1) * self::COMPANIES_PER_PAGE)
-            ->limit(self::COMPANIES_PER_PAGE)
-            ->get();
 
         return response()->view('companies.list', [
             'companies' => $companies,
-            'currentPage' => $currentPage,
-            'maxPage' => $maxPage,
         ]);
     }
 
@@ -196,7 +187,7 @@ class CompanyController extends Controller
 
         $id = $company->id;
         $company->delete();
-        Log::info("Deleting #$id");
+        Log::info("Deleted company #$id");
 
         return redirect()->route('companies.index');
     }

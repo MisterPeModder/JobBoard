@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreJobApplicationRequest extends FormRequest
+class StoreAdvertApplicationRequest extends FormRequest
 {
     const MAX_MESSAGE_SIZE = 4096;
 

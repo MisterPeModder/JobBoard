@@ -17,7 +17,8 @@
                 @endisset
             </div>
         </div>
-        <button id="{{ 'advert-' . $id . '-options' }}" type="button" aria-label="advert options" class="advert-options">
+        <button id="{{ "advert-$id-options" }}" type="button" aria-label="advert options"
+            class="{{ "advert-options$permissions" }}">
             <img src="{{ Vite::asset('resources/images/three-dots.svg') }}" alt="advert options">
         </button>
     </span>

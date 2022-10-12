@@ -3,7 +3,9 @@
 namespace App\View\Components;
 
 use App\Models\Advert;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class JobAdvert extends Component
@@ -36,6 +38,14 @@ class JobAdvert extends Component
     public ?string $iconUrl = null;
 
     /**
+     * A string that contains the list of actiosn the user can do on the current advert.
+     * This list is used client-side to display additional buttons in the advert options dropdown.
+     *
+     * Example: `" can-delete can-update"`
+     */
+    public String $permissions = '';
+
+    /**
      * Create a new component instance.
      */
     public function __construct(public Advert $advert)
@@ -44,7 +54,7 @@ class JobAdvert extends Component
         $this->title = $advert->title;
         $this->company = $advert->company->name;
         $this->companyUrl = route('companies.show', $advert->company->id);
-        $this->shortDescription = explode('\n', $advert->short_description);
+        $this->shortDescription = explode(PHP_EOL, $advert->short_description);
         $this->fullDescription = $advert->full_description;
 
         if ($advert->location !== null) {
@@ -66,6 +76,21 @@ class JobAdvert extends Component
         }
 
         $this->iconUrl = $advert->company->icon?->getUrl();
+
+        $this->permissions = self::collectPermissions(Auth::user(), $advert);
+    }
+
+    private static function collectPermissions(?User $user, Advert $advert): string
+    {
+        $permissions = '';
+        if ($user?->can('delete', $advert)) {
+            $permissions .= ' can-delete';
+        }
+        if ($user?->can('update', $advert)) {
+            $permissions .= ' can-update';
+        }
+
+        return $permissions;
     }
 
     /**

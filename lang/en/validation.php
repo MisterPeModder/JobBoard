@@ -91,6 +91,7 @@ return [
         'string' => 'The :attribute must not be greater than :max characters.',
     ],
     'max_digits' => 'The :attribute must not have more than :max digits.',
+    'max_lines' => 'The :attribute must not have more than :max lines',
     'mimes' => 'The :attribute must be a file of type: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
@@ -170,10 +171,17 @@ return [
     */
 
     'attributes' => [
-        'phone-number' => 'phone number',
         'attachments.0' => 'first attachment',
         'attachments.1' => 'second attachment',
-        'attachments.2' => 'third attachment'
+        'attachments.2' => 'third attachment',
+        'full-description' => 'full description',
+        'job-type' => 'job type',
+        'phone-number' => 'phone number',
+        'salary-max' => 'maximum salary',
+        'salary-min' => 'minimum salary',
+        'salary-type' => 'salary type',
+        'salary-currency' => 'currency',
+        'short-description' => 'short description',
     ],
 
 ];
