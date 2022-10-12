@@ -30,7 +30,10 @@ Route::resources([
     'jobs.apply' => AdvertApplicationController::class,
     'users' => UserController::class,
 ]);
-Route::resource('jobs', AdvertController::class)->parameter('jobs', 'advert');
+
+Route::resource('jobs', AdvertController::class)
+    ->except(['create', 'store'])
+    ->parameter('jobs', 'advert');
 
 // TODO (#37): add a front page and change this line
 Route::permanentRedirect('/', route('jobs.index'));
@@ -44,3 +47,14 @@ Route::delete('/companies/{company}/edit/member/{member}', [CompanyController::c
 Route::get('/companies/{company}/edit/set-owner/{owner}', [CompanyController::class, 'setOwner'])
     ->can('change-owner', 'company')
     ->name('companies.edit.set-owner');
+
+// shows adverts of a company, with a filter to the main jobs page
+Route::get('/companies/{company}/jobs', function ($company) {
+    return redirect()->route('jobs.index', ['company' => $company]);
+})->name('companies.jobs.index');
+Route::get('/companies/{company}/jobs/create', [AdvertController::class, 'create'])
+    ->can('create-advert', 'company')
+    ->name('companies.jobs.create');
+Route::post('/companies/{company}/job', [AdvertController::class, 'store'])
+    ->can('create-advert', 'company')
+    ->name('companies.jobs.store');

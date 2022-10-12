@@ -28,12 +28,22 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // Whether the user can edit the members of a company
-        Gate::define('update-members', function (User $user, Company $company) {
+        Gate::define('update-members', function (User $user, mixed $company) {
+            if (!($company instanceof Company))
+                $company = Company::find($company);
             return $user->is_admin || $user->isMemberOf($company);
         });
         // Whether the user can change the owner of a company
-        Gate::define('change-owner', function (User $user, Company $company) {
+        Gate::define('change-owner', function (User $user, mixed $company) {
+            if (!($company instanceof Company))
+                $company = Company::find($company);
             return $user->is_admin || $user->owns($company);
+        });
+        // Whether the user can create new adverts in a company
+        Gate::define('create-advert', function (User $user, mixed $company) {
+            if (!($company instanceof Company))
+                $company = Company::find($company);
+            return $user->is_admin || $user->isMemberOf($company);
         });
     }
 }

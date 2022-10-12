@@ -58,9 +58,9 @@ class AdvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Company $company)
     {
-        abort(404);
+        return response()->view('jobs.create', ['company' => $company]);
     }
 
     /**
@@ -68,9 +68,18 @@ class AdvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Advert $advert, StoreAdvertRequest $request)
+    public function store(StoreAdvertRequest $request, Company $company)
     {
-        abort(404);
+        $advert = DB::transaction(function () use ($request, $company) {
+            $fields = $this->getUpdateFields($request->validated());
+            $fields['company_id'] = $company->id;
+            $advert = Advert::create($fields);
+            $advert->save();
+            Log::info("Advert #$advert->id was created");
+            return $advert;
+        });
+
+        return $this->redirectToAdvert($advert, $request);
     }
 
     /**
@@ -105,25 +114,27 @@ class AdvertController extends Controller
         $this->authorize('update', $advert);
 
         DB::transaction(function () use ($request, $advert) {
-            $validated = $request->validated();
-
-            $advert->fill([
-                'title' => $validated['title'],
-                'location' => $validated['location'],
-                'short_description' => $validated['short-description'],
-                'salary_min' => $validated['salary-min'] <= 0 ? null : $validated['salary-min'],
-                'salary_max' => $validated['salary-max'] <= 0 ? null : $validated['salary-max'],
-                'salary_currency' => $validated['salary-currency'],
-                'salary_type' => $validated['salary-type'],
-                'job_type' => $validated['job-type'],
-                'full_description' => $validated['full-description'],
-            ]);
+            $advert->fill($this->getUpdateFields($request->validated()));
             $advert->save();
-
             Log::info("Advert #$advert->id was modified");
         });
 
         return $this->redirectToAdvert($advert->refresh(), $request);
+    }
+
+    private function getUpdateFields(mixed $validated): array
+    {
+        return [
+            'title' => $validated['title'],
+            'location' => $validated['location'],
+            'short_description' => $validated['short-description'],
+            'salary_min' => $validated['salary-min'] <= 0 ? null : $validated['salary-min'],
+            'salary_max' => $validated['salary-max'] <= 0 ? null : $validated['salary-max'],
+            'salary_currency' => $validated['salary-currency'],
+            'salary_type' => $validated['salary-type'],
+            'job_type' => $validated['job-type'],
+            'full_description' => $validated['full-description'],
+        ];
     }
 
     /**
@@ -133,7 +144,7 @@ class AdvertController extends Controller
      */
     public function destroy(Advert $advert)
     {
-        // $this->authorize('delete', $advert);
+        $this->authorize('delete', $advert);
 
         $id = $advert->id;
         $advert->delete();

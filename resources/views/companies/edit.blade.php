@@ -17,11 +17,17 @@ $user = Illuminate\Support\Facades\Auth::user();
 
 <x-main-layout :title="__('company.edit.title')">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
-        <span class="flex flex-row justify-start">
+        <span class="flex flex-row justify-start gap-2">
             <x-secondary-link href="{{ route('companies.show', $company->id) }}" class="group">
                 @svg('resources/images/left-angle.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
                 @tr('company.show')
             </x-secondary-link>
+            @can('create-advert', $company)
+                <x-secondary-link href="{{ route('companies.jobs.create', ['company' => $company]) }}" class="group">
+                    @svg('resources/images/star-outline.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
+                    @tr('advert.create')
+                </x-secondary-link>
+            @endcan
         </span>
 
         {{-- General Information Section --}}

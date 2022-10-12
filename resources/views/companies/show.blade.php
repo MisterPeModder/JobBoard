@@ -26,7 +26,13 @@ $members = App\Models\User::where('company_id', $company->id)->get();
                     @tr('company.edit.title')
                 </x-secondary-link>
             @endcan
-            <x-primary-link href="{{ route('jobs.index', ['company' => $company->id]) }}">
+            @can('create-advert', $company)
+                <x-secondary-link href="{{ route('companies.jobs.create', ['company' => $company]) }}" class="group">
+                    @svg('resources/images/star-outline.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
+                    @tr('advert.create')
+                </x-secondary-link>
+            @endcan
+            <x-primary-link href="{{ route('companies.jobs.index', $company) }}">
                 @tr('company.adverts')
             </x-primary-link>
         </span>
