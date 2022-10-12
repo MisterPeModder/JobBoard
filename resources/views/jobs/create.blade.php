@@ -13,11 +13,14 @@ if ($prevUrl == url()->current()) {
 
 <x-main-layout :title="__('advert.create')">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
-        <span class="flex flex-row justify-start">
+        <span class="flex flex-row justify-start gap-2">
             <x-secondary-link href="{{ $prevUrl }}" class="group">
                 @svg('resources/images/left-angle.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
-                @tr('actions.back')
+                @tr('company.show')
             </x-secondary-link>
+            <x-primary-link href="{{ route('companies.jobs.index', $advert->company) }}">
+                @tr('company.adverts')
+            </x-primary-link>
         </span>
 
         {{-- General Information Section --}}

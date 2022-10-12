@@ -148,10 +148,11 @@ class AdvertController extends Controller
         $this->authorize('delete', $advert);
 
         $id = $advert->id;
+        $company = $advert->company;
         $advert->delete();
         Log::info("Deleted advert #$id");
 
-        return redirect()->back();
+        return redirect()->route('company.show', $company);
     }
 
     /**
