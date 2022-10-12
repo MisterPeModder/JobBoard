@@ -40,7 +40,7 @@ class JobAdvert extends Component
     /**
      * A string that contains the list of actiosn the user can do on the current advert.
      * This list is used client-side to display additional buttons in the advert options dropdown.
-     * 
+     *
      * Example: `" can-delete can-update"`
      */
     public String $permissions = '';
@@ -54,7 +54,7 @@ class JobAdvert extends Component
         $this->title = $advert->title;
         $this->company = $advert->company->name;
         $this->companyUrl = route('companies.show', $advert->company->id);
-        $this->shortDescription = explode('\n', $advert->short_description);
+        $this->shortDescription = explode(PHP_EOL, $advert->short_description);
         $this->fullDescription = $advert->full_description;
 
         if ($advert->location !== null) {
@@ -62,7 +62,7 @@ class JobAdvert extends Component
         }
 
         if ($advert->job_type !== null) {
-            $this->jobType = 'job_type.' . $advert->job_type->value;
+            $this->jobType = 'job_type.'.$advert->job_type->value;
         }
 
         if ($advert->salary_min !== null) {
@@ -72,22 +72,24 @@ class JobAdvert extends Component
             if ($advert->salary_min != $advert->salary_max) {
                 $this->salaryMax = $formatter->formatCurrency($advert->salary_max, $advert->salary_currency->value);
             }
-            $this->salaryType = 'salary_type.' . $advert->salary_type->value;
+            $this->salaryType = 'salary_type.'.$advert->salary_type->value;
         }
 
         $this->iconUrl = $advert->company->icon?->getUrl();
 
         $this->permissions = self::collectPermissions(Auth::user(), $advert);
     }
-    
-    private static function collectPermissions(User $user, Advert $advert): string {
+
+    private static function collectPermissions(?User $user, Advert $advert): string
+    {
         $permissions = '';
-        if ($user->can('delete', $advert)) {
+        if ($user?->can('delete', $advert)) {
             $permissions .= ' can-delete';
         }
-        if ($user->can('update', $advert)) {
+        if ($user?->can('update', $advert)) {
             $permissions .= ' can-update';
         }
+
         return $permissions;
     }
 

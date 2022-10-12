@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateAdvertRequest;
 use App\Models\Advert;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class AdvertController extends Controller
@@ -89,7 +90,9 @@ class AdvertController extends Controller
      */
     public function edit(Advert $advert)
     {
-        abort(404);
+        $this->authorize('update', $advert);
+
+        return response()->view('jobs.edit', ['advert' => $advert]);
     }
 
     /**
@@ -99,7 +102,28 @@ class AdvertController extends Controller
      */
     public function update(UpdateAdvertRequest $request, Advert $advert)
     {
-        abort(404);
+        $this->authorize('update', $advert);
+
+        DB::transaction(function () use ($request, $advert) {
+            $validated = $request->validated();
+
+            $advert->fill([
+                'title' => $validated['title'],
+                'location' => $validated['location'],
+                'short_description' => $validated['short-description'],
+                'salary_min' => $validated['salary-min'] <= 0 ? null : $validated['salary-min'],
+                'salary_max' => $validated['salary-max'] <= 0 ? null : $validated['salary-max'],
+                'salary_currency' => $validated['salary-currency'],
+                'salary_type' => $validated['salary-type'],
+                'job_type' => $validated['job-type'],
+                'full_description' => $validated['full-description'],
+            ]);
+            $advert->save();
+
+            Log::info("Advert #$advert->id was modified");
+        });
+
+        return $this->redirectToAdvert($advert->refresh(), $request);
     }
 
     /**
@@ -116,5 +140,20 @@ class AdvertController extends Controller
         Log::info("Deleted advert #$id");
 
         return redirect()->back();
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    private function redirectToAdvert(Advert $advert, Request $request)
+    {
+        $request->user()->refresh();
+        $advert->refresh();
+
+        if ($request->user()->can('update', $advert)) {
+            return redirect()->route('jobs.edit', $advert);
+        }
+
+        return redirect()->route('jobs.index');
     }
 }

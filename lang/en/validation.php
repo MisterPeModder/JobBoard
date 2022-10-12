@@ -170,10 +170,15 @@ return [
     */
 
     'attributes' => [
-        'phone-number' => 'phone number',
         'attachments.0' => 'first attachment',
         'attachments.1' => 'second attachment',
-        'attachments.2' => 'third attachment'
+        'attachments.2' => 'third attachment',
+        'job-type' => 'job type',
+        'phone-number' => 'phone number',
+        'salary-max' => 'maximum salary',
+        'salary-min' => 'minimum salary',
+        'salary-type' => 'salary type',
+        'salary-currency' => 'currency',
     ],
 
 ];

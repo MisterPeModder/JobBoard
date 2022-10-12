@@ -15,7 +15,7 @@ $members = App\Models\User::where('company_id', $company->id)->get();
 $user = Illuminate\Support\Facades\Auth::user();
 @endphp
 
-<x-main-layout :title="__('company.list.title')">
+<x-main-layout :title="__('company.edit.title')">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
         <span class="flex flex-row justify-start">
             <x-secondary-link href="{{ route('companies.show', $company->id) }}" class="group">
