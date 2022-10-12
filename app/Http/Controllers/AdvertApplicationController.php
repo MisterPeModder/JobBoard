@@ -22,9 +22,9 @@ class AdvertApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Company $company)
     {
-        return redirect()->route('jobs.index');
+        return response()->view('applications.show', ['company' => $company]);
     }
 
     /**
@@ -136,15 +136,6 @@ class AdvertApplicationController extends Controller
         $application->delete();
 
         return response()->view('/');
-    }
-
-    /**
-     * Show the list of applies related to the company
-     */
-    public function list(Company $company): Response
-    {
-        Log::info('Showing adverts answers');
-        return response()->view('applications.show', ['company' => $company]);
     }
 
 }

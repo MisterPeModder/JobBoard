@@ -37,8 +37,6 @@ Route::resource('jobs', AdvertController::class)
     ->except(['create', 'store'])
     ->parameter('jobs', 'advert');
 
-Route::get('/companies/{company}/applies', [JobApplicationController::class, 'list'])->name('apply.list');
-
 Route::post('/companies/{company}/edit/member', [CompanyController::class, 'addMember'])
     ->can('update-members', 'company')
     ->name('companies.edit.member.add');
@@ -60,5 +58,13 @@ Route::post('/companies/{company}/job', [AdvertController::class, 'store'])
     ->can('create-advert', 'company')
     ->name('companies.jobs.store');
 
+//shows all applications of all adverts related to a company
+Route::get('/companies/{company}/applications', [AdvertApplicationController::class, 'index'])
+    ->name('companies.applications.index');
+//shows an application of an advert
+Route::get('/applications/{application}', [AdvertApplicationController::class, 'show'])->name('application.show');
+//change application status
+Route::put('/applications/{application}/updateAccepted', [AdvertApplicationController::class, 'updateAccepted'])->name('application.updateAccepted');
+Route::put('/applications/{application}/updateDenied', [AdvertApplicationController::class, 'updateDenied'])->name('application.updateDenied');
 // TODO (#24): implement admin page
 Route::permanentRedirect('/admin', '/')->name('admin.index');
