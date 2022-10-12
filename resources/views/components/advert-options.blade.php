@@ -7,7 +7,8 @@
 @endpushonce
 
 @php
-$itemClass = 'flex flex-row hover:bg-l-bgr-content p-2 items-end gap-2 w-full text-sm';
+$itemClassBase = 'hover:bg-l-bgr-content w-full text-sm';
+$itemClass = "$itemClassBase flex flex-row p-2 items-end gap-2";
 @endphp
 
 <div id="advert-options-dropdown"
@@ -45,13 +46,13 @@ $itemClass = 'flex flex-row hover:bg-l-bgr-content p-2 items-end gap-2 w-full te
         </a>
 
         {{-- Delete Ad Button --}}
-        <form method="POST" action="{{ route('jobs.destroy', '0') }}" class="{{ $itemClass }}"
+        <form method="POST" action="{{ route('jobs.destroy', '0') }}" class="{{ $itemClassBase }}"
             id="advert-options-delete">
             @method('DELETE')
             @csrf
 
-            @svg('resources/images/delete.svg', 'fill-red-500')
-            <button class="block text-sm text-red-500" role="menuitem" tabindex="-1">
+            <button role="menuitem" tabindex="-1" class="text-sm text-red-500 w-full flex flex-row gap-2 p-2">
+                @svg('resources/images/delete.svg', 'fill-red-500')
                 @tr('advert.delete')
             </button>
         </form>
