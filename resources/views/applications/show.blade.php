@@ -12,12 +12,25 @@
                     <x-secondary-link href="{{ route('apply.show', $application) }}" class="m-2">
                         Details
                     </x-secondary-link>
-                    <x-secondary-link href="{{ route('apply.show', $application) }}" class="m-2 text-green-500 hover:text-green-400 border-green-500 hover:border-green-400">
-                        Accept
-                    </x-secondary-link>
-                    <x-secondary-link href="{{ route('apply.show', $application) }}" class="m-2 text-red-500 hover:text-red-400 border-red-500 hover:border-red-400">
-                        Deny
-                    </x-secondary-link>
+                    @switch($application->status)
+                        @case('new')
+                            <p class="m-2 font-semibold text-xs text-cyan-300 bg-blue-900 border border-cyan-300 rounded-full p-1 items-center">
+                                @tr('application.status.new') 
+                            </p>
+                            @break
+                        @case('accepted')
+                            <p class="m-2 font-semibold text-xs text-lime-400 bg-green-900 border border-lime-400 rounded-full p-1 items-center">
+                                @tr('application.status.accepted') 
+                            </p>
+                            @break
+                        @case('denied')
+                            <p class="m-2 font-semibold text-xs text-yellow-400 bg-red-900 border border-yellow-400 rounded-full p-1 items-center">
+                                @tr('application.status.denied') 
+                            </p>
+                            @break
+                        @default
+                            
+                    @endswitch
                 </div>
             @endforeach
         @endforeach
