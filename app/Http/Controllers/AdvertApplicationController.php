@@ -8,6 +8,7 @@ use App\Models\Advert;
 use App\Models\Application;
 use App\Models\ApplicationAttachment;
 use App\Models\Asset;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -136,4 +137,14 @@ class AdvertApplicationController extends Controller
 
         return response()->view('/');
     }
+
+    /**
+     * Show the list of applies related to the company
+     */
+    public function list(Company $company): Response
+    {
+        Log::info('Showing adverts answers');
+        return response()->view('applications.show', ['company' => $company]);
+    }
+
 }

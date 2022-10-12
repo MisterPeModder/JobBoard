@@ -32,6 +32,10 @@ $members = App\Models\User::where('company_id', $company->id)->get();
                     @tr('advert.create')
                 </x-secondary-link>
             @endcan
+            <x-secondary-link href="{{ route('apply.list', $company) }}">
+                Go to adverts repplies
+            </x-secondary-link>
+
             <x-primary-link href="{{ route('companies.jobs.index', $company) }}">
                 @tr('company.adverts')
             </x-primary-link>

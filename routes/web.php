@@ -22,9 +22,9 @@ require __DIR__.'/auth.php';
 
 Route::view('/', 'main-page');
 
-Route::get('change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
+Route::get('change-password', [UserController::class, 'changePassword'])->name('change-password');
 
-Route::put('update-password/{user}', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update-password');
+Route::put('update-password/{user}', [UserController::class, 'updatePassword'])->name('update-password');
 
 Route::resources([
     'assets' => AssetController::class,
@@ -36,6 +36,8 @@ Route::resources([
 Route::resource('jobs', AdvertController::class)
     ->except(['create', 'store'])
     ->parameter('jobs', 'advert');
+
+Route::get('/companies/{company}/applies', [JobApplicationController::class, 'list'])->name('apply.list');
 
 Route::post('/companies/{company}/edit/member', [CompanyController::class, 'addMember'])
     ->can('update-members', 'company')
