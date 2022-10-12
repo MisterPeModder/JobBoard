@@ -96,7 +96,7 @@ class AdvertApplicationController extends Controller
      */
     public function show(Application $application): Response
     {
-        return response()->view('applications.show', ['application' => $application]);
+        return response()->view('jobs.advets.application', ['application' => $application]);
     }
 
     /**
