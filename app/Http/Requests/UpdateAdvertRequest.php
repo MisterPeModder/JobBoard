@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\Currency;
 use App\Enums\JobType;
 use App\Enums\SalaryType;
+use App\Rules\MaxLines;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
@@ -42,7 +43,13 @@ class UpdateAdvertRequest extends FormRequest
         return [
             'title' => 'string|required|filled|max:255',
             'location' => 'string|nullable|max:255',
-            'short-description' => 'string|required|filled|max:'.(self::MAX_SHORT_DESC_LINES * self::MAX_SHORT_DESC_LINE_LENGTH),
+            'short-description' => [
+                'string',
+                'required',
+                'filled',
+                'max:'.(self::MAX_SHORT_DESC_LINES * self::MAX_SHORT_DESC_LINE_LENGTH),
+                new MaxLines(self::MAX_SHORT_DESC_LINES),
+            ],
             'salary-min' => 'numeric|nullable|required_with_all:salary-max,salary-currency,salary-type|min:0',
             'salary-max' => 'numeric|nullable|required_with:salary|gte:salary-min',
             'salary-currency' => ['nullable', 'required_with:salary-min', new Enum(Currency::class)],
