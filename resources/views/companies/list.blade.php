@@ -14,6 +14,10 @@
             @foreach ($companies as $company)
                 <x-company-entry :company=$company />
             @endforeach
+
+            @if (count($companies) == 0)
+                <em class="text-gray-400 w-full text-center py-8">@tr('list.empty')</em>
+            @endif
         </section>
         <x-page-navigation :paginator="$companies" width=5 class="border-t border-l-brd/10" />
     </main>

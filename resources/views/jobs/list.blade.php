@@ -44,6 +44,10 @@
             @foreach ($adverts as $advert)
                 <x-job-advert :advert=$advert />
             @endforeach
+
+            @if (count($adverts) == 0)
+                <em class="text-gray-400 w-full text-center py-8">@tr('list.empty')</em>
+            @endif
         </section>
         <x-page-navigation :paginator="$adverts" width="5" />
     </main>
