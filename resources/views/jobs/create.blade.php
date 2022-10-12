@@ -18,7 +18,7 @@ if ($prevUrl == url()->current()) {
                 @svg('resources/images/left-angle.svg', 'fill-highlight group-hover:fill-highlight-light mr-1')
                 @tr('company.show')
             </x-secondary-link>
-            <x-primary-link href="{{ route('companies.jobs.index', $advert->company) }}">
+            <x-primary-link href="{{ route('companies.jobs.index', $company) }}">
                 @tr('company.adverts')
             </x-primary-link>
         </span>
