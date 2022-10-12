@@ -76,6 +76,7 @@ class AdvertController extends Controller
             $advert = Advert::create($fields);
             $advert->save();
             Log::info("Advert #$advert->id was created");
+
             return $advert;
         });
 
