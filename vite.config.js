@@ -10,6 +10,7 @@ export default defineConfig({
 
                 'resources/js/components/advertOptions.ts',
                 'resources/js/components/exclusiveDetails.ts',
+                'resources/js/components/hamburgerMenu.ts',
                 'resources/js/components/imageInput.ts',
             ],
             refresh: true,

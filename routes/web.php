@@ -57,3 +57,6 @@ Route::get('/companies/{company}/jobs/create', [AdvertController::class, 'create
 Route::post('/companies/{company}/job', [AdvertController::class, 'store'])
     ->can('create-advert', 'company')
     ->name('companies.jobs.store');
+
+// TODO (#24): implement admin page
+Route::permanentRedirect('/admin', '/')->name('admin.index');

@@ -1,5 +1,6 @@
 {
     "actions.back": "Back",
+    "admin.index.title": "Admin",
     "advert.apply": "Apply now",
     "advert.apply.title": "Apply",
     "advert.create": "Create Advert",
@@ -23,7 +24,7 @@
     "company.details.open": "Description",
     "company.edit": "Save Changes",
     "company.edit.title": "Manage Company",
-    "company.list.title": "Companies",
+    "company.list.title": "Show Companies",
     "company.members": "Members (:count)",
     "company.members.add": "Add Member",
     "company.members.delete": "remove member",

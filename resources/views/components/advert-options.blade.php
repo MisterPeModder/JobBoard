@@ -2,7 +2,7 @@
 
 @props([])
 
-@pushonce('scripts')
+@pushonce('components/advert-options')
     @vite(['resources/js/components/advertOptions.ts'])
 @endpushonce
 
