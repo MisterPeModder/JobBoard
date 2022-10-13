@@ -33,7 +33,7 @@ class CompanyController extends Controller
         $this->authorize('viewAny', Company::class);
 
         $companies = Company::paginate(self::COMPANIES_PER_PAGE);
-        $currentPage = $_GET['page'] ?? '1';
+        $currentPage = $request->query('page', '1');
 
         if ($currentPage < 1 || $currentPage > $companies->lastPage()) {
             return redirect($request->fullUrlWithoutQuery('page'));
