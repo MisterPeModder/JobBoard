@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Log;
 
 class ApplicationPolicy
 {
@@ -33,7 +34,9 @@ class ApplicationPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        Log::info("User : $user");
+
+        return true;
     }
 
     /**

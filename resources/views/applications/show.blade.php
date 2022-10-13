@@ -5,7 +5,7 @@
         </div>
         <div class="flex flex-row flex-wrap text-center">
             <p class="w-5/12">@tr('application.adverts')</p>
-            <p class="w-4/12">@tr('application.appliers')</p>
+            <p class="w-5/12">@tr('application.applicant')</p>
             <p class="w-1/12"></p>
             <p class="w-1/12">@tr('application.status')</p>
         </div>

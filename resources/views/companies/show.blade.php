@@ -32,11 +32,12 @@ $members = App\Models\User::where('company_id', $company->id)->get();
                     @tr('advert.create')
                 </x-secondary-link>
             @endcan
-            <x-secondary-link href="{{ route('companies.applications.index', $company) }}">
-                @tr('company.adverts.applications')
-            </x-secondary-link>
-
-            <x-primary-link href="{{ route('jobs.index', ['company' => $company->id]) }}">
+            @can('viewAny', $company->adverts->first()->applications->first())
+                <x-secondary-link href="{{ route('companies.applications.index', $company) }}">
+                    @tr('company.adverts.applications')
+                </x-secondary-link>
+            @endcan
+            <x-primary-link href="{{ route('companies.jobs.index', $company) }}">
                 @tr('company.adverts')
             </x-primary-link>
         </span>

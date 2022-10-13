@@ -15,7 +15,7 @@ return new class extends Migration {
     {
         Schema::table('applications', function (Blueprint $table) {
             $table
-                ->enum('status', ApplicationStatus::stringCases())->comment('Status of the apply')->default('new');
+                ->enum('status', ApplicationStatus::stringCases())->comment('Status of the application')->default('new');
         });
     }
 
