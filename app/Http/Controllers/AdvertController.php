@@ -29,19 +29,39 @@ class AdvertController extends Controller
     {
         $filters = [];
 
-        if (isset($_GET['company'])) {
-            $companyId = $_GET['company'];
-            $company = Company::find($companyId);
-            $adverts = Advert::where('company_id', $companyId)->paginate(self::ADVERTS_PER_PAGE)->withQueryString();
-            if ($company !== null) {
-                $filters['company'] = $company->name;
-            }
+        // Search query Filter
+        $searchQuery = $request->string('query');
+        if ($searchQuery->isNotEmpty()) {
+            $adverts = Advert::querySearch($searchQuery);
+            $filters['query'] = $searchQuery;
         } else {
-            $adverts = Advert::paginate(self::ADVERTS_PER_PAGE)->withQueryString();
+            $adverts = Advert::query();
         }
 
-        $currentPage = $_GET['page'] ?? '1';
+        // Location Filter
+        $location = $request->string('location');
+        if ($location->isNotEmpty()) {
+            $escaped = $location->replace('%', '\\%')->replace('_', '\\_');
+            $adverts = $adverts->where('location', 'like', "%$escaped%");
+            $filters['location'] = $location->toString();
+        }
 
+        // Company Filter
+        $companyId = $request->query('company');
+        if ($companyId !== null) {
+            $company = Company::find($companyId);
+            if ($company !== null) {
+                $filters['company'] = $company;
+                $adverts = $adverts->where('company_id', $companyId);
+            }
+        }
+
+        /** @var \Illuminate\Pagination\LengthAwarePaginator */
+        $adverts = $adverts->paginate(self::ADVERTS_PER_PAGE);
+        $adverts = $adverts->withQueryString();
+
+        // If page number is out-of-bounds, redirect user to page 1
+        $currentPage = $request->query('page', '1');
         if ($currentPage < 1 || $currentPage > $adverts->lastPage()) {
             return redirect($request->fullUrlWithoutQuery('page'));
         }
