@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Application;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class ApplicationPolicy
 {
@@ -27,10 +28,10 @@ class ApplicationPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User|null  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(?User $user)
+    public function viewAny(User $user)
     {
         return false;
     }
@@ -67,7 +68,7 @@ class ApplicationPolicy
      */
     public function update(User $user, Application $application)
     {
-        return $user->id === $application->applicant_id;
+        //
     }
 
     /**
@@ -79,6 +80,30 @@ class ApplicationPolicy
      */
     public function delete(User $user, Application $application)
     {
-        return $user->id === $application->applicant_id;
+        //
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Application  $application
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, Application $application)
+    {
+        //
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Application  $application
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function forceDelete(User $user, Application $application)
+    {
+        //
     }
 }

@@ -20,17 +20,17 @@
             <p class="w-1/4">@tr('application.email')</p> 
             <p class="w-3/4">{{ $applicant->email }}</p>
         </div>
-        <div class="flex flex-row flex-wrap">
-            <p class="w-1/4">@tr('application.content')</p> 
-            {{ $application->content }}
-        </div>
-        <div class="flex flex-row flex-wrap">
+            <div class="flex flex-row flex-wrap">
+                <p class="w-1/4">@tr('application.content')</p> 
+                {{ $application->content }}
+            </div>
+            <div class="flex flex-row flex-wrap">
             <p class="w-1/4">@tr('application.attachments')</p>
             @foreach ($attachments as $attachment)
                 @if ($attachment->mime_type == 'application/pdf')
-                <a href="{{ $attachment->getUrl() }}" target="_blank" class="w-1/4 text-center underline text-blue-900">{{ $attachment->name }}</a>
+                    <a href="{{ $attachment->getUrl() }}" target="_blank" class="w-1/4 text-center underline text-blue-900">@tr('application.pdf')</a>
                 @else
-                <img src="{{ $attachment->getUrl() }}" alt="{{ $attachment->name }}" class="w-1/4">
+                    <img src="{{ $attachment->getUrl() }}" alt="@tr('application.image')" class="w-1/4">
                 @endif
             @endforeach
         </div>
