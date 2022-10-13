@@ -13,7 +13,7 @@ class StoreAdvertApplicationRequest extends FormRequest
     /**
      * The maximum size of an attachment, in kilobytes.
      */
-    const MAX_ATTACHMENT_SIZE = 1000;
+    const MAX_ATTACHMENT_SIZE = 4000;
 
     /**
      * Determine if the user is authorized to make this request.

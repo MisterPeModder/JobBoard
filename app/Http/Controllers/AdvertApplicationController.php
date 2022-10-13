@@ -64,9 +64,15 @@ class AdvertApplicationController extends Controller
             ]);
 
             // store the attachments
-            if ($request->hasFile('attachments')) {
+            if ($request->hasFile('attachments') && $user->can('create', Asset::class)) {
                 foreach ($request->file('attachments') as $i => $file) {
-                    $asset = Asset::factory()->storeFile($file, 'attachment_'.$job->id."_$i")->create();
+                    $asset = Asset::factory()
+                        ->storeFile($file, 'attachment_'.$job->id."_$i")
+                        ->create();
+                    $asset->user()->associate($user);
+                    $asset->company()->associate($job->company);
+                    $asset->save();
+
                     $attachment = ApplicationAttachment::create([
                         'asset_id' => $asset->id,
                         'application_id' => $application->id,

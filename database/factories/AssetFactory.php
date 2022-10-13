@@ -29,6 +29,16 @@ class AssetFactory extends Factory
     }
 
     /**
+     * Allows anyone to view this asset.
+     */
+    public function public(): Factory
+    {
+        return $this->state(function () {
+            return ['access' => 'public'];
+        });
+    }
+
+    /**
      * Creates an asset (and a correspoding blob) from one of the images in the `storage/app/examples` directory.
      */
     public function randomImage(): Factory

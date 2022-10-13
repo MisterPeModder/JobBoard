@@ -91,11 +91,16 @@ class CompanyController extends Controller
             $owner->company()->associate($company);
             $owner->save();
 
-            if ($request->hasFile('icon')) {
-                $icon = Asset::factory()->storeFile($request->file('icon'), "company_$company->id")->create();
+            if ($request->hasFile('icon') && $owner->can('create', Asset::class)) {
+                $icon = Asset::factory()
+                    ->public()
+                    ->storeFile($request->file('icon'), "company_$company->id")
+                    ->create();
+
                 $company->icon_id = $icon->id;
                 $company->icon()->save($icon);
                 $icon->company()->associate($company);
+                $icon->user()->associate($owner);
                 $icon->save();
                 Log::info("Created icon (#$icon->id) of company #$company->id");
             }
@@ -142,7 +147,7 @@ class CompanyController extends Controller
         DB::transaction(function () use ($request, $company) {
             $validated = $request->validated();
             /** @var User */
-            $owner = $request->user();
+            $user = $request->user();
 
             $company->fill([
                 'name' => $validated['name'],
@@ -151,16 +156,22 @@ class CompanyController extends Controller
             ]);
             $company->save();
 
-            if ($request->hasFile('icon')) {
+            if ($request->hasFile('icon') && $user->can('create', Asset::class)) {
                 $oldIcon = $company->icon;
                 if ($oldIcon !== null) {
                     $company->icon()->delete();
                 }
 
-                $icon = Asset::factory()->storeFile($request->file('icon'), "company_$company->id")->create();
+                $icon = Asset::factory()
+                    ->public()
+                    ->storeFile($request->file('icon'), "company_$company->id")
+                    ->create();
+
                 $company->icon_id = $icon->id;
                 $company->icon()->save($icon);
+
                 $icon->company()->associate($company);
+                $icon->user()->associate($user);
                 $icon->save();
                 Log::info("Created icon (#$icon->id) of company #$company->id");
             }
@@ -168,7 +179,7 @@ class CompanyController extends Controller
             $company->save();
             $company->refresh();
 
-            Log::info("Company (#$company->id) updated by user #$owner->id");
+            Log::info("Company (#$company->id) updated by user #$user->id");
 
             return $company->id;
         });
