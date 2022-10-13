@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asset;
 use App\Models\Blob;
 use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -65,14 +66,14 @@ class AssetController extends Controller
         // get the MIME type, (e.g. ".png" -> "image/png")
         $mimeType = MimeType::fromFilename($name);
 
-        // fetch the coresspoding blob from the database, or return 404
-        $blob = Blob::leftJoin('assets', 'assets.blob_id', '=', 'blobs.id')
-            ->where([
-                ['uuid', '=', $uuid],
-                ['mime_type', '=', $mimeType],
-            ])->firstOrFail();
+        // fetch the coresspoding blob & asset from the database, or return 404
+        $asset = Asset::with('blob')
+            ->whereRelation('blob', 'uuid', $uuid)
+            ->where('mime_type', $mimeType)
+            ->firstOrFail();
+        $blob = $asset->blob;
 
-        /* /!\ TODO: CHECK PERMISSIONS HERE! /!\ */
+        $this->authorize('view', $asset);
 
         // try to read the blob's contents at storage/blobs/<uuid>
         $contents = $this->blobFs->get($blob->uuid);
@@ -85,7 +86,7 @@ class AssetController extends Controller
 
         // give the blob to the user with the appropriate type.
         return response($contents)
-            ->header('Content-Type', $blob->mimeType);
+            ->header('Content-Type', $asset->mime_type);
     }
 
     /**

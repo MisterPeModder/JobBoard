@@ -22,12 +22,13 @@ class DatabaseSeeder extends Seeder
         // Slience constraints errors for the time being
         Schema::disableForeignKeyConstraints();
 
-        // Generate 15 blobs with junk data.
+        // Generate 15 private blobs with junk data.
         Asset::factory(15, ['blob_id' => Blob::factory()->storeRandom()])->create();
 
         // Generate 10 users with 1 icon each
         Asset::factory()
             ->count(10)
+            ->public()
             ->randomImage()
             ->create()
             ->each(function (Asset $asset) {
@@ -42,6 +43,7 @@ class DatabaseSeeder extends Seeder
         // Generate 3 companies with our bosses as their owner
         Asset::factory()
             ->count(3)
+            ->public()
             ->randomImage()
             ->create()
             ->each(function (Asset $asset, $i) use ($bosses) {
@@ -53,6 +55,7 @@ class DatabaseSeeder extends Seeder
                     ])
                     ->create();
                 $asset->company()->associate($company);
+                $asset->user()->associate($boss);
                 $boss->company()->associate($company);
                 $asset->save();
                 $boss->save();
