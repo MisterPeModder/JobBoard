@@ -5,7 +5,7 @@
 --}}
 @props(['initial' => null])
 
-@pushonce('scripts')
+@pushonce('components/image-input')
     @vite(['resources/js/components/imageInput.ts'])
 @endpushonce
 

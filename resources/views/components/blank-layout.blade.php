@@ -1,6 +1,6 @@
 {{-- Empty layout for the auth pages --}}
 
-@props(['title' => null, 'script' => null])
+@props(['title' => null])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -17,9 +17,10 @@
 
     @vite(['resources/js/common.ts', 'resources/css/common.css'])
 
-    @isset($script)
-        @vite([$script])
-    @endisset
+    @stack('components/advert-options')
+    @stack('components/exclusive-details')
+    @stack('components/hamburger-menu')
+    @stack('components/image-input')
 </head>
 
 <body class="font-sans antialiased bg-l-bgr-main text-gray-700">

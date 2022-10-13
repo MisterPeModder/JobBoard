@@ -1,6 +1,6 @@
 @props([])
 
-@pushonce('scripts')
+@pushonce('components/exclusive-details')
     @vite(['resources/js/components/exclusiveDetails.ts'])
 @endpushonce
 

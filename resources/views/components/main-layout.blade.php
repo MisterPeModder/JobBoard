@@ -1,74 +1,112 @@
 {{-- Main layout of the JobBoard pages --}}
 
+@props(['title' => null, 'showprofile' => true, 'companies_link' => true])
 
-@props(['title' => null, 'script' => null, 'showprofile' => true, 'companies_link' => true])
+@php
+$user = Illuminate\Support\Facades\Auth::user();
+@endphp
 
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="The next-gen job search platform">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ ($title === null ? '' : "$title - ") . config('app.name', 'JobBoard') }}</title>
-
-    <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
-    @vite(['resources/js/common.ts', 'resources/css/common.css'])
-
-    @isset($script)
-        @vite([$script])
-    @endisset
-    @stack('scripts')
-</head>
-
-<body class="font-sans antialiased bg-l-bgr-main text-gray-700">
+<x-blank-layout :title=$title>
     <header class="flex flex-col backdrop-blur-md sticky top-0 border-b border-l-brd/10 z-20 px-2">
         <span class="flex flex-row  justify-between items-center p-2">
             <span class="flex flex-row items-center gap-2">
                 <span class="logo-dot"></span>
                 <a id="logo" href="/" class="text-2xl font-bold">JobBoard</a>
             </span>
-            <span class="flex flex-row gap-2 items-center">
+            <nav class="flex flex-row items-center lg:divide-x-2 divide-l-brd/10">
+                @if ($user?->is_admin)
+                    <a href="{{ route('admin.index') }}" class="hidden lg:block font-semibold text-red-900">
+                        @tr('admin.index.title')
+                    </a>
+                @endif
+
                 @if ($companies_link)
-                    <a href="{{ route('companies.index') }}" class="hidden lg:block underline font-semibold">
+                    @if (isset($user?->company) && $user?->can('update', $user->company))
+                        <a href="{{ route('companies.edit', $user->company) }}"
+                            class="hidden lg:block font-semibold pl-1 ml-1">
+                            @tr('company.edit.title')
+                        </a>
+                    @endif
+                    <a href="{{ route('companies.index') }}" class="hidden lg:block font-semibold pl-1 ml-1">
                         @tr('company.list.title')
                     </a>
                 @endif
-                @if ($showprofile)
-                    @guest
-                        {{-- "Sign In" widget, will only display when not logged --}}
-                        <a href="{{ route('register') }}"
-                            class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                            Sign in</a>
-                    @endguest
-                    @auth
-                        {{-- "My profile" widget, will only display when logged --}}
-                        <a href="{{ route('users.show', Auth::user()) }}"
-                            class="lb:block underline font-semibold">
-                            My profile</a>
-                    @endauth
-                @endif
+
+                @guest
+                    {{-- "Sign In" widget, will only display when not logged --}}
+                    <a href="{{ route('register') }}"
+                        class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold pl-1 ml-1">
+                        Sign in</a>
+                    <span class="pl-1 ml-1">
+                        <a href="{{ route('login') }}"
+                            class="border-2 border-highlight hover:border-highlight-light transition ease-in-out duration-150 text-highlight hover:text-highlight-light rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
+                            Log in</a>
+                    </span>
+                @endguest
                 @auth
+                    @if ($showprofile)
+                        {{-- "My profile" widget, will only display when logged --}}
+                        <a href="{{ route('users.show', Auth::user()) }}" class="hidden lg:block font-semibold pl-1 ml-1">
+                            My profile</a>
+                    @endif
+
                     {{-- "Log out" widget, will only display when logged --}}
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}" class="hidden lg:block font-semibold pl-1 ml-1">
                         @csrf
-                        <button type="submit"
-                            class="lb:block underline font-semibold">
+                        <button type="submit">
                             Log out</button>
                     </form>
                 @endauth
-                <img src="{{ Vite::asset('resources/images/hamburger.svg') }}" alt="menu" class="lg:hidden">
-            </span>
+
+                <x-hamburger-toggle-button class="lg:hidden pl-1 ml-1" />
+            </nav>
         </span>
     </header>
+
+    <x-hamburger-menu class="mt-2 flex flex-col gap-1 items-start px-4">
+        @guest
+            {{-- "Sign In" widget, will only display when not logged --}}
+            <a href="{{ route('register') }}" class="font-semibold text-highlight border-b border-l-brd/10 py-1 w-full">Sign
+                in</a>
+            <a href="{{ route('login') }}" class="font-semibold text-highlight-light border-b border-l-brd/10 py-1 w-full">
+                Log in
+            </a>
+        @endguest
+        @auth
+            @if ($showprofile)
+                {{-- "My profile" widget, will only display when logged --}}
+                <a href="{{ route('users.show', Auth::user()) }}"
+                    class="font-semibold border-b border-l-brd/10 py-1 w-full">My profile</a>
+            @endif
+
+            {{-- "Log out" widget, will only display when logged --}}
+            <form method="POST" action="{{ route('logout') }}" class="font-semibold border-b border-l-brd/10 py-1 w-full">
+                @csrf
+                <button type="submit">Log out</button>
+            </form>
+        @endauth
+
+        @if ($user?->is_admin)
+            <a href="{{ route('admin.index') }}"
+                class="font-semibold text-red-900 border-b border-l-brd/10 py-1 w-full">
+                @tr('admin.index.title')
+            </a>
+        @endif
+
+        @if ($companies_link)
+            @if (isset($user?->company) && $user?->can('update', $user->company))
+                <a href="{{ route('companies.edit', $user->company) }}"
+                    class="font-semibold border-b border-l-brd/10 py-1 w-full">
+                    @tr('company.edit.title')
+                </a>
+            @endif
+            <a href="{{ route('companies.index') }}" class="font-semibold">
+                @tr('company.list.title')
+            </a>
+        @endif
+    </x-hamburger-menu>
+
     {{-- Page content goes here --}}
     {{ $slot }}
-    <footer class="text-sm container mx-auto py-2 border-t border-l-brd/10 text-center">
-        Made with ❤️ by Yanis Guaye and Melvin Courjaud
-    </footer>
-</body>
 
-</html>
+</x-blank-layout>
