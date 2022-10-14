@@ -8,6 +8,7 @@ use App\Models\Advert;
 use App\Models\Application;
 use App\Models\ApplicationAttachment;
 use App\Models\Asset;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +20,14 @@ class AdvertApplicationController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param App\Models\Company $company
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Company $company)
     {
-        return redirect()->route('jobs.index');
+        $this->authorize('viewAny', $company->adverts->first()->applications->first());
+
+        return response()->view('applications.show', ['company' => $company]);
     }
 
     /**
@@ -89,33 +93,87 @@ class AdvertApplicationController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
      */
     public function show(Application $application): Response
     {
-        abort(404);
+        $this->authorize('view', $application);
+
+        Log::info("Showing application #$application->id");
+
+        return response()->view('jobs.application', ['application' => $application]);
     }
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
      */
     public function edit(Application $application): Response
     {
-        abort(404);
+        return response()->view('applications.edit', ['application' => $application]);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param App\Http\Requests\UpdateJobApplicationRequest $request
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAdvertApplicationRequest $request, Application $application): Response
+    public function update(UpdateAdvertApplicationRequest $request, Application $application)
     {
-        abort(404);
+        $request->validated();
+
+        $application->update([
+            'content' => $request->content,
+        ]);
+
+        return redirect()->view('/');
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Application $application): Response
+    public function destroy(Application $application)
     {
-        abort(404);
+        $application->delete();
+
+        return redirect()->view('/');
+    }
+
+    /**
+     * Set application status to 'accepted'
+     *
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAccepted(Application $application)
+    {
+        $application->update([
+            'status' => 'accepted',
+        ]);
+
+        return response()->view('applications.show', ['company' => $application->advert->company]);
+    }
+
+    /**
+     * Set application status to 'accepted'
+     *
+     * @param App\Models\Application $application
+     * @return \Illuminate\Http\Response
+     */
+    public function updateDenied(Application $application)
+    {
+        $application->update([
+            'status' => 'denied',
+        ]);
+
+        return response()->view('applications.show', ['company' => $application->advert->company]);
     }
 }

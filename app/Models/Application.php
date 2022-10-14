@@ -16,6 +16,7 @@ class Application extends Model
         'advert_id',
         'applicant_id',
         'content',
+        'status',
     ];
 
     /**

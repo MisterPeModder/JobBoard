@@ -22,9 +22,9 @@ require __DIR__.'/auth.php';
 
 Route::view('/', 'main-page');
 
-Route::get('change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
+Route::get('change-password', [UserController::class, 'changePassword'])->name('change-password');
 
-Route::put('update-password/{user}', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update-password');
+Route::put('update-password/{user}', [UserController::class, 'updatePassword'])->name('update-password');
 
 Route::resources([
     'assets' => AssetController::class,
@@ -58,5 +58,13 @@ Route::post('/companies/{company}/job', [AdvertController::class, 'store'])
     ->can('create-advert', 'company')
     ->name('companies.jobs.store');
 
+//shows all applications of all adverts related to a company
+Route::get('/companies/{company}/applications', [AdvertApplicationController::class, 'index'])
+    ->name('companies.applications.index');
+//shows an application of an advert
+Route::get('/applications/{application}', [AdvertApplicationController::class, 'show'])->name('application.show');
+//change application status
+Route::put('/applications/{application}/updateAccepted', [AdvertApplicationController::class, 'updateAccepted'])->name('application.updateAccepted');
+Route::put('/applications/{application}/updateDenied', [AdvertApplicationController::class, 'updateDenied'])->name('application.updateDenied');
 // TODO (#24): implement admin page
 Route::permanentRedirect('/admin', '/')->name('admin.index');
