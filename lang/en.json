@@ -34,7 +34,7 @@
     "application.status.accepted": "accepted",
     "application.status.denied": "denied",
     "company.adverts": "Show Adverts",
-    "company.adverts.applies": "Show Applications",
+    "company.adverts.applications": "Show Applications",
     "company.create": "Create Company",
     "company.create.title": "Create Company",
     "company.delete": "Delete Company",
