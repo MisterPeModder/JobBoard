@@ -34,5 +34,21 @@
                 @endif
             @endforeach
         </div>
+        <div class="flex flex-row flex-wrap">
+            <div class="w-8/12"></div>
+            <form method="POST" action="{{ route("application.updateAccepted", $application) }}">
+                @method('PUT')
+                @csrf
+                <button type="submit" class="bg-green-700 hover:bg-green-500 transition ease-in-out duration-150 text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">
+                    @tr('application.accept')</button>
+            </form>
+            <div class="w-1/12"></div>
+            <form method="POST" action="{{ route("application.updateDenied", $application) }}">
+                @method('PUT')
+                @csrf
+                <button class="bg-red-700 hover:bg-red-500 transition ease-in-out duration-150 text-white rounded-xl p-2 text-sm flex items-center whitespace-nowrap font-semibold">
+                    @tr('application.deny')</button>
+            </form>
+        </div>
     </div>
 </x-main-layout>

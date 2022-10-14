@@ -5,8 +5,6 @@ namespace App\Policies;
 use App\Models\Application;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Log;
 
 class ApplicationPolicy
 {
@@ -30,13 +28,12 @@ class ApplicationPolicy
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
+     * @param  \App\Models\Application  $application
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user, Application $application)
     {
-        Log::info("User : $user");
-
-        return true;
+        return $user->isMemberOf($application->advert->company);
     }
 
     /**
