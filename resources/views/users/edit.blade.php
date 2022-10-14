@@ -1,9 +1,23 @@
+@php
+$iconUrl = $user->icon?->getUrl();
+@endphp
+
 <x-main-layout :showprofile="false">
     <x-auth-card>
-        <form method="POST" action="{{ route('users.update', Auth::user()) }}">
+        <form method="POST" action="{{ route('users.update', Auth::user()) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             
+            <div
+                class="w-2/5 md:w-2/6 lg:w-2/12 flex flex-col md:items-center pb-2 md:pb-0 md:pr-2 md:text-center gap-2">
+                @isset($iconUrl)
+                    <x-image-input id="icon" name="icon" :initial="$iconUrl" />
+                @else
+                    <x-image-input id="icon" name="icon" />
+                @endisset
+                <x-input-label for="icon" :value="__('form.field.icon.edit')" />
+                <x-input-error field="icon" class="mt-2" />
+            </div>
             <div class="grid grid-cols-5 my-5">
                 {{-- Name --}}
                 <x-input-label class="flex items-center text-base font-normal col-span-2" for="name" :value="__('form.field.name')" />

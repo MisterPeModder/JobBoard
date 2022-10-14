@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asset;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,6 +79,7 @@ class UserController extends Controller
         if (Auth::user() != $user) {
             abort(404);
         }
+        $MAX_ICON_SIZE = 4000;
         Log::info("Updating User #$user->id data");
         //validate data with rules
         $request->validate([
@@ -85,13 +87,37 @@ class UserController extends Controller
             'surname' => ['nullable', 'string', 'max:255'],
             'email' => ['string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)], // email must not be alrealy used, expect self
             'phone_number' => ['nullable', 'string'],
+            'icon' => 'nullable|file|mimes:jpg,png,webp,pdf|max:'.$MAX_ICON_SIZE,
         ]);
         //updating data
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
+
+        // updating icon
+        if ($request->hasFile('icon') && $user->can('create', Asset::class)) {
+            $oldIcon = $user->icon;
+            if ($oldIcon !== null) {
+                $user->icon()->delete();
+            }
+
+            $icon = Asset::factory()
+                ->public()
+                ->storeFile($request->file('icon'), "$user->id")
+                ->create();
+
+            $user->icon_id = $icon->id;
+            $user->icon()->save($icon);
+
+            $icon->user()->associate($user);
+            $icon->save();
+            Log::info("Created icon (#$icon->id) of user #$user->id");
+        }
+
         $user->save(); //saving it
+
+        Log::info("User (#$user->id) updated");
 
         return redirect()->route('users.show', $user);
     }

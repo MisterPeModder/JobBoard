@@ -64,7 +64,9 @@ Route::get('/companies/{company}/applications', [AdvertApplicationController::cl
 //shows an application of an advert
 Route::get('/applications/{application}', [AdvertApplicationController::class, 'show'])->name('application.show');
 //change application status
-Route::put('/applications/{application}/updateAccepted', [AdvertApplicationController::class, 'updateAccepted'])->name('application.updateAccepted');
-Route::put('/applications/{application}/updateDenied', [AdvertApplicationController::class, 'updateDenied'])->name('application.updateDenied');
+Route::put('/applications/{application}/updateAccepted', [AdvertApplicationController::class, 'updateAccepted'])
+    ->name('application.updateAccepted');
+Route::put('/applications/{application}/updateDenied', [AdvertApplicationController::class, 'updateDenied'])
+    ->name('application.updateDenied');
 // TODO (#24): implement admin page
 Route::permanentRedirect('/admin', '/')->name('admin.index');

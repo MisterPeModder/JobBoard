@@ -1,7 +1,19 @@
 <x-blank-layout>
     <x-auth-card>
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
+
+            <!-- Icon -->
+            <div
+            class="w-2/5 md:w-2/6 lg:w-4/12 flex flex-col md:items-center pb-2 md:pb-0 md:pr-2 md:text-center gap-2">
+            <x-input-label for="icon" :value="__('form.field.icon')" />
+            @isset($iconUrl)
+                <x-image-input id="icon" name="icon" :initial="$iconUrl" />
+            @else
+                <x-image-input id="icon" name="icon" />
+            @endisset
+            <x-input-error field="icon" class="mt-2" />
+           </div>
 
             <!-- Name -->
             <div>
