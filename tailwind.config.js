@@ -25,6 +25,11 @@ module.exports = {
         'highlight': {
           light: '#8b76c4',
           DEFAULT: '#6D52B7' // main highlight color
+        },
+
+        'admin': {
+          light: colors.red['700'],
+          DEFAULT: colors.red['900']
         }
       },
       animation: {
