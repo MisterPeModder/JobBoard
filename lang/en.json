@@ -74,6 +74,7 @@
     "form.field.new_member": "New Member Email",
     "form.field.new_member.exists": "This user belongs to another company",
     "form.field.new_member.in_company": "This member already exists",
+    "form.field.owner": "Owner",
     "form.field.password": "Password",
     "form.field.phone_number": "Phone Number",
     "form.field.remember_me": "Remember Me",
