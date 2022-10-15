@@ -1,8 +1,18 @@
+@php
+$iconUrl = $user->icon?->getUrl();
+@endphp
+
 <x-main-layout :showprofile="false">
     <x-auth-card>
         <h1 class="text-center">My Profile</h1>
         {{-- Data stored in users table shown here --}}
-        <div class="pt-5 my-10 grid grid-cols-5">
+        <div>
+            @isset($iconUrl)
+                <img src={{ $iconUrl }} alt="icon"
+                    class="aspect-square p-1 border border-l-brd/10 border-solid rounded-full h-[4em]">
+            @endisset
+            </div>
+        <div class="pt-5 my-2 grid grid-cols-5">
             <p class="col-span-2">{{ __('form.field.name') }}</p>
             <p class="col-span-3">{{ $user->name }}</p>
         </div>

@@ -27,7 +27,7 @@ class AdvertApplicationController extends Controller
     {
         $this->authorize('viewAny', $company->adverts->first()->applications->first());
 
-        return response()->view('applications.show', ['company' => $company]);
+        return response()->view('applications.index', ['company' => $company]);
     }
 
     /**
@@ -103,7 +103,7 @@ class AdvertApplicationController extends Controller
 
         Log::info("Showing application #$application->id");
 
-        return response()->view('jobs.application', ['application' => $application]);
+        return response()->view('applications.show', ['application' => $application]);
     }
 
     /**
@@ -159,7 +159,7 @@ class AdvertApplicationController extends Controller
             'status' => 'accepted',
         ]);
 
-        return response()->view('applications.show', ['company' => $application->advert->company]);
+        return response()->view('applications.index', ['company' => $application->advert->company]);
     }
 
     /**
@@ -174,6 +174,6 @@ class AdvertApplicationController extends Controller
             'status' => 'denied',
         ]);
 
-        return response()->view('applications.show', ['company' => $application->advert->company]);
+        return response()->view('applications.index', ['company' => $application->advert->company]);
     }
 }
