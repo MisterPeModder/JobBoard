@@ -1,6 +1,6 @@
 {{-- Main layout of the JobBoard pages --}}
 
-@props(['title' => null, 'showprofile' => true, 'companies_link' => true])
+@props(['title' => null, 'showprofile' => true, 'companies_link' => true, 'admin_link' => true])
 
 @php
 $user = Illuminate\Support\Facades\Auth::user();
@@ -14,8 +14,8 @@ $user = Illuminate\Support\Facades\Auth::user();
                 <a id="logo" href="/" class="text-2xl font-bold">JobBoard</a>
             </span>
             <nav class="flex flex-row items-center lg:divide-x-2 divide-l-brd/10">
-                @if ($user?->is_admin)
-                    <a href="{{ route('admin.index') }}" class="hidden lg:block font-semibold text-red-900">
+                @if ($admin_link && $user?->can('administrate'))
+                    <a href="{{ route('admin.index') }}" class="hidden lg:block font-semibold text-admin">
                         @tr('admin.index.title')
                     </a>
                 @endif
@@ -86,9 +86,8 @@ $user = Illuminate\Support\Facades\Auth::user();
             </form>
         @endauth
 
-        @if ($user?->is_admin)
-            <a href="{{ route('admin.index') }}"
-                class="font-semibold text-red-900 border-b border-l-brd/10 py-1 w-full">
+        @if ($admin_link && $user?->can('administrate'))
+            <a href="{{ route('admin.index') }}" class="font-semibold text-admin border-b border-l-brd/10 py-1 w-full">
                 @tr('admin.index.title')
             </a>
         @endif

@@ -7,6 +7,11 @@
             </span>
 
             <span class="flex flex-row flex-wrap gap-4 items-center justify-around">
+                @can('administrate')
+                    <a href="{{ route('admin.index') }}" class="underline font-semibold text-admin">
+                        @tr('admin.index.title')
+                    </a>
+                @endcan
                 <a href="{{ route('companies.index') }}" class="underline font-semibold">
                     @tr('company.list.title')
                 </a>

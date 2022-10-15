@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Company;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -50,6 +51,13 @@ class AuthServiceProvider extends ServiceProvider
             }
 
             return $user->is_admin || $user->isMemberOf($company);
+        });
+
+        // Whether the user is an administrator
+        Gate::define('administrate', function (?User $user) {
+            return $user?->is_admin
+                ? Response::allow()
+                : Response::denyAsNotFound();
         });
     }
 }

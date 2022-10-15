@@ -20,7 +20,7 @@ class CompanyEntry extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public Company $company)
+    public function __construct(public Company $company, public bool $admin = false)
     {
         $this->id = $company->id;
         $this->name = $company->name;

@@ -30,6 +30,8 @@ class StoreCompanyRequest extends FormRequest
             'location' => 'string|nullable',
             'description' => 'string|required|filled|max:'.self::MAX_DESCRIPTION_SIZE,
             'icon' => 'file|mimes:jpg,png,webp,pdf|max:'.self::MAX_ICON_SIZE,
+            'creation-date' => 'date',
+            'owner' => 'email|exists:users,email',
         ];
     }
 }

@@ -1,6 +1,6 @@
 {{-- A removale (if enabled) company member card --}}
 
-@props(['member', 'editable' => false])
+@props(['member', 'editable' => false, 'admin' => false])
 
 @php
 $iconUrl = $member->icon?->getUrl();
@@ -24,6 +24,9 @@ $user = Illuminate\Support\Facades\Auth::user();
                 @else
                     {{ __('user.name', ['name' => $member->name, 'surname' => $member->surname]) }}
                 @endif
+                @if ($admin)
+                    {{ "(#$member->id)" }}
+                @endif
             </h3>
 
             @if ($editable && !$member->owns($company))
@@ -34,9 +37,12 @@ $user = Illuminate\Support\Facades\Auth::user();
                         @method('DELETE')
                         @csrf
 
+                        @if ($admin)
+                            <input type="hidden" name="admin" value="1">
+                        @endif
+
                         <button type="submit" title="{{ __('company.members.delete') }}"
                             class="absolute right-0 top-0 font-bold text-lg">&#10005;</button>
-
                     </form>
                 @endcan
             @endif
@@ -61,8 +67,12 @@ $user = Illuminate\Support\Facades\Auth::user();
                         action="{{ route('companies.edit.set-owner', ['company' => $company, 'owner' => $member]) }}">
                         @csrf
 
+                        @if ($admin)
+                            <input type="hidden" name="admin" value="1">
+                        @endif
+
                         <button type="submit" title="{{ __('company.members.transfer_ownership') }}"
-                            class="text-highlight hover:text-highlight-light">
+                            class="{{ $admin ? 'text-admin hover:text-admin-light' : 'text-highlight hover:text-highlight-light' }}">
                             @tr('company.members.transfer_ownership')
                         </button>
                     </form>

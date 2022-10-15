@@ -41,6 +41,7 @@ class CompanyController extends Controller
 
         return response()->view('companies.list', [
             'companies' => $companies,
+            'admin' => self::adminModeRequired($request),
         ]);
     }
 
@@ -63,7 +64,9 @@ class CompanyController extends Controller
             return $response;
         }
 
-        return response()->view('companies.create');
+        return response()->view('companies.create', [
+            'admin' => self::adminModeRequired($request),
+        ]);
     }
 
     /**
@@ -75,10 +78,21 @@ class CompanyController extends Controller
     {
         $this->authorize('create', Company::class);
 
-        $companyId = DB::transaction(function () use ($request) {
+        $company = DB::transaction(function () use ($request) {
             $validated = $request->validated();
             /** @var User */
-            $owner = $request->user();
+            $user = $request->user();
+            $owner = $user;
+
+            $adminMode = self::adminModeRequired($request);
+
+            // override owner if in admin mode
+            if ($adminMode) {
+                $owner = User::where('email', $validated['owner'])->first();
+                if ($owner === null) {
+                    $owner = $user;
+                }
+            }
 
             $company = Company::create([
                 'name' => $validated['name'],
@@ -105,34 +119,45 @@ class CompanyController extends Controller
                 Log::info("Created icon (#$icon->id) of company #$company->id");
             }
 
+            // override creation date if created using admin mode
+            if ($adminMode) {
+                $company->created_at = $validated['creation-date'];
+            }
+
             $company->save();
 
-            Log::info("Company (#$company->id) created by user #$owner->id");
+            Log::info("Company (#$company->id) created by user #$user->id, owned by #$owner->id");
 
-            return $company->id;
+            return $company;
         });
 
-        return redirect()->route('companies.show', ['company' => $companyId]);
+        return $this->redirectToCompany($company, $request);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Company $company): Response
+    public function show(Request $request, Company $company): Response
     {
         $this->authorize('view', $company);
 
-        return response()->view('companies.show', ['company' => $company]);
+        return response()->view('companies.show', [
+            'company' => $company,
+            'admin' => self::adminModeRequired($request),
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Company $company): Response
+    public function edit(Request $request, Company $company): Response
     {
         $this->authorize('update', $company);
 
-        return response()->view('companies.edit', ['company' => $company]);
+        return response()->view('companies.edit', [
+            'company' => $company,
+            'admin' => self::adminModeRequired($request),
+        ]);
     }
 
     /**
@@ -149,11 +174,19 @@ class CompanyController extends Controller
             /** @var User */
             $user = $request->user();
 
-            $company->fill([
+            $fillParams = [
                 'name' => $validated['name'],
                 'location' => $validated['location'],
                 'description' => $validated['description'],
-            ]);
+            ];
+
+            if (self::adminModeRequired($request)) {
+                $fillParams['created_at'] = $validated['creation-date'];
+                $company->forceFill($fillParams);
+            } else {
+                $company->fill($fillParams);
+            }
+
             $company->save();
 
             if ($request->hasFile('icon') && $user->can('create', Asset::class)) {
@@ -282,10 +315,22 @@ class CompanyController extends Controller
         $request->user()->refresh();
         $company->refresh();
 
-        if ($request->user()->can('update', $company)) {
-            return redirect()->route('companies.edit', $company);
+        $params = ['company' => $company];
+        if (self::adminModeRequired($request)) {
+            $params['admin'] = '1';
         }
 
-        return redirect()->route('companies.show', $company);
+        if ($request->user()?->can('update', $company)) {
+            return redirect(route('companies.edit', $params));
+        }
+
+        return redirect(route('companies.show', $params));
+    }
+
+    private static function adminModeRequired(Request $request): bool
+    {
+        $user = $request->user();
+
+        return $user?->is_admin && $request->boolean('admin');
     }
 }

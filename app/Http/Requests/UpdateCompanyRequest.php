@@ -28,6 +28,7 @@ class UpdateCompanyRequest extends FormRequest
             'location' => 'string|nullable|max:255',
             'description' => 'string|required|filled|max:'.StoreCompanyRequest::MAX_DESCRIPTION_SIZE,
             'icon' => 'nullable|file|mimes:jpg,png,webp,pdf|max:'.StoreCompanyRequest::MAX_ICON_SIZE,
+            'creation-date' => 'date',
         ];
     }
 }

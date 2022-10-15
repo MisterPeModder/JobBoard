@@ -3,16 +3,30 @@
 <x-main-layout :title="__('company.list.title')" :companies_link="false">
     <main class="container mx-auto py-2 flex flex-col gap-2 px-2">
         <span class="flex flex-row justify-between">
-            <h1 class="font-semibold text-xl">@tr('company.list.title')</h1>
+            @if ($admin)
+                <x-secondary-link :admin="true" href="{{ route('admin.index') }}">
+                    @svg('resources/images/left-angle.svg', 'fill-admin group-hover:fill-admin-light mr-1')
+                    @tr('admin.companies.back')
+                </x-secondary-link>
+            @endif
+
+            <h1 class="font-semibold text-xl">
+                @if ($admin)
+                    @tr('company.list.title.admin')
+                @else
+                    @tr('company.list.title')
+                @endif
+            </h1>
+
             @can('create', App\Models\Company::class)
-                <x-primary-link href="{{ route('companies.create') }}">
+                <x-primary-link :admin="$admin" href="{{ route('companies.create', $admin ? ['admin' => 1] : []) }}">
                     @tr('company.create.title')
                 </x-primary-link>
             @endcan
         </span>
         <section id="companies" class="flex flex-row flex-wrap gap-2">
             @foreach ($companies as $company)
-                <x-company-entry :company=$company />
+                <x-company-entry :company=$company :admin="$admin" />
             @endforeach
 
             @if (count($companies) == 0)
