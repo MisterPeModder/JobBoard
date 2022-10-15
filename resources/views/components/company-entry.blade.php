@@ -28,9 +28,9 @@
 
         </span>
         <span class="flex items-center justify-end w-full md:w-auto">
-            <x-primary-link href="{{ route('companies.jobs.index', $company) }}">
+            <x-secondary-link href="{{ route('companies.jobs.index', $company) }}">
                 @tr('company.adverts')
-            </x-primary-link>    
+            </x-secondary-link>
         </span>
     </span>
 </div>
