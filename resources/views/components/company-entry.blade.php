@@ -1,19 +1,26 @@
 {{-- A single entry in the list of companies --}}
 
+@php
+if ($admin) {
+    $companyUrl = route('companies.show', ['company' => $company->id, 'admin' => true]);
+} else {
+    $companyUrl = route('companies.show', $company->id);
+}
+@endphp
+
 <div {{ $attributes->merge(['id' => "company-$id"]) }}
     class="company relative bg-l-bgr-content rounded-md p-2 w-full border hover:border-2 hover:p-[calc(0.5rem-1px)] border-l-brd/10 hover:border-highlight">
 
     <span class="flex flex-row flex-wrap justify-between">
         <span class="flex flex-row gap-2">
             @isset($iconUrl)
-                <a href="{{ route('companies.show', $company->id) }}" class="font-semibold hover:underline shrink-0">
+                <a href="{{ $companyUrl }}" class="font-semibold hover:underline shrink-0">
                     <img src={{ $iconUrl }} alt="icon"
                         class="aspect-square h-20 p-1 border border-l-brd/10 border-solid rounded-xl">
                 </a>
             @endisset
             <div class="border-l border-1 border-l-brd/10 pl-2">
-                <a href="{{ route('companies.show', $company->id) }}"
-                    class="font-semibold hover:underline">{{ $name }}</a>
+                <a href="{{ $companyUrl }}" class="font-semibold hover:underline">{{ $name }}</a>
                 @isset($location)
                     <div>{{ $location }}</div>
                 @endisset
