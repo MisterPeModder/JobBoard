@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="144"
+   height="27"
+   viewBox="0 0 38.099999 7.1437501"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   sodipodi:docname="logo-src.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#eeeeee"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.0989207"
+     inkscape:cx="-25.727509"
+     inkscape:cy="-6.4318771"
+     inkscape:window-width="1912"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient13351">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop13347" />
+      <stop
+         style="stop-color:#6d52b7;stop-opacity:1;"
+         offset="1"
+         id="stop13349" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient11379">
+      <stop
+         style="stop-color:#8b76c4;stop-opacity:1;"
+         offset="0"
+         id="stop11375" />
+      <stop
+         style="stop-color:#7c64bd;stop-opacity:1;"
+         offset="0.55436748"
+         id="stop11383" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11379"
+       id="radialGradient11381"
+       cx="4.9868698"
+       cy="4.2333331"
+       fx="4.9868698"
+       fy="4.2333331"
+       r="3.5718751"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(1.4149947,0.66145802)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient13351"
+       id="linearGradient13353"
+       x1="8.5587444"
+       y1="4.7263265"
+       x2="36.591141"
+       y2="4.7263265"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(1.4149947,0.66145802)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g16280"
+       transform="translate(-1.4149947,-0.66145802)">
+      <g
+         id="g16286">
+        <circle
+           style="fill:url(#radialGradient11381);fill-opacity:1;fill-rule:evenodd;stroke-width:0.165894;paint-order:markers fill stroke"
+           id="circle10550"
+           class="UnoptimicedTransforms"
+           r="3.5718751"
+           cy="4.2333331"
+           cx="4.9868698" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;fill:url(#linearGradient13353);fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="9.1757612"
+           y="6.4719563"
+           id="text1725"><tspan
+             sodipodi:role="line"
+             id="tspan1723"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.35px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:url(#linearGradient13353);fill-opacity:1;stroke-width:0.264583"
+             x="9.1757612"
+             y="6.4719563">OneBoard</tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.35px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:url(#linearGradient13353);fill-opacity:1;stroke-width:0.264583"
+             x="9.1757612"
+             y="14.409456"
+             id="tspan1777" /></text>
+      </g>
+    </g>
+  </g>
+</svg>

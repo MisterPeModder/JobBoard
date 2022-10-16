@@ -1,4 +1,4 @@
-{{-- Main layout of the JobBoard pages --}}
+{{-- Main layout of the OneBoard pages --}}
 
 @props(['title' => null, 'showprofile' => true, 'companies_link' => true, 'admin_link' => true])
 
@@ -9,10 +9,9 @@ $user = Illuminate\Support\Facades\Auth::user();
 <x-blank-layout :title=$title>
     <header class="flex flex-col backdrop-blur-md sticky top-0 border-b border-l-brd/10 z-20 px-2">
         <span class="flex flex-row  justify-between items-center p-2">
-            <span class="flex flex-row items-center gap-2">
-                <span class="logo-dot"></span>
-                <a id="logo" href="/" class="text-2xl font-bold">JobBoard</a>
-            </span>
+            <a id="logo" href="/">
+                @svg('resources/images/logo.svg')
+            </a>
             <nav class="flex flex-row items-center lg:divide-x-2 divide-l-brd/10">
                 @if ($admin_link && $user?->can('administrate'))
                     <a href="{{ route('admin.index') }}" class="hidden lg:block font-semibold text-admin">
@@ -30,7 +29,7 @@ $user = Illuminate\Support\Facades\Auth::user();
                     </a>
                 @endif
 
-                    @if ($companies_link)
+                @if ($companies_link)
                     @if (isset($user?->company) && $user?->can('update', $user->company))
                         <a href="{{ route('companies.edit', $user->company) }}"
                             class="hidden lg:block font-semibold pl-1 ml-1">
@@ -66,7 +65,7 @@ $user = Illuminate\Support\Facades\Auth::user();
                         <button type="submit">
                             @tr('log_out')</button>
                     </form>
-                @endauth    
+                @endauth
 
                 <x-hamburger-toggle-button class="lg:hidden pl-1 ml-1" />
             </nav>
@@ -91,7 +90,7 @@ $user = Illuminate\Support\Facades\Auth::user();
             <a href="{{ route('login') }}" class="font-semibold text-highlight-light border-b border-l-brd/10 py-1 w-full">
                 @tr('log_in')</a>
         @endguest
-        
+
         @auth
             @if ($showprofile)
                 {{-- "My profile" widget, will only display when logged --}}
