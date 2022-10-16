@@ -41,7 +41,7 @@ if (!isset($class)) {
             @php
                 $isSelected = $current == $page;
             @endphp
-            <a title={{ __('pagination.go_to', ['page' => $page]) }} href="{{ $paginator->url($page) }}"
+            <a title="{{ __('pagination.go_to', ['page' => $page]) }}" href="{{ $paginator->url($page) }}"
                 @class([
                     $baseClasses,
                     $unselectedClasses => !$isSelected,
