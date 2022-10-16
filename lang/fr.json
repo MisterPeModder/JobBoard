@@ -156,5 +156,8 @@
     "user.profile.you": "Mon Profil",
     "user.role.member": "Membre",
     "user.role.owner": "Propriétaire",
-    "user.updated_at": "Changé à:"
+    "user.updated_at": "Changé à:",
+    "verify.message": "Merci pour vous être inscrit ! Veillez vérifier votre email en cliquant sur le lien que nous avons envoyé.",
+    "verify.resend": "Renvoyer l'email de vérification",
+    "verify.resent": "Un nouveau lien a été envoyé à votre adresse email."
 }
