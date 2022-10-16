@@ -1,11 +1,12 @@
 {
     "actions.back": "Back",
-    "admin.index.title": "Admin",
+    "admin.index.title": "Admin Dashboard",
     "admin.applications.title": "Edit Applications",
     "admin.assets": "Edit Assets",
     "admin.assets.title": "Admin: Edit Assets",
     "admin.companies.title": "Edit Companies",
     "admin.companies.back": "Back to Admin Dashboard",
+    "admin.statistics": "Statistics",
     "admin.users.title": "Edit Users",
     "advert.apply": "Apply now",
     "advert.apply.title": "Apply",
