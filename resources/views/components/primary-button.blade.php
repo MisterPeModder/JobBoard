@@ -5,6 +5,6 @@ $baseClass = 'inline-flex items-center px-4 py-2 border border-transparent round
 @endphp
 
 <button
-    {{ $attributes->merge()->class(["$baseClass bg-admin hover:bg-admin-light" => $admin, "$baseClass bg-highlight hover:bg-highlight-light" => !$admin]) }}>
+    {{ $attributes->merge(['disabled' => $disabled])->class(["$baseClass bg-admin hover:bg-admin-light" => $admin, "$baseClass bg-highlight hover:bg-highlight-light" => !$admin]) }}>
     {{ $slot }}
 </button>

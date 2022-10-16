@@ -12,19 +12,27 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
+    const USERS_PER_PAGE = 10;
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request): Response
     {
-        $users = DB::table('users')->get();
+        $this->authorize('viewAny', User::class);
 
-        return view('user.index', ['users' => $users]);
+        $users = User::with('icon.blob')->paginate(self::USERS_PER_PAGE);
+        $currentPage = $request->query('page', '1');
+
+        if ($currentPage < 1 || $currentPage > $users->lastPage()) {
+            return redirect($request->fullUrlWithoutQuery('page'));
+        }
+
+        return response()->view('users.list', ['users' => $users]);
     }
 
     /**
@@ -35,11 +43,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //user is trying to access other one's data, access denied
-        if (Auth::user() != $user) {
-            abort(404);
-        }
-        Log::info("Showing User #$user->id data");
+        $this->authorize('view', $user);
 
         //return profile page with user's data
         return view('users.show', [
@@ -50,19 +54,15 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Request $request, User $user)
     {
-        //user is trying to access other one's data, access denied
-        if (Auth::user() != $user) {
-            abort(404);
-        }
-        Log::info("Showing User #$user->id editing form");
+        $this->authorize('update', $user);
 
         return view('users.edit', [
             'user' => $user,
+            'admin' => self::adminModeRequired($request),
         ]);
     }
 
@@ -75,12 +75,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //user is trying to access other one's data, access denied
-        if (Auth::user() != $user) {
-            abort(404);
-        }
+        $this->authorize('update', $user);
+
         $MAX_ICON_SIZE = 4000;
         Log::info("Updating User #$user->id data");
+
         //validate data with rules
         $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
@@ -89,37 +88,43 @@ class UserController extends Controller
             'phone_number' => ['nullable', 'string'],
             'icon' => 'nullable|file|mimes:jpg,png,webp,pdf|max:'.$MAX_ICON_SIZE,
         ]);
-        //updating data
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->email = $request->email;
-        $user->phone_number = $request->phone_number;
 
-        // updating icon
-        if ($request->hasFile('icon') && $user->can('create', Asset::class)) {
-            $oldIcon = $user->icon;
-            if ($oldIcon !== null) {
-                $user->icon()->delete();
+        DB::transaction(function () use ($user, $request) {
+            //updating data
+            $user->name = $request->name;
+            $user->surname = $request->surname;
+            $user->email = $request->email;
+            $user->phone_number = $request->phone_number;
+
+            // updating icon
+            if ($request->hasFile('icon') && $user->can('create', Asset::class)) {
+                $oldIcon = $user->icon;
+                if ($oldIcon !== null) {
+                    $user->icon()->delete();
+                }
+
+                $icon = Asset::factory()
+                    ->public()
+                    ->storeFile($request->file('icon'), "$user->id")
+                    ->create();
+
+                $user->icon_id = $icon->id;
+                $user->icon()->save($icon);
+
+                $icon->user()->associate($user);
+                $icon->save();
+                Log::info("Created icon (#$icon->id) of user #$user->id");
             }
 
-            $icon = Asset::factory()
-                ->public()
-                ->storeFile($request->file('icon'), "$user->id")
-                ->create();
+            $user->save(); //saving it
+            Log::info("User (#$user->id) updated");
+        });
 
-            $user->icon_id = $icon->id;
-            $user->icon()->save($icon);
-
-            $icon->user()->associate($user);
-            $icon->save();
-            Log::info("Created icon (#$icon->id) of user #$user->id");
+        if (self::adminModeRequired($request)) {
+            return redirect()->route('users.edit', ['user' => $user, 'admin' => '1']);
+        } else {
+            return redirect()->route('users.show', $user);
         }
-
-        $user->save(); //saving it
-
-        Log::info("User (#$user->id) updated");
-
-        return redirect()->route('users.show', $user);
     }
 
     /**
@@ -130,24 +135,19 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //user is trying to access other one's data, access denied
-        if (Auth::user() != $user) {
-            abort(404);
-        }
+        $this->authorize('delete', $user);
 
+        $isAdmin = Auth::user()->is_admin;
+
+        $id = $user->id;
         $user->delete();
+        Log::info("Deleted user #$id");
 
-        return redirect()->route('/');
-    }
-
-    /**
-     * Check if current logged user is admin
-     *
-     * @return bool
-     */
-    public function is_admin()
-    {
-        return Auth::user()->is_admin == 1 ? true : false;
+        if ($isAdmin) {
+            return redirect()->route('users.index');
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -169,10 +169,7 @@ class UserController extends Controller
      */
     public function updatePassword(Request $request, User $user)
     {
-        //user is trying to access other one's data, access denied
-        if (Auth::user() != $user) {
-            abort(404);
-        }
+        $this->authorize('update', $user);
 
         $request->validate([
             'oldpassword' => ['required'],
@@ -191,5 +188,15 @@ class UserController extends Controller
         Log::info("Updating User #$user->id password");
 
         return redirect()->route('users.show', $user);
+    }
+
+    /**
+     * @param  Illuminate\Http\Request  $request
+     */
+    private static function adminModeRequired(Request $request): bool
+    {
+        $user = $request->user();
+
+        return $user?->is_admin && $request->boolean('admin');
     }
 }
