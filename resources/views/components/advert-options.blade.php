@@ -17,22 +17,22 @@ $itemClass = "$itemClassBase flex flex-row p-2 items-end gap-2";
     <div class="py-1" role="none">
 
         {{-- Favorite Ad Button --}}
-        <a href="?favorite" class="{{ $itemClass }}" role="menuitem" tabindex="-1" id="advert-options-favorite">
+        {{-- <a href="?favorite" class="{{ $itemClass }}" role="menuitem" tabindex="-1" id="advert-options-favorite">
             @svg('resources/images/star.svg', 'fill-gray-500')
             @tr('advert.favorite')
-        </a>
+        </a> --}}
 
         {{-- Hide Ad Button --}}
-        <a href="?not-interested" class="{{ $itemClass }}" role="menuitem" tabindex="-1" id="advert-options-hide">
+        {{-- <a href="?not-interested" class="{{ $itemClass }}" role="menuitem" tabindex="-1" id="advert-options-hide">
             @svg('resources/images/delete.svg', 'fill-gray-500')
             @tr('advert.hide')
-        </a>
+        </a> --}}
 
         {{-- Report Ad Button --}}
-        <a href="?report" class="{{ $itemClass }}" role="menuitem" tabindex="-1" id="advert-options-report">
+        {{-- <a href="?report" class="{{ $itemClass }}" role="menuitem" tabindex="-1" id="advert-options-report">
             @svg('resources/images/flag.svg', 'fill-gray-500')
             @tr('advert.report')
-        </a>
+        </a> --}}
 
         {{-- # PRIVILEDGED ACTIONS # --}}
         {{-- the actions below require specific permissions for each advert, --}}
