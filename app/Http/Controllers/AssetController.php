@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateAssetRequest;
 use App\Models\Asset;
 use App\Models\Blob;
+use App\Models\Company;
+use App\Models\User;
 use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -101,18 +105,63 @@ class AssetController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Asset $asset): Response
+    {
+        $this->authorize('update', $asset);
+
+        return response()->view('assets.edit', ['asset' => $asset]);
+    }
+
+    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blob $blob): Response
+    public function update(UpdateAssetRequest $request, Asset $asset): Response
     {
-        abort(404);
+        $this->authorize('update', $asset);
+
+        DB::transaction(function () use ($request, $asset) {
+            $validated = $request->validated();
+            /** @var User */
+            $user = $request->user();
+
+            $blob = Blob::find($validated['blob-id']);
+            $owner = User::where('email', $validated['user'])->first();
+            $company = Company::find($validated['company-id']);
+
+            $asset->forceFill([
+                'name' => $validated['name'],
+                'blob_id' => $blob->id,
+                'mime_type' => $validated['mime-type'],
+                'created_at' => $validated['creation-date'],
+                'user_id' => $owner?->id,
+                'company_id' => $company?->id,
+                'access' => $validated['access'],
+            ]);
+
+            $asset->blob()->associate($blob);
+            $asset->user()->associate($owner);
+            $asset->company()->associate($company);
+            $asset->save();
+
+            Log::info("Asset (#$asset->id) updated by admin user #$user->id");
+        });
+
+        return redirect()->route('assets.edit', $asset->fresh());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blob $blob): Response
+    public function destroy(Asset $asset): Response
     {
-        abort(404);
+        $this->authorize('delete', $asset);
+
+        $id = $asset->id;
+        $asset->delete();
+        Log::info("Deleted asset #$id");
+
+        return redirect()->route('assets.index');
     }
 }

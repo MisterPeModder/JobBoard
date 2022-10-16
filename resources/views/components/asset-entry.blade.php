@@ -3,7 +3,7 @@
 @props(['asset'])
 
 @php
-$assetUrl = route('assets.show', $asset);
+$assetUrl = route('assets.edit', $asset);
 $blobUrl = $asset->getUrl();
 $blob = $asset->blob;
 $user = $asset->user;
@@ -14,18 +14,19 @@ $company = $asset->company;
     class="asset relative bg-l-bgr-content rounded-md p-2 w-full border hover:border-2 hover:p-[calc(0.5rem-1px)] border-l-brd/10 hover:border-highlight">
 
     <div class="flex flex-row flex-wrap gap-2">
-        <a href="{{ $blobUrl }}" class="hover:underline shrink-0 flex">
+        <a href="{{ $blobUrl }}" class="hover:underline shrink-0 flex group">
             @if (Str::startsWith($asset->mime_type, 'image/'))
                 <img src="{{ $blobUrl }}" alt="icon"
-                    class="aspect-auto h-20 p-1 border border-l-brd/10 border-solid rounded-xl">
+                    class="aspect-auto h-20 p-1 border border-l-brd/10 group-hover:border-highlight-light border-solid rounded-xl">
             @else
-                <p class="aspect-auto h-20 p-1 border border-l-brd/10 border-solid rounded-xl italic flex items-center">
+                <p
+                    class="aspect-auto h-20 p-1 border border-l-brd/10 group-hover:border-highlight-light border-solid rounded-xl italic flex items-center">
                     {{ __('asset.no_preview') }}
                 </p>
             @endif
         </a>
 
-        <div class="border-l border-1 border-l-brd/10 pl-2 grid gap-1 items-baseline">
+        <div class="border-l border-1 border-l-brd/10 pl-2 grid gap-1 grow-1 items-baseline">
             <a href="{{ $assetUrl }}" class="font-semibold hover:underline col-span-2">
                 <h2>{{ "#$asset->id: $asset->name" }}</h2>
             </a>
@@ -70,6 +71,24 @@ $company = $asset->company;
             <p>
                 {{ __("asset.access.$asset->access") }}
             </p>
+
+            <span class="col-start-1 flex flex-row flex-wrap gap-2 items-center">
+                <form method="POST" action="{{ route('assets.update', $asset->id) }}">
+                    @method('DELETE')
+                    @csrf
+
+                    <x-primary-button :admin="true" class="flex flex-row gap-2">
+                        @svg('resources/images/delete.svg', 'fill-white')
+                        @tr('asset.delete')
+                    </x-primary-button>
+                </form>
+
+                <x-secondary-link :admin="true" href="{{ $assetUrl }}"
+                    class="font-semibold hover:underline col-span-2 flex flex-row gap-2">
+                    @svg('resources/images/pen.svg', 'fill-admin')
+                    @tr('admin.asset')
+                </x-secondary-link>
+            </span>
         </div>
     </div>
 </div>
