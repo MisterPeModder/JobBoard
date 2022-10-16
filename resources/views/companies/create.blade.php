@@ -67,8 +67,8 @@
                     <x-input-error field="description" class="mt-2" />
                 </div>
 
-                {{-- Creation Date --}}
                 @if ($admin)
+                    {{-- Creation Date --}}
                     <div class="mt-4">
                         <x-input-label for="creation-date" :value="__('form.field.creation_date') . '*'" />
                         <x-text-input id="creation-date" class="block mt-1 w-full" type="text" name="creation-date"
@@ -76,6 +76,7 @@
                         <x-input-error field="creation-date" class="mt-2" />
                     </div>
 
+                    {{-- Owner --}}
                     <div class="mt-4">
                         <x-input-label for="owner" :value="__('form.field.owner') . '*'" />
                         <x-text-input id="owner" class="block mt-1 w-full" type="email" name="owner"
