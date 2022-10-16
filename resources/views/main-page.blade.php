@@ -1,10 +1,9 @@
 <x-blank-layout>
     <main class="w-full md:w-2/3 lg:w-1/3 mx-auto">
         <div class="m-4 p-2 bg-l-bgr-content border border-l-brd/10 rounded-xl flex flex-col items-center">
-            <span class="flex flex-row items-center gap-2 mb-4 pb-4 border-b-2 border-l-brd/10">
-                <span class="logo-dot md:logo-dot-xl"></span>
-                <a id="logo" href="/" class="text-2xl md:text-6xl font-bold">JobBoard</a>
-            </span>
+            <a id="logo" href="/" class="mb-4 pb-4 border-b-2 border-l-brd/10">
+                @svg('resources/images/logo.svg', 'h-10 w-60')
+            </a>
 
             <span class="flex flex-row flex-wrap gap-4 items-center justify-around">
                 @can('administrate')

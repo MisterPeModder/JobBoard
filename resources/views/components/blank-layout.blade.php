@@ -11,7 +11,7 @@
     <meta name="description" content="The next-gen job search platform">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ ($title ? "$title - " : '') . config('app.name', 'JobBoard') }}</title>
+    <title>{{ ($title ? "$title - " : '') . config('app.name', 'OneBoard') }}</title>
 
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
