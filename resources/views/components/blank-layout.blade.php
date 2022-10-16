@@ -27,7 +27,7 @@
     {{-- Page content goes here --}}
     {{ $slot }}
     <footer class="text-sm container mx-auto py-2 border-t border-l-brd/10 text-center">
-        Made with ❤️ by Yanis Guaye and Melvin Courjaud
+        @tr('credit')
     </footer>
 </body>
 

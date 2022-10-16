@@ -20,7 +20,17 @@ $user = Illuminate\Support\Facades\Auth::user();
                     </a>
                 @endif
 
-                @if ($companies_link)
+                @if (session()->get('locale') == 'en')
+                    <a href="{{ route('setlocalization', 'fr') }}" class="hidden lg:block font-semibold pl-1 ml-1">
+                        Français
+                    </a>
+                @else
+                    <a href="{{ route('setlocalization', 'en') }}" class="hidden lg:block font-semibold pl-1 ml-1">
+                        English
+                    </a>
+                @endif
+
+                    @if ($companies_link)
                     @if (isset($user?->company) && $user?->can('update', $user->company))
                         <a href="{{ route('companies.edit', $user->company) }}"
                             class="hidden lg:block font-semibold pl-1 ml-1">
@@ -36,27 +46,27 @@ $user = Illuminate\Support\Facades\Auth::user();
                     {{-- "Sign In" widget, will only display when not logged --}}
                     <a href="{{ route('register') }}"
                         class="bg-highlight hover:bg-highlight-light transition ease-in-out duration-150 text-white rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold pl-1 ml-1">
-                        Sign in</a>
+                        @tr('sign_in')</a>
                     <span class="pl-1 ml-1">
                         <a href="{{ route('login') }}"
                             class="border-2 border-highlight hover:border-highlight-light transition ease-in-out duration-150 text-highlight hover:text-highlight-light rounded-full p-1.5 text-sm flex items-center whitespace-nowrap font-semibold">
-                            Log in</a>
+                            @tr('log_in')</a>
                     </span>
                 @endguest
                 @auth
                     @if ($showprofile)
                         {{-- "My profile" widget, will only display when logged --}}
                         <a href="{{ route('users.show', Auth::user()) }}" class="hidden lg:block font-semibold pl-1 ml-1">
-                            My profile</a>
+                            @tr('profile')</a>
                     @endif
 
                     {{-- "Log out" widget, will only display when logged --}}
                     <form method="POST" action="{{ route('logout') }}" class="hidden lg:block font-semibold pl-1 ml-1">
                         @csrf
                         <button type="submit">
-                            Log out</button>
+                            @tr('log_out')</button>
                     </form>
-                @endauth
+                @endauth    
 
                 <x-hamburger-toggle-button class="lg:hidden pl-1 ml-1" />
             </nav>
@@ -64,25 +74,35 @@ $user = Illuminate\Support\Facades\Auth::user();
     </header>
 
     <x-hamburger-menu class="mt-2 flex flex-col gap-1 items-start px-4">
+        @if (session()->get('locale') == 'en')
+            <a href="{{ route('setlocalization', 'fr') }}" class="font-semibold border-b border-l-brd/10 py-1 w-full">
+                Français
+            </a>
+        @else
+            <a href="{{ route('setlocalization', 'en') }}" class="font-semibold border-b border-l-brd/10 py-1 w-full">
+                English
+            </a>
+        @endif
+
         @guest
             {{-- "Sign In" widget, will only display when not logged --}}
-            <a href="{{ route('register') }}" class="font-semibold text-highlight border-b border-l-brd/10 py-1 w-full">Sign
-                in</a>
+            <a href="{{ route('register') }}" class="font-semibold text-highlight border-b border-l-brd/10 py-1 w-full">
+                @tr('sign_in')</a>
             <a href="{{ route('login') }}" class="font-semibold text-highlight-light border-b border-l-brd/10 py-1 w-full">
-                Log in
-            </a>
+                @tr('log_in')</a>
         @endguest
+        
         @auth
             @if ($showprofile)
                 {{-- "My profile" widget, will only display when logged --}}
                 <a href="{{ route('users.show', Auth::user()) }}"
-                    class="font-semibold border-b border-l-brd/10 py-1 w-full">My profile</a>
+                    class="font-semibold border-b border-l-brd/10 py-1 w-full">@tr('profile')</a>
             @endif
 
             {{-- "Log out" widget, will only display when logged --}}
             <form method="POST" action="{{ route('logout') }}" class="font-semibold border-b border-l-brd/10 py-1 w-full">
                 @csrf
-                <button type="submit">Log out</button>
+                <button type="submit">@tr('log_out')</button>
             </form>
         @endauth
 
@@ -103,6 +123,7 @@ $user = Illuminate\Support\Facades\Auth::user();
                 @tr('company.list.title')
             </a>
         @endif
+
     </x-hamburger-menu>
 
     {{-- Page content goes here --}}

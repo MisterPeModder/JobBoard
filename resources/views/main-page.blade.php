@@ -17,20 +17,20 @@
                 </a>
                 @guest
                     {{-- "Sign In" widget, will only display when not logged --}}
-                    <a href="{{ route('register') }}" class="underline font-semibold">Sign in</a>
-                    <a href="{{ route('login') }}" class="underline font-semibold">Log in</a>
+                    <a href="{{ route('register') }}" class="underline font-semibold">@tr('sign_in')</a>
+                    <a href="{{ route('login') }}" class="underline font-semibold">@tr('log_in')</a>
                 @endguest
                 @auth
                     {{-- "My profile" widget, will only display when logged --}}
                     <a href="{{ route('users.show', Auth::user()) }}" class="lb:block underline font-semibold">
-                        My profile</a>
+                        @tr('profile')</a>
                 @endauth
                 @auth
                     {{-- "Log out" widget, will only display when logged --}}
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="lb:block underline font-semibold">
-                            Log out</button>
+                            @tr('log_out')</button>
                     </form>
                 @endauth
             </span>
