@@ -22,11 +22,11 @@ $user = Illuminate\Support\Facades\Auth::user();
 
                 @if (session()->get('locale') == 'en')
                     <a href="{{ route('setlocalization', 'fr') }}" class="hidden lg:block font-semibold pl-1 ml-1">
-                        French
+                        Français
                     </a>
                 @else
                     <a href="{{ route('setlocalization', 'en') }}" class="hidden lg:block font-semibold pl-1 ml-1">
-                        Anglais
+                        English
                     </a>
                 @endif
 
@@ -76,11 +76,11 @@ $user = Illuminate\Support\Facades\Auth::user();
     <x-hamburger-menu class="mt-2 flex flex-col gap-1 items-start px-4">
         @if (session()->get('locale') == 'en')
             <a href="{{ route('setlocalization', 'fr') }}" class="font-semibold border-b border-l-brd/10 py-1 w-full">
-                French
+                Français
             </a>
         @else
             <a href="{{ route('setlocalization', 'en') }}" class="font-semibold border-b border-l-brd/10 py-1 w-full">
-                Anglais
+                English
             </a>
         @endif
 

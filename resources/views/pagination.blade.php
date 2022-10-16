@@ -60,16 +60,16 @@ if (!isset($class)) {
             ])>&gt;</a>
     </nav>
     <p class="text-sm text-gray-700 leading-5">
-        {!! __('Showing') !!}
+        {!! __('pagination.showing') !!}
         @if ($paginator->firstItem())
             <span class="font-medium">{{ $paginator->firstItem() }}</span>
-            {!! __('to') !!}
+            {!! __('pagination.to') !!}
             <span class="font-medium">{{ $paginator->lastItem() }}</span>
         @else
             {{ $paginator->count() }}
         @endif
-        {!! __('of') !!}
+        {!! __('pagination.of') !!}
         <span class="font-medium">{{ $paginator->total() }}</span>
-        {!! __('results') !!}
+        {!! __('pagination.results') !!}
     </p>
 </div>
