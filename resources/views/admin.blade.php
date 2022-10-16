@@ -4,7 +4,7 @@
 
         <nav class="flex flex-row flex-wrap gap-2 justify-center border-t border-l-brd/10 pt-2 mt-2">
             <x-primary-link :admin="true" href="#">@tr('admin.applications.title')</x-primary-link>
-            <x-primary-link :admin="true" href="#">@tr('admin.assets.title')</x-primary-link>
+            <x-primary-link :admin="true" href="{{ route('assets.index') }}">@tr('admin.assets')</x-primary-link>
             <x-primary-link :admin="true" href="{{ route('companies.index', ['admin' => true]) }}">@tr('admin.companies.title')
             </x-primary-link>
             <x-primary-link :admin="true" href="#">@tr('admin.users.title')</x-primary-link>

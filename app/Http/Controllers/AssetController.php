@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AssetController extends Controller
 {
+    const ASSETS_PER_PAGE = 10;
+
     private Filesystem $blobFs;
 
     public function __construct()
@@ -24,9 +26,18 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        abort(404);
+        $this->authorize('viewAny', Asset::class);
+
+        $assets = Asset::with(['company', 'user', 'blob'])->paginate(self::ASSETS_PER_PAGE);
+        $currentPage = $request->query('page', '1');
+
+        if ($currentPage < 1 || $currentPage > $assets->lastPage()) {
+            return redirect($request->fullUrlWithoutQuery('page'));
+        }
+
+        return response()->view('assets.list', ['assets' => $assets]);
     }
 
     /**
