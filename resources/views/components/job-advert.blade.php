@@ -63,11 +63,11 @@
                 href="{{ route('jobs.apply.create', $id) }}">
                 @tr('advert.apply')
             </x-primary-link>
-            <button id="{{ 'advert-' . $id . '-fav' }}" title="{{ __('advert.favorite') }}" type="button"
+            {{-- <button id="{{ 'advert-' . $id . '-fav' }}" title="{{ __('advert.favorite') }}" type="button"
                 aria-label="save to favorites"
                 class="group bg-slate-400 rounded-xl p-2 text-sm flex items-center justify-center whitespace-nowrap font-semibold">
                 @svg('resources/images/star-outline.svg', 'fill-white group-hover:fill-yellow-200 ease-in-out duration-150')
-            </button>
+            </button> --}}
         </span>
     </x-exclusive-details>
 </div>

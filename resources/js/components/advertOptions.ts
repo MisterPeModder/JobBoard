@@ -28,6 +28,12 @@ class JobOptions {
 
         // open the dropdown 
         document.querySelectorAll('.advert-options').forEach(button => {
+            if (!this.can('update', button) && !this.can('delete', button)) {
+                // if user cannot delete or edit the advert, hide the options menu
+                button.classList.add('hidden');
+                return;
+            }
+
             button.addEventListener('click', event => {
                 // if click is inside the dropdown, don't prevent the event
                 if (findParent(event.target as Element, parent => parent.id === this.dropdown.id)) {
@@ -114,16 +120,24 @@ class JobOptions {
         if (advertId === null)
             return;
 
-        if (element.classList.contains('can-update')) {
+        if (this.can('update', element)) {
             // set the correct route link for advert editing
             this.editItem.href = this.editItem.href.replace(/\/\d+\/edit$/, `/${advertId}/edit`);
             this.editItem.classList.remove('hidden');
         }
-        if (element.classList.contains('can-delete')) {
+        if (this.can('delete', element)) {
             // set the correct route link for advert deletion
             this.deleteItem.action = this.deleteItem.action.replace(/\/\d+$/, `/${advertId}`);
             this.deleteItem.classList.remove('hidden');
         }
+    }
+
+    /**
+     * @returns Whether the user is permitted the perform this action
+     * on the advert assigned to the given element.
+     */
+    private can(action: 'update' | 'delete', element: Element): boolean {
+        return element.classList.contains(`can-${action}`);
     }
 
     /**
