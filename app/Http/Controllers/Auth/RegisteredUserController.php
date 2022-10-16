@@ -75,6 +75,6 @@ class RegisteredUserController extends Controller
 
         Log::info("User (#$user->id) created");
 
-        return redirect(RouteServiceProvider::HOME);
+        return view('auth.verify-email');
     }
 }
